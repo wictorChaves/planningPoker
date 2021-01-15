@@ -11,17 +11,17 @@
     </div>
   </div>
 
-  <div class="card-deck mb-3 text-center">
+  <div class="card-deck mb-3 text-center" *ngIf="room">
     <div class="card mb-12 box-shadow">
       <div class="card-body">
-        <h1 class="card-title pricing-card-title">{{ average }}</h1>
+        <h1 class="card-title pricing-card-title">{{ room.average }}</h1>
       </div>
     </div>
   </div>
 
   <div class="row" *ngIf="room">
     <div class="col-sm-3 text-center" *ngFor="let vote of room.votes;">
-      <div *ngIf="hideCard; else elseBlock" class="card text-white bg-secondary  mb-3">
+      <div *ngIf="!room.isFlip; else elseBlock" class="card text-white bg-secondary  mb-3">
         <div class="card-header">{{ vote.displayName }}</div>
         <div class="card-body">
           <h1 class="card-title">&nbsp;</h1>

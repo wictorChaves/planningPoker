@@ -1,4 +1,3 @@
-import { Observable }                                 from 'rxjs';
 import { RoomModel }                                  from './../rooms/model/room.model';
 import { Component, OnInit }                          from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
@@ -13,11 +12,9 @@ import { FibonacciModel }                             from 'src/app/models/fibon
 })
 export class VotesComponent implements OnInit {
 
-  public hideCard = true;
   public room: RoomModel;
 
-  public  average = '-';
-  private roomId  = '';
+  private roomId = '';
   private roomDoc: AngularFirestoreDocument<RoomModel>;
   private user   : any;
 
@@ -82,20 +79,21 @@ export class VotesComponent implements OnInit {
   }
 
   resetVotes() {
-    this.average    = '-';
-    this.hideCard   = true;
-    this.room.votes = [];
+    this.room.average = '-';
+    this.room.isFlip  = false;
+    this.room.votes   = [];
     this.roomDoc.update(this.room);
   }
 
   flipCard() {
-    this.hideCard = false;
+    this.room.isFlip = true;
     this.averageCalc();
   }
 
   averageCalc() {
-    var values       = this.room.votes.filter(v => v.value.value != -1 && v.value.value != 99).map(v => v.value.value);
-        this.average = (Math.ceil(values.reduce((a, b) => a + b) / values.length)).toString()
+    var values            = this.room.votes.filter(v => v.value.value != -1 && v.value.value != 99).map(v => v.value.value);
+        this.room.average = (Math.ceil(values.reduce((a, b) => a + b) / values.length)).toString()
+    this.roomDoc.update(this.room);
   }
 
 }

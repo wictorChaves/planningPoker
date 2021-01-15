@@ -45,6 +45,8 @@ export class RoomsComponent implements OnInit {
     if (this.form.valid) {
       this.itemsCollection.add(Object.assign({
         name        : this.form.get('roomName').value,
+        average     : '-',
+        isFlip      : false,
         participants: [],
         votes       : []
       }));
