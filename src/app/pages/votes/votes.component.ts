@@ -13,11 +13,12 @@ import { FibonacciModel }                             from 'src/app/models/fibon
 })
 export class VotesComponent implements OnInit {
 
-  public  hideCard = true;
-  public  average  = '-';
-  private roomId   = '';
+  public hideCard = true;
+  public room: RoomModel;
+
+  public  average = '-';
+  private roomId  = '';
   private roomDoc: AngularFirestoreDocument<RoomModel>;
-  private room   : RoomModel;
   private user   : any;
 
   constructor(

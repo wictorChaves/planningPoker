@@ -1,6 +1,20 @@
-# PlanningPoker
+# Planning Poker
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+
+# How to publish using Github Page
+
+First at all
+ 
+    npm install -g angular-cli-ghpages
+     
+Build your project this way
+ 
+     ng build --prod --base-href "https://<user-name>.github.io/<repo>/"
+     
+And finally
+
+    ngh
 
 ## Development server
 
