@@ -1,0 +1,21 @@
+<form class="form-room text-center" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h1 class="h3 mb-3 font-weight-normal">Crie uma sala para começar</h1>
+  <div>
+    <input formControlName="roomName" type="text" [ngClass]="{'is-invalid': fieldValid('roomName')}"
+      class="form-control" id="validationServer03" placeholder="Nome da sala" required>
+    <div class="invalid-feedback">
+      Você se esqueceu de preencher o nome da sala 😜.
+    </div>
+  </div>
+  <br />
+  <button class="btn btn-lg btn-primary btn-block" type="submit">Criar</button>
+</form>
+<div class="list-room text-center">
+  <h1 class="h3 mb-3 font-weight-normal">Ou entre em uma sala já existente</h1>
+  <ul class="list-group">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let item of items | async">
+      {{ item.name }}
+      <span class="badge badge-primary badge-pill" (click)="goToRoom(item.id)">Entrar</span>
+    </li>
+  </ul>
+</div>

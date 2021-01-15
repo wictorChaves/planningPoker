@@ -12,6 +12,8 @@
   width: 100%;
   box-shadow: 0px 10px 1em #000000;
   max-width: 125px;
+  cursor: pointer;
+  transition: margin 500ms;
 }
 
 .deck-custom .card-deck-custom.active {
