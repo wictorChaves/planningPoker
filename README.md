@@ -1,6 +1,8 @@
 # Planning Poker
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.0.1.
+Poker planning, also called scrum poker, is a consensus-based and gamified estimation technique, used primarily to estimate the effort or relative size of development goals in software development.
+
+[Access](https://wictorchaves.github.io/planningPoker/)
 
 # How to publish using Github Page
 
