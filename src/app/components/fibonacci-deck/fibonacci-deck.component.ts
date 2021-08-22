@@ -8,7 +8,7 @@ import { FibonacciModel }                                 from 'src/app/models/f
 })
 export class FibonacciDeckComponent implements OnInit {
 
-  @Output() activeCardEvent = new EventEmitter<FibonacciModel>();
+  @Output() activeCardEvent      = new EventEmitter<FibonacciModel>();
 
   @Input() activeCard: FibonacciModel = {
     value      : 1,

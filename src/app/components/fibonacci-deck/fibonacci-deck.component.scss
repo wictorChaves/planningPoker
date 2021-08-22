@@ -1,3 +1,7 @@
+.deck-content {
+  overflow: hidden;
+}
+
 .deck-custom {
   height: 122px;
   padding: 20px 0px 0px 79px;
@@ -10,7 +14,7 @@
   position: absolute;
   margin-left: -55px;
   width: 100%;
-  box-shadow: 0px 10px 1em #000000;
+  box-shadow: -2px 5px 7px #000000a8;
   max-width: 125px;
   cursor: pointer;
   transition: margin 500ms;
@@ -25,4 +29,55 @@
   -ms-flex: 0 0 7.6%;
   flex: 0 0 7.6%;
   max-width: 7.6%;
+}
+
+@media only screen and (max-width: 991px) {
+  .deck-custom {
+    height: 200px;
+  }
+
+  .col-custom-13-full {
+    -ms-flex: 0 0 14%;
+    flex: 0 0 14%;
+    max-width: 14%;
+  }
+}
+
+@media only screen and (max-width: 579px) {
+  .card-body {
+    padding: 1.25rem 1.25rem 1.25rem 6px;
+  }
+}
+
+@media only screen and (max-width: 475px) {
+  .deck-custom {
+    height: 186px;
+  }
+  .card-body h1 {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .deck-custom {
+    height: 175px;
+  }
+  .card-body h1 {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (max-width: 300px) {
+  .card-body {
+    padding: 1.25rem 1.25rem 1.25rem 2px;
+  }
+}
+
+@media only screen and (max-width: 260px) {
+  .deck-custom {
+    height: 168px;
+  }
+  .card-body h1 {
+    font-size: 25px;
+  }
 }

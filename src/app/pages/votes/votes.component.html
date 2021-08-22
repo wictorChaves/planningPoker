@@ -22,14 +22,14 @@
   <div class="row" *ngIf="room">
     <div class="col-sm-3 text-center" *ngFor="let vote of room.votes;">
       <div *ngIf="!room.isFlip; else elseBlock" class="card text-white bg-secondary  mb-3">
-        <div class="card-header">{{ vote.displayName }}</div>
+        <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
         <div class="card-body">
           <h1 class="card-title">&nbsp;</h1>
         </div>
       </div>
       <ng-template #elseBlock>
         <div class="card text-white bg-{{ vote.value.class }} mb-3">
-          <div class="card-header">{{ vote.displayName }}</div>
+          <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
           <div class="card-body">
             <h1 class="card-title">{{ vote.value.description }}</h1>
           </div>
@@ -37,6 +37,7 @@
       </ng-template>
     </div>
   </div>
-
-  <app-fibonacci-deck (activeCardEvent)="activeCardEvent($event)"></app-fibonacci-deck>
+  <section *ngIf="room">
+    <app-fibonacci-deck *ngIf="!room.isFlip" (activeCardEvent)="activeCardEvent($event)"></app-fibonacci-deck>
+  </section>
 </div>

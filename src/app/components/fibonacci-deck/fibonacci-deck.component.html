@@ -1,9 +1,11 @@
-<div class="row deck-custom">
-  <div class="col-custom-13-full" *ngFor="let fibonacci of fibonacciSequenci;">
-    <div [ngClass]="{ 'active': activeCard.value == fibonacci.value }"
-      class="card card-deck-custom text-white bg-{{ fibonacci.class }} mb-3" (click)="setActive(fibonacci)">
-      <div class="card-body">
-        <h1 class="card-title">{{ fibonacci.description }}</h1>
+<div class="deck-content">
+  <div class="row deck-custom">
+    <div class="col-custom-13-full" *ngFor="let fibonacci of fibonacciSequenci;">
+      <div [ngClass]="{ 'active': activeCard.value == fibonacci.value }"
+        class="card card-deck-custom text-white bg-{{ fibonacci.class }} mb-3" (click)="setActive(fibonacci)">
+        <div class="card-body">
+          <h1 class="card-title">{{ fibonacci.description }}</h1>
+        </div>
       </div>
     </div>
   </div>
