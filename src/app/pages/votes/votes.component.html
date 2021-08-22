@@ -5,8 +5,8 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-12 text-center btn-command">
-      <button type="button" class="btn btn-primary" (click)="flipCard()">Flip</button>
+    <div class="col-12 text-center btn-command" *ngIf="hasVotes()">
+      <button *ngIf="!isFlip" type="button" class="btn btn-primary" (click)="flipCard()">Flip</button>
       <button type="button" class="btn btn-secondary" (click)="resetVotes()">Reset</button>
     </div>
   </div>
@@ -19,9 +19,28 @@
     </div>
   </div>
 
+  <div class="row" *ngIf="room" [ngClass]="{ 'show-card': !isFlip }">
+    <div class="col-sm-3 text-center flip-card" *ngFor="let vote of room.votes;">
+      <div class="flip-card-inner">
+        <div class="card text-white bg-{{ vote.value.class }} mb-3 flip-card-front">
+          <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
+          <div class="card-body">
+            <h1 class="card-title" *ngIf="room.isFlip">{{ vote.value.description }}</h1>
+          </div>
+        </div>
+        <div class="card text-white bg-secondary mb-3 flip-card-back">
+          <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
+          <div class="card-body">
+            <h1 class="card-title">&nbsp;</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--
   <div class="row" *ngIf="room">
     <div class="col-sm-3 text-center" *ngFor="let vote of room.votes;">
-      <div *ngIf="!room.isFlip; else elseBlock" class="card text-white bg-secondary  mb-3">
+      <div *ngIf="!room.isFlip; else elseBlock" class="card text-white bg-secondary mb-3">
         <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
         <div class="card-body">
           <h1 class="card-title">&nbsp;</h1>
@@ -37,6 +56,7 @@
       </ng-template>
     </div>
   </div>
+-->
   <section *ngIf="room">
     <app-fibonacci-deck *ngIf="!room.isFlip" (activeCardEvent)="activeCardEvent($event)"></app-fibonacci-deck>
   </section>

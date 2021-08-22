@@ -4,6 +4,10 @@ import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firest
 import { ActivatedRoute }                             from '@angular/router';
 import { AngularFireAuth }                            from '@angular/fire/auth';
 import { FibonacciModel }                             from 'src/app/models/fibonacci.model';
+import * as firebase                                  from 'firebase';
+import { VoteModel }                                  from '../rooms/model/vote.model';
+import { of, Subject }                                from 'rxjs';
+import { debounceTime }                               from 'rxjs/operators';
 
 @Component({
   selector   : 'app-votes',
@@ -12,11 +16,13 @@ import { FibonacciModel }                             from 'src/app/models/fibon
 })
 export class VotesComponent implements OnInit {
 
-  public room: RoomModel;
+  public room  : RoomModel;
+  public isFlip: boolean = false;
 
   private roomId = '';
   private roomDoc: AngularFirestoreDocument<RoomModel>;
   private user   : any;
+  private flipEvent = new Subject<boolean>();
 
   constructor(
     private route: ActivatedRoute,
@@ -28,12 +34,14 @@ export class VotesComponent implements OnInit {
 
   ngOnInit() {
     this.loadRoom();
+    this.flipEvent.pipe(debounceTime(50)).subscribe(isFlip => this.isFlip = isFlip);
   }
 
   loadRoom() {
     this.roomDoc = this.afs.doc<RoomModel>('rooms/' + this.roomId);
     this.roomDoc.valueChanges().subscribe(room => {
       this.room = room;
+      this.flipEvent.next(this.room.isFlip);
       this.includeUserRoom();
     })
   }
@@ -68,14 +76,21 @@ export class VotesComponent implements OnInit {
   //#endregion
 
   activeCardEvent(fibonacciModel: FibonacciModel) {
-    var votes = this.room.votes.filter(p => p.uid != this.user.uid);
-    votes.push({
-      uid        : this.user.uid,
-      displayName: this.user.displayName,
-      value      : fibonacciModel
+
+    var oldVote = this.room.votes.find(p => p.uid == this.user.uid);
+    if (oldVote)
+      this.roomDoc.update({
+        votes: firebase.firestore.FieldValue.arrayRemove(oldVote) as unknown as VoteModel[]
+      });
+
+    this.roomDoc.update({
+      votes: firebase.firestore.FieldValue.arrayUnion({
+        uid        : this.user.uid,
+        displayName: this.user.displayName,
+        value      : fibonacciModel
+      }) as unknown as VoteModel[]
     });
-    this.room.votes = votes;
-    this.roomDoc.update(this.room);
+
   }
 
   resetVotes() {
@@ -94,6 +109,10 @@ export class VotesComponent implements OnInit {
     var values            = this.room.votes.filter(v => v.value.value != -1 && v.value.value != 99).map(v => v.value.value);
         this.room.average = (Math.ceil(values.reduce((a, b) => a + b) / values.length)).toString()
     this.roomDoc.update(this.room);
+  }
+
+  hasVotes() {
+    return (this.room && this.room.votes) ? (this.room.votes.length > 0): false;
   }
 
 }
