@@ -15,6 +15,7 @@ import { MainComponent }            from './pages/main/main.component';
 import { MenuComponent }            from './pages/main/menu/menu.component';
 import { RoomsComponent }           from './pages/rooms/rooms.component';
 import { ReactiveFormsModule }      from '@angular/forms';
+import { LoadingComponent }         from './components/loading/loading.component';
 
 const config = {
   apiKey           : "AIzaSyDEMf3XzmfjVr8jt7XgUikz3w9Xwgt15XM",
@@ -34,7 +35,8 @@ const config = {
     VotesComponent,
     MainComponent,
     MenuComponent,
-    RoomsComponent
+    RoomsComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

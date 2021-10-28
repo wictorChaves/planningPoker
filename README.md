@@ -12,7 +12,7 @@ First at all
      
 Build your project this way
  
-     ng build --prod --base-href "https://<user-name>.github.io/<repo>/"
+     ng build --prod --base-href "https://wictorchaves.github.io/planningPoker/"
      
 And finally
 
