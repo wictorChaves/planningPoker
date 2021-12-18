@@ -1,8 +1,7 @@
 .btn-command {
   padding-bottom: 16px;
 
-  .fix-width{
-    
+  .fix-width {
   }
 
   button {
@@ -10,11 +9,8 @@
     &:disabled {
       cursor: not-allowed;
     }
-    &:first-child {
-      margin: 0 0px;
-    }
-
-    &:last-child {
+    &.float-left,
+    &.float-right {
       margin: 0 0px;
     }
   }

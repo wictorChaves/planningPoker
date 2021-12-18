@@ -23,10 +23,10 @@
 
   <div class="row">
     <div class="col-12 btn-command text-center" *ngIf="hasVotes()">
-      <button type="button" class="btn btn-light float-left" (click)="resetVotesAndGoBack()">Go back</button>
-      <button *ngIf="!isFlip" type="button" class="btn btn-primary" (click)="flipCard()">Flip</button>
-      <button type="button" class="btn btn-info" (click)="resetVotes()">Reset</button>
-      <button type="button" class="btn btn-light float-right" (click)="resetVotesAndNext()">Next</button>
+      <button *ngIf="getCurrentTask(currentTask)" type="button" class="btn btn-light float-left" (click)="resetVotesAndGoBack()">Voltar</button>
+      <button *ngIf="!isFlip" type="button" class="btn btn-primary" (click)="flipCard()">Virar</button>
+      <button type="button" class="btn btn-info" (click)="resetVotes()">Resetar</button>
+      <button *ngIf="getCurrentTask(currentTask)" type="button" class="btn btn-light float-right" (click)="resetVotesAndNext()">Seguir</button>
     </div>
   </div>
 
