@@ -5,6 +5,7 @@ import { VotesComponent }       from './pages/votes/votes.component';
 import { LoginComponent }       from './pages/login/login.component';
 import { NgModule }             from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { TasksComponent }       from './pages/tasks/tasks.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/rooms', pathMatch: 'full' },
@@ -15,12 +16,16 @@ const routes: Routes = [
     canActivate: [UserLoggedGuard],
     children   : [
       {
-        path     : 'votes/:id',
-        component: VotesComponent,
-      },
-      {
         path     : 'rooms',
         component: RoomsComponent,
+      },
+      {
+        path     : 'tasks/:id',
+        component: TasksComponent,
+      },
+      {
+        path     : 'votes/:id',
+        component: VotesComponent,
       }
     ]
   }

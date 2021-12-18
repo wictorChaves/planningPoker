@@ -1,13 +1,13 @@
-import { RoomModel }                                  from './../rooms/model/room.model';
+import * as firebase                                  from 'firebase';
 import { Component, OnInit }                          from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { ActivatedRoute }                             from '@angular/router';
 import { AngularFireAuth }                            from '@angular/fire/auth';
-import { FibonacciModel }                             from 'src/app/models/fibonacci.model';
-import * as firebase                                  from 'firebase';
-import { VoteModel }                                  from '../rooms/model/vote.model';
-import { of, Subject }                                from 'rxjs';
+import { FibonacciModel }                             from 'src/app/classes/fibonacci.model';
+import { Subject }                                    from 'rxjs';
 import { debounceTime }                               from 'rxjs/operators';
+import { IRoomModel }                                 from 'src/app/interfaces/i-room.model';
+import { IVoteModel }                                 from 'src/app/interfaces/i-vote.model';
 
 @Component({
   selector   : 'app-votes',
@@ -16,11 +16,12 @@ import { debounceTime }                               from 'rxjs/operators';
 })
 export class VotesComponent implements OnInit {
 
-  public room  : RoomModel;
-  public isFlip: boolean = false;
+  public room       : IRoomModel;
+  public isFlip     : boolean = false;
+  public currentTask: number = 0;
 
   private roomId = '';
-  private roomDoc: AngularFirestoreDocument<RoomModel>;
+  private roomDoc: AngularFirestoreDocument<IRoomModel>;
   private user   : any;
   private flipEvent = new Subject<boolean>();
 
@@ -38,7 +39,7 @@ export class VotesComponent implements OnInit {
   }
 
   loadRoom() {
-    this.roomDoc = this.afs.doc<RoomModel>('rooms/' + this.roomId);
+    this.roomDoc = this.afs.doc<IRoomModel>('rooms/' + this.roomId);
     this.roomDoc.valueChanges().subscribe(room => {
       this.room = room;
       this.flipEvent.next(this.room.isFlip);
@@ -80,7 +81,7 @@ export class VotesComponent implements OnInit {
     var oldVote = this.room.votes.find(p => p.uid == this.user.uid);
     if (oldVote)
       this.roomDoc.update({
-        votes: firebase.firestore.FieldValue.arrayRemove(oldVote) as unknown as VoteModel[]
+        votes: firebase.firestore.FieldValue.arrayRemove(oldVote) as unknown as IVoteModel[]
       });
 
     this.roomDoc.update({
@@ -88,7 +89,7 @@ export class VotesComponent implements OnInit {
         uid        : this.user.uid,
         displayName: this.user.displayName,
         value      : fibonacciModel
-      }) as unknown as VoteModel[]
+      }) as unknown as IVoteModel[]
     });
 
   }
@@ -100,6 +101,16 @@ export class VotesComponent implements OnInit {
     this.roomDoc.update(this.room);
   }
 
+  resetVotesAndGoBack() {
+    this.resetVotes();
+    this.prevTask();
+  }
+
+  resetVotesAndNext() {
+    this.resetVotes();
+    this.nextTask();
+  }
+
   flipCard() {
     this.room.isFlip = true;
     this.averageCalc();
@@ -107,12 +118,30 @@ export class VotesComponent implements OnInit {
 
   averageCalc() {
     var values            = this.room.votes.filter(v => v.value.value != -1 && v.value.value != 99).map(v => v.value.value);
-        this.room.average = (Math.ceil(values.reduce((a, b) => a + b) / values.length)).toString()
+        this.room.average = (Math.ceil(values.length == 0 ? 0 : values.reduce((a, b) => a + b) / values.length)).toString()
     this.roomDoc.update(this.room);
   }
 
   hasVotes() {
     return (this.room && this.room.votes) ? (this.room.votes.length > 0): false;
+  }
+
+  prevTask() {
+    var  currentTask                          = this.currentTask - 1;
+    if   (currentTask <= -1) this.currentTask = this.room.tasks.length - 1;
+    else this.currentTask                     = currentTask;
+  }
+
+  nextTask() {
+    var  currentTask                                                 = this.currentTask + 1;
+    if   (currentTask > this.room.tasks.length - 1) this.currentTask = 0;
+    else this.currentTask                                            = currentTask;
+  }
+
+  getCurrentTask(currentTask: number) {
+    if (this.room)
+      if (this.room.tasks.length > 0)
+        return this.room.tasks[currentTask];
   }
 
 }

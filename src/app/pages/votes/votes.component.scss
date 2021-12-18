@@ -1,13 +1,23 @@
 .btn-command {
   padding-bottom: 16px;
-}
 
-.btn-command button:disabled {
-  cursor: not-allowed;
-}
+  .fix-width{
+    
+  }
 
-.btn-command button:nth-child(2) {
-  margin-left: 8px;
+  button {
+    margin: 0 4px;
+    &:disabled {
+      cursor: not-allowed;
+    }
+    &:first-child {
+      margin: 0 0px;
+    }
+
+    &:last-child {
+      margin: 0 0px;
+    }
+  }
 }
 
 .card-header {
@@ -62,4 +72,11 @@ body {
   background-color: #2980b9;
   color: white;
   transform: rotateY(180deg);
+}
+
+.btn-group {
+  width: 100%;
+  label:nth-child(2) {
+    width: 100%;
+  }
 }

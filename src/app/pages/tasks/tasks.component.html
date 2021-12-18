@@ -1,0 +1,19 @@
+<div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center" *ngIf="room">
+  <h1 class="display-4">{{ room.name }} - Lista de tasks</h1>
+</div>
+
+<div class="container" [formGroup]="form">
+
+  <div class="row">
+    <div class="col-12 text-center btn-command">
+      <textarea formControlName="taskList" class="task-list-field" rows="15"></textarea>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 text-center btn-command">
+      <button (click)="saveAndGoVote()" class="btn btn-lg btn-primary btn-block" type="button">Votar</button>
+    </div>
+  </div>
+
+</div>

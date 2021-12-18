@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FibonacciModel }                                 from 'src/app/models/fibonacci.model';
+import { FibonacciModel }                                 from 'src/app/classes/fibonacci.model';
 
 @Component({
   selector   : 'app-fibonacci-deck',

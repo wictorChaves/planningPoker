@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators }           from '@angular/forms';
 import { Router }                                       from '@angular/router';
 import { finalize, map }                                from 'rxjs/operators';
 import { FormHelper }                                   from 'src/app/helper/form.helper';
-import { RoomModel }                                    from './model/room.model';
+import { IRoomModel } from 'src/app/interfaces/i-room.model';
 
 @Component({
   selector   : 'app-rooms',
@@ -16,17 +16,17 @@ export class RoomsComponent implements OnInit {
   public messageError    = '';
   public loading         = false;
   public loadingRedirect = false;
-  public rooms: RoomModel[];
+  public rooms: IRoomModel[];
   public form = new FormGroup({ roomName: new FormControl('', Validators.required) });
 
-  private itemsCollection: AngularFirestoreCollection<RoomModel>;
+  private itemsCollection: AngularFirestoreCollection<IRoomModel>;
 
   constructor(afs: AngularFirestore, private router: Router) {
     this.loading         = true;
-    this.itemsCollection = afs.collection<RoomModel>('rooms');
+    this.itemsCollection = afs.collection<IRoomModel>('rooms');
     this.itemsCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
-        const data = a.payload.doc.data() as RoomModel;
+        const data = a.payload.doc.data() as IRoomModel;
         const id   = a.payload.doc.id;
         return { id, ...data };
       });
@@ -54,7 +54,7 @@ export class RoomsComponent implements OnInit {
         votes       : []
       })).then(result => {
         this.loadingRedirect = false;
-        this.router.navigateByUrl(`/votes/${result.id}`);
+        this.router.navigateByUrl(`/tasks/${result.id}`);
       });
     }
   }
@@ -84,7 +84,7 @@ export class RoomsComponent implements OnInit {
   //#endregion
 
   goToRoom(id: string) {
-    this.router.navigate(['votes', id]);
+    this.router.navigate(['tasks', id]);
   }
 
 }
