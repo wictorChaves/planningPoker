@@ -7,6 +7,7 @@ export class RoomModel implements IRoomModel {
   name        : string;
   average     : string;
   isFlip      : boolean;
+  currentTask : number;
   participants: UserModel[];
   votes       : VoteModel[];
   tasks       : string[];

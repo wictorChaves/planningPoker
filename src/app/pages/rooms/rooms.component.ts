@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators }           from '@angular/forms';
 import { Router }                                       from '@angular/router';
 import { finalize, map }                                from 'rxjs/operators';
 import { FormHelper }                                   from 'src/app/helper/form.helper';
-import { IRoomModel } from 'src/app/interfaces/i-room.model';
+import { IRoomModel }                                   from 'src/app/interfaces/i-room.model';
 
 @Component({
   selector   : 'app-rooms',
@@ -50,6 +50,8 @@ export class RoomsComponent implements OnInit {
         name        : this.form.get('roomName').value,
         average     : '-',
         isFlip      : false,
+        currentTask : 0,
+        tasks       : [],
         participants: [],
         votes       : []
       })).then(result => {

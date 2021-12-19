@@ -35,7 +35,16 @@ export class TasksComponent implements OnInit {
 
   loadRoom() {
     this.roomDoc = this.angularFirestore.doc<IRoomModel>('rooms/' + this.roomId);
-    this.roomDoc.valueChanges().subscribe(this.setRoom.bind(this));
+    this.roomDoc.valueChanges().subscribe(this.loadTaskAndSetRoom.bind(this));
+  }
+
+  loadTaskAndSetRoom(room: IRoomModel) {
+    this.setRoom(room);
+    this.loadTasks(room);
+  }
+
+  loadTasks(room: IRoomModel) {
+    this.form.patchValue({ taskList: room.tasks.join('\n') })
   }
 
   setRoom(room: any) {

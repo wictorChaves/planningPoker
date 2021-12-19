@@ -4,13 +4,13 @@
 
 <div class="container">
 
-  <div class="row" *ngIf="getCurrentTask(currentTask)">
+  <div class="row" *ngIf="getCurrentTask(room?.currentTask)">
     <div class="col-12">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-light" (click)="prevTask()">
           < </label>
             <label class="btn btn-light" (click)="nextTask()">
-              {{ getCurrentTask(currentTask) }}
+              {{ getCurrentTask(room?.currentTask) }}
             </label>
             <label class="btn btn-light" (click)="nextTask()">
               >
@@ -23,10 +23,10 @@
 
   <div class="row">
     <div class="col-12 btn-command text-center" *ngIf="hasVotes()">
-      <button *ngIf="getCurrentTask(currentTask)" type="button" class="btn btn-light float-left" (click)="resetVotesAndGoBack()">Voltar</button>
+      <button *ngIf="getCurrentTask(room?.currentTask)" type="button" class="btn btn-light float-left" (click)="resetVotesAndGoBack()">Voltar</button>
       <button *ngIf="!isFlip" type="button" class="btn btn-primary" (click)="flipCard()">Virar</button>
       <button type="button" class="btn btn-info" (click)="resetVotes()">Resetar</button>
-      <button *ngIf="getCurrentTask(currentTask)" type="button" class="btn btn-light float-right" (click)="resetVotesAndNext()">Seguir</button>
+      <button *ngIf="getCurrentTask(room?.currentTask)" type="button" class="btn btn-light float-right" (click)="resetVotesAndNext()">Seguir</button>
     </div>
   </div>
 

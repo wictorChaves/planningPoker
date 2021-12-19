@@ -6,6 +6,7 @@ export interface IRoomModel {
   name        : string;
   average     : string;
   isFlip      : boolean;
+  currentTask : number;
   participants: IUserModel[];
   votes       : IVoteModel[];
   tasks       : string[];

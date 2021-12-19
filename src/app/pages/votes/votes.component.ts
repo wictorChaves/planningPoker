@@ -16,9 +16,8 @@ import { IVoteModel }                                 from 'src/app/interfaces/i
 })
 export class VotesComponent implements OnInit {
 
-  public room       : IRoomModel;
-  public isFlip     : boolean = false;
-  public currentTask: number = 0;
+  public room  : IRoomModel;
+  public isFlip: boolean = false;
 
   private roomId = '';
   private roomDoc: AngularFirestoreDocument<IRoomModel>;
@@ -41,7 +40,8 @@ export class VotesComponent implements OnInit {
   loadRoom() {
     this.roomDoc = this.afs.doc<IRoomModel>('rooms/' + this.roomId);
     this.roomDoc.valueChanges().subscribe(room => {
-      this.room = room;
+      this.room             = room;
+      this.room.currentTask = this.room.currentTask ? this.room.currentTask : 0;
       this.flipEvent.next(this.room.isFlip);
       this.includeUserRoom();
     })
@@ -127,18 +127,24 @@ export class VotesComponent implements OnInit {
   }
 
   prevTask() {
-    var  currentTask                          = this.currentTask - 1;
-    if   (currentTask <= -1) this.currentTask = this.room.tasks.length - 1;
-    else this.currentTask                     = currentTask;
+    var currentTask = this.room.currentTask - 1;
+    if (currentTask <= -1) this.setCurrentTask(this.room.tasks.length - 1);
+    else this.setCurrentTask(currentTask);
   }
 
   nextTask() {
-    var  currentTask                                                 = this.currentTask + 1;
-    if   (currentTask > this.room.tasks.length - 1) this.currentTask = 0;
-    else this.currentTask                                            = currentTask;
+    var currentTask = this.room.currentTask + 1;
+    if (currentTask > this.room.tasks.length - 1) this.setCurrentTask(0);
+    else this.setCurrentTask(currentTask);
   }
 
-  getCurrentTask(currentTask: number) {
+  setCurrentTask(currentTask: number) {
+    this.room.currentTask = currentTask;
+    this.roomDoc.update(this.room);
+  }
+
+  getCurrentTask(currentTask: any) {
+    var currentTask = (currentTask) ? currentTask : 0;
     if (this.room)
       if (this.room.tasks.length > 0)
         return this.room.tasks[currentTask];
