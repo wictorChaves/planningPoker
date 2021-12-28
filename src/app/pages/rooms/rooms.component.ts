@@ -65,11 +65,11 @@ export class RoomsComponent implements OnInit {
     this.messageError = '';
     FormHelper.MarkFormGroupTouched(this.form);
     if (!this.form.valid) {
-      this.messageError = 'Você se esqueceu de preencher o nome da sala 😜.';
+      this.messageError = 'Você se esqueceu de preencher o nome da sala 😜';
       return false;
     }
     if (this.hasItem()) {
-      this.messageError = 'Esta sala já existe 🤔.';
+      this.messageError = 'Esta sala já existe 🤔';
       return false;
     }
     return true;
