@@ -1,11 +1,9 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule }      from '@angular/core';
-
-import { AppRoutingModule }       from './app-routing.module';
-import { AppComponent }           from './app.component';
-import { FibonacciDeckComponent } from './components/fibonacci-deck/fibonacci-deck.component';
-import { LoginComponent }         from './pages/login/login.component';
-
+import { BrowserModule }            from '@angular/platform-browser';
+import { NgModule }                 from '@angular/core';
+import { AppRoutingModule }         from './app-routing.module';
+import { AppComponent }             from './app.component';
+import { FibonacciDeckComponent }   from './components/fibonacci-deck/fibonacci-deck.component';
+import { LoginComponent }           from './pages/login/login.component';
 import { AngularFireModule }        from '@angular/fire';
 import { AngularFirestoreModule }   from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
@@ -16,7 +14,7 @@ import { MenuComponent }            from './pages/main/menu/menu.component';
 import { RoomsComponent }           from './pages/rooms/rooms.component';
 import { ReactiveFormsModule }      from '@angular/forms';
 import { LoadingComponent }         from './components/loading/loading.component';
-import { TasksComponent } from './pages/tasks/tasks.component';
+import { TasksComponent }           from './pages/tasks/tasks.component';
 
 const config = {
   apiKey           : "AIzaSyDEMf3XzmfjVr8jt7XgUikz3w9Xwgt15XM",

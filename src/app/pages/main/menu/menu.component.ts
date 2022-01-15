@@ -10,15 +10,15 @@ import { Router }            from '@angular/router';
 export class MenuComponent implements OnInit {
 
   constructor(
-    public  auth  : AngularFireAuth,
-    private router: Router
+    public  angularFireAuth: AngularFireAuth,
+    private router         : Router
   ) { }
 
   ngOnInit() {
   }
 
   logout() {
-    this.auth.auth.signOut();
+    this.angularFireAuth.auth.signOut();
     this.router.navigateByUrl('/login');
   }
 

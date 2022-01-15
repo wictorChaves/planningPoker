@@ -1,7 +1,7 @@
 import * as firebase                                  from 'firebase';
 import { Component, OnInit }                          from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { ActivatedRoute }                             from '@angular/router';
+import { ActivatedRoute, Router }                     from '@angular/router';
 import { AngularFireAuth }                            from '@angular/fire/auth';
 import { FibonacciModel }                             from 'src/app/classes/fibonacci.model';
 import { Subject }                                    from 'rxjs';
@@ -25,9 +25,10 @@ export class VotesComponent implements OnInit {
   private flipEvent = new Subject<boolean>();
 
   constructor(
-    private route: ActivatedRoute,
-    private afs  : AngularFirestore,
-    public  auth : AngularFireAuth
+    private route : ActivatedRoute,
+    private afs   : AngularFirestore,
+    public  auth  : AngularFireAuth,
+    private router: Router
   ) {
     this.roomId = this.route.snapshot.paramMap.get('id');
   }
@@ -126,6 +127,10 @@ export class VotesComponent implements OnInit {
     return (this.room && this.room.votes) ? (this.room.votes.length > 0): false;
   }
 
+  firstTask() {
+    this.setCurrentTask(0);
+  }
+
   prevTask() {
     var currentTask = this.room.currentTask - 1;
     if (currentTask <= -1) this.setCurrentTask(this.room.tasks.length - 1);
@@ -138,6 +143,10 @@ export class VotesComponent implements OnInit {
     else this.setCurrentTask(currentTask);
   }
 
+  lastTask() {
+    this.setCurrentTask(this.room.tasks.length - 1);
+  }
+
   setCurrentTask(currentTask: number) {
     this.room.currentTask = currentTask;
     this.roomDoc.update(this.room);
@@ -148,6 +157,10 @@ export class VotesComponent implements OnInit {
     if (this.room)
       if (this.room.tasks.length > 0)
         return this.room.tasks[currentTask];
+  }
+
+  goTask() {
+    this.router.navigateByUrl(`/tasks/${this.roomId}`);
   }
 
 }

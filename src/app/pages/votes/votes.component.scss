@@ -72,7 +72,18 @@ body {
 
 .btn-group {
   width: 100%;
-  label:nth-child(2) {
+  label {
+    font-weight: bold;
+    font-family: monospace;
+  }
+  label:nth-child(3) {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: initial;
     width: 100%;
   }
+}
+
+.opacity-0 {
+  opacity: 0;
 }

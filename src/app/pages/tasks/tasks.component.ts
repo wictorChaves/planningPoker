@@ -54,11 +54,16 @@ export class TasksComponent implements OnInit {
   saveAndGoVote() {
     var list = this.getList();
     this.addTasks(list);
+    this.goVote();
   }
 
   addTasks(tasks: string[]) {
-    this.room.tasks = tasks;
+    this.room.currentTask = 0;
+    this.room.tasks       = tasks;
     this.roomDoc.update(this.room);
+  }
+
+  goVote() {
     this.router.navigateByUrl(`/votes/${this.roomId}`);
   }
 
