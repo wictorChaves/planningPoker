@@ -155,8 +155,9 @@ export class VotesComponent implements OnInit {
   getCurrentTask(currentTask: any) {
     var currentTask = (currentTask) ? currentTask : 0;
     if (this.room)
-      if (this.room.tasks.length > 0)
-        return this.room.tasks[currentTask];
+      if (this.room.tasks)
+        if (this.room.tasks.length > 0)
+          return this.room.tasks[currentTask];
   }
 
   goTask() {

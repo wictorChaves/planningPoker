@@ -44,7 +44,8 @@ export class TasksComponent implements OnInit {
   }
 
   loadTasks(room: IRoomModel) {
-    this.form.patchValue({ taskList: room.tasks.join('\n') })
+    if (room.tasks)
+      this.form.patchValue({ taskList: room.tasks.join('\n') })
   }
 
   setRoom(room: any) {
