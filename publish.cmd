@@ -1,4 +1,5 @@
 call npm run build-prod
+git checkout gh-pages publish.cmd
 git checkout gh-pages
 del *.txt /Q
 del *.ico /Q
