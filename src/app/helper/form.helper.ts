@@ -2,7 +2,7 @@ import { AbstractControl, FormGroup } from "@angular/forms";
 
 export class FormHelper {
 
-  public static FieldValid(field: AbstractControl): boolean {
+  public static FieldInvalid(field: AbstractControl): boolean {
     return field.invalid && (field.dirty || field.touched);
   }
 

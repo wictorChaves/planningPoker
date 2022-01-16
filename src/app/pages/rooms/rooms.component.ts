@@ -21,9 +21,9 @@ export class RoomsComponent implements OnInit {
 
   private itemsCollection: AngularFirestoreCollection<IRoomModel>;
 
-  constructor(afs: AngularFirestore, private router: Router) {
+  constructor(firestore: AngularFirestore, private router: Router) {
     this.loading         = true;
-    this.itemsCollection = afs.collection<IRoomModel>('rooms');
+    this.itemsCollection = firestore.collection<IRoomModel>('rooms');
     this.itemsCollection.snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as IRoomModel;
@@ -79,8 +79,8 @@ export class RoomsComponent implements OnInit {
     return this.rooms.find(r => r.name.toLowerCase().trim() == this.form.get('roomName').value.toLowerCase().trim()) !== undefined;
   }
 
-  fieldValid(formControlName: string) {
-    return FormHelper.FieldValid(this.form.get(formControlName));
+  FieldInvalid(formControlName: string) {
+    return FormHelper.FieldInvalid(this.form.get(formControlName));
   }
 
   //#endregion

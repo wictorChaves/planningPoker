@@ -1,7 +1,6 @@
 import { Component, OnInit }                          from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { ActivatedRoute, Router }                     from '@angular/router';
-import { AngularFireAuth }                            from '@angular/fire/auth';
 import { FormControl, FormGroup }                     from '@angular/forms';
 import { IRoomModel }                                 from 'src/app/interfaces/i-room.model';
 import { RoomModel }                                  from 'src/app/classes/room.model';
@@ -21,12 +20,11 @@ export class TasksComponent implements OnInit {
   });
 
   constructor(
-    private route           : ActivatedRoute,
-    private angularFirestore: AngularFirestore,
-    public  auth            : AngularFireAuth,
-    private router          : Router
+    private activatedRoute: ActivatedRoute,
+    private firestore     : AngularFirestore,
+    private router        : Router
   ) {
-    this.roomId = this.route.snapshot.paramMap.get('id');
+    this.roomId = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
@@ -34,7 +32,7 @@ export class TasksComponent implements OnInit {
   }
 
   loadRoom() {
-    this.roomDoc = this.angularFirestore.doc<IRoomModel>('rooms/' + this.roomId);
+    this.roomDoc = this.firestore.doc<IRoomModel>('rooms/' + this.roomId);
     this.roomDoc.valueChanges().subscribe(this.loadTaskAndSetRoom.bind(this));
   }
 

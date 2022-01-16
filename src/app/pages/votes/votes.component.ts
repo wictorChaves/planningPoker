@@ -25,12 +25,12 @@ export class VotesComponent implements OnInit {
   private flipEvent = new Subject<boolean>();
 
   constructor(
-    private route : ActivatedRoute,
-    private afs   : AngularFirestore,
-    public  auth  : AngularFireAuth,
-    private router: Router
+    private activatedRoute: ActivatedRoute,
+    private firestore     : AngularFirestore,
+    public  fireAuth      : AngularFireAuth,
+    private router        : Router
   ) {
-    this.roomId = this.route.snapshot.paramMap.get('id');
+    this.roomId = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   ngOnInit() {
@@ -39,7 +39,7 @@ export class VotesComponent implements OnInit {
   }
 
   loadRoom() {
-    this.roomDoc = this.afs.doc<IRoomModel>('rooms/' + this.roomId);
+    this.roomDoc = this.firestore.doc<IRoomModel>('rooms/' + this.roomId);
     this.roomDoc.valueChanges().subscribe(room => {
       this.room             = room;
       this.room.currentTask = this.room.currentTask ? this.room.currentTask : 0;
@@ -51,7 +51,7 @@ export class VotesComponent implements OnInit {
   //#region Include Room
 
   async includeUserRoom() {
-    var userSubscription = this.auth.user.subscribe(user => {
+    var userSubscription = this.fireAuth.user.subscribe(user => {
       this.user = user;
       this.addIfNotExist();
       userSubscription.unsubscribe();
