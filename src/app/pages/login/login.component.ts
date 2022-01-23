@@ -20,9 +20,17 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.auth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(userCredential => {
+    this.auth.auth.signInWithPopup(this.newGoogleAuthProvider()).then(userCredential => {
       this.router.navigateByUrl('/rooms');
-    }, error => { console.log(error) });
+    }, error => { this.logError(error) });
+  }
+
+  newGoogleAuthProvider() {
+    return new firebase.auth.GoogleAuthProvider();
+  }
+
+  logError(error: any) {
+    console.log(error);
   }
 
 }

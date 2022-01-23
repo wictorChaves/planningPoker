@@ -15,6 +15,8 @@ import { RoomsComponent }           from './pages/rooms/rooms.component';
 import { ReactiveFormsModule }      from '@angular/forms';
 import { LoadingComponent }         from './components/loading/loading.component';
 import { TasksComponent }           from './pages/tasks/tasks.component';
+import { RoomsListComponent } from './pages/rooms/rooms-list/rooms-list.component';
+import { RoomsFormComponent } from './pages/rooms/rooms-form/rooms-form.component';
 
 const config = {
   apiKey           : "AIzaSyDEMf3XzmfjVr8jt7XgUikz3w9Xwgt15XM",
@@ -36,7 +38,9 @@ const config = {
     MenuComponent,
     RoomsComponent,
     LoadingComponent,
-    TasksComponent
+    TasksComponent,
+    RoomsListComponent,
+    RoomsFormComponent
   ],
   imports: [
     BrowserModule,

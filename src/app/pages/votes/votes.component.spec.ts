@@ -1,11 +1,12 @@
-import { async, ComponentFixture, TestBed }          from '@angular/core/testing';
-import { AngularFireAuth }                           from '@angular/fire/auth';
-import { AngularFirestore }                          from '@angular/fire/firestore';
-import { ActivatedRoute, convertToParamMap, Router } from '@angular/router';
-import { RouterTestingModule }                       from '@angular/router/testing';
-import { of }                                        from 'rxjs';
-import { FibonacciDeckComponentSpec }                from 'src/app/tests/mocks/fibonacci-deck.component.spec';
-import { VotesComponent }                            from './votes.component';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { AngularFireAuth }                                   from '@angular/fire/auth';
+import { AngularFirestore }                                  from '@angular/fire/firestore';
+import { ActivatedRoute, convertToParamMap, Router }         from '@angular/router';
+import { RouterTestingModule }                               from '@angular/router/testing';
+import { of, Subject }                                       from 'rxjs';
+import { FibonacciModel }                                    from 'src/app/classes/fibonacci.model';
+import { FibonacciDeckComponentSpec }                        from 'src/app/tests/mocks/fibonacci-deck.component.spec';
+import { VotesComponent }                                    from './votes.component';
 
 class ActivatedRouteMock {
 
@@ -21,18 +22,21 @@ class ActivatedRouteMock {
 
 class AngularFirestoreMock {
 
+  public docValueChangesResult: any = of({});
+
   doc(path: string) {
     return {
       valueChanges: () => {
-        return of()
-      }
+        return this.docValueChangesResult;
+      },
+      update: () => { }
     }
   }
 
 }
 
 class AngularFireAuthMock {
-  user = of();
+  public user = of({});
 }
 
 class RouterMock {
@@ -96,4 +100,5 @@ describe('VotesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

@@ -35,6 +35,10 @@ export class VotesComponent implements OnInit {
 
   ngOnInit() {
     this.loadRoom();
+    this.waitAndFlip();
+  }
+
+  waitAndFlip(){
     this.flipEvent.pipe(debounceTime(50)).subscribe(isFlip => this.isFlip = isFlip);
   }
 
@@ -50,7 +54,7 @@ export class VotesComponent implements OnInit {
 
   //#region Include Room
 
-  async includeUserRoom() {
+  includeUserRoom() {
     var userSubscription = this.fireAuth.user.subscribe(user => {
       this.user = user;
       this.addIfNotExist();

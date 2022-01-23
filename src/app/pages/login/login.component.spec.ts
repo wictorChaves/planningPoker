@@ -1,13 +1,23 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularFireAuth }                  from '@angular/fire/auth';
-import { Router }                           from '@angular/router';
-import { LoginComponent }                   from './login.component';
+import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { AngularFireAuth }                                   from '@angular/fire/auth';
+import { Router }                                            from '@angular/router';
+import { LoginComponent }                                    from './login.component';
 
 class AngularFireAuthMock {
+
+  public result;
+
+  auth = { signInWithPopup: () => this.result };
 
 }
 
 class RouterMock {
+
+  public url = '';
+
+  navigateByUrl(url: string) {
+    this.url = url;
+  }
 
 }
 
@@ -44,14 +54,67 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should create', () => {
-    
+  it('should login', fakeAsync(() => {
+
     // Arrange
-    
+    var newGoogleAuthProvider = spyOn(component, 'newGoogleAuthProvider');
+
+    angularFireAuthMock.result = new Promise((resolve, reject) => {
+      resolve('userCredential');
+    });
+
     // Act
-    
+    component.login();
+    tick();
+
     // Assert
-    
+    expect(newGoogleAuthProvider).toHaveBeenCalled();
+    expect('/rooms').toEqual(routerMock.url);
+
+  }));
+
+  it('should login fail', fakeAsync(() => {
+
+    // Arrange
+    var logError = spyOn(component, 'logError');
+
+    angularFireAuthMock.result = new Promise((resolve, reject) => {
+      reject('error');
+    });
+
+    // Act
+    component.login();
+    tick();
+
+    // Assert
+    expect(logError).toHaveBeenCalled();
+
+  }));
+
+  it('should create new Google Auth Provider', () => {
+
+    // Arrange
+
+    // Act
+    var result = component.newGoogleAuthProvider();
+
+    // Assert
+    expect(result).not.toBeUndefined();
+
+  });
+
+  it('should log error', () => {
+
+    // Arrange
+    var error: any = 'error';
+    spyOn(console, 'log');
+
+    // Act
+    component.logError(error);
+
+    // Assert
+    expect(console.log).toHaveBeenCalled();
+
   });
 
 });
