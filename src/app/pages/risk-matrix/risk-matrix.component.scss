@@ -1,0 +1,54 @@
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 300px;
+    height: 300px;
+    padding: 0;
+    margin: 0;
+}
+.line {
+    height: 100px;
+    .cell {
+        cursor: pointer;
+    }
+}
+.cell {
+    flex: 0 0 33.333333%;
+    width: 33.333333vh;
+    color: white;
+    text-align: center;
+    line-height: 100px;
+    font-size: 36px;
+    font-weight: bold;
+    opacity: 0.5;
+    box-sizing: border-box;
+    &.active {
+        opacity: 1;
+        line-height: 90px;
+    }
+    &.warning {
+        background: var(--warning);
+        &.active {
+            border: 5px solid var(--orange);
+        }
+    }
+    &.danger {
+        background: var(--danger);
+        &.active {
+            border: 5px solid var(--pink);
+        }
+    }
+    &.success {
+        background: var(--success);
+        &.active {
+            border: 5px solid var(--teal);
+        }
+    }
+}
+.container {
+    &.not-selected-item {
+        .cell {
+            opacity: 1;
+        }
+    }
+}

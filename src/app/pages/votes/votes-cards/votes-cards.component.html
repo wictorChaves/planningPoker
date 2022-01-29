@@ -1,0 +1,18 @@
+<div class="row" [ngClass]="{ 'show-card': !isFlip }">
+    <div class="col-sm-3 text-center flip-card" *ngFor="let vote of room.votes;">
+        <div class="flip-card-inner">
+            <div class="card text-white bg-{{ vote.value.class }} mb-3 flip-card-front">
+                <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
+                <div class="card-body">
+                    <h1 class="card-title" *ngIf="room.isFlip">{{ vote.value.description }}</h1>
+                </div>
+            </div>
+            <div class="card text-white bg-info mb-3 flip-card-back">
+                <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
+                <div class="card-body">
+                    <h1 class="card-title">&nbsp;</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+{
+    "version"       : "0.2.0",
+    "configurations": [
+        {
+            "name"         : "ng serve",
+            "type"         : "chrome",
+            "request"      : "launch",
+            "preLaunchTask": "npm: start",
+            "url"          : "http://localhost:4200",
+            "webRoot"      : "${workspaceFolder}"
+        },
+        {
+            "name"         : "test clear screen",
+            "type"         : "chrome",
+            "request"      : "launch",
+            "preLaunchTask": "npm: test-clear-screen",
+            "url"          : "http://localhost:4200",
+            "webRoot"      : "${workspaceFolder}"
+        }
+    ]
+}

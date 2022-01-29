@@ -2,66 +2,11 @@
   <h1 class="display-4">{{ room.name }}</h1>
 </div>
 
-<div class="container">
-
-  <div class="row" *ngIf="getCurrentTask(room?.currentTask)">
-    <div class="col-12">
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-light" (click)="firstTask()">
-          << </label>
-            <label class="btn btn-light" (click)="prevTask()">
-              < </label>
-                <label class="btn btn-light" (click)="goTask()">
-                  {{ getCurrentTask(room?.currentTask) }}
-                </label>
-                <label class="btn btn-light" (click)="nextTask()"> > </label>
-                <label class="btn btn-light" (click)="lastTask()"> >> </label>
-      </div>
-    </div>
-  </div>
-
-  <br />
-
-  <div class="row">
-    <div class="col-12 btn-command text-center" *ngIf="hasVotes()">
-      <button *ngIf="getCurrentTask(room?.currentTask)" type="button" class="btn btn-light float-left"
-        (click)="resetVotesAndGoBack()">Voltar</button>
-      <button type="button" class="btn btn-info" (click)="resetVotes()">Revotar</button>
-      <button *ngIf="!isFlip" type="button" class="btn btn-primary" (click)="flipCard()">Virar</button>
-      <button *ngIf="isFlip" type="button" class="btn btn-primary" (click)="resetVotesAndNext()">Seguir</button>
-      <button *ngIf="getCurrentTask(room?.currentTask)" [ngClass]="{ 'opacity-0': isFlip }" type="button" class="btn btn-light float-right"
-        (click)="resetVotesAndNext()">Seguir</button>
-    </div>
-  </div>
-
-  <div class="card-deck mb-3 text-center" *ngIf="room">
-    <div class="card mb-12 box-shadow">
-      <div class="card-body">
-        <h1 class="card-title pricing-card-title">{{ room.average }}</h1>
-      </div>
-    </div>
-  </div>
-
-  <div class="row" *ngIf="room" [ngClass]="{ 'show-card': !isFlip }">
-    <div class="col-sm-3 text-center flip-card" *ngFor="let vote of room.votes;">
-      <div class="flip-card-inner">
-        <div class="card text-white bg-{{ vote.value.class }} mb-3 flip-card-front">
-          <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
-          <div class="card-body">
-            <h1 class="card-title" *ngIf="room.isFlip">{{ vote.value.description }}</h1>
-          </div>
-        </div>
-        <div class="card text-white bg-info mb-3 flip-card-back">
-          <div class="card-header" [title]="vote.displayName">{{ vote.displayName }}</div>
-          <div class="card-body">
-            <h1 class="card-title">&nbsp;</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div class="container" *ngIf="room">
+  <app-votes-controls [room]="room" [isFlip]="isFlip"></app-votes-controls>
   <section *ngIf="room">
-    <app-fibonacci-deck *ngIf="!room.isFlip" (activeCardEvent)="activeCardEvent($event)"></app-fibonacci-deck>
+    <app-votes-average [room]="room"></app-votes-average>
+    <app-votes-cards [room]="room" [isFlip]="isFlip"></app-votes-cards>
+    <app-votes-deck [room]="room"></app-votes-deck>
   </section>
 </div>

@@ -17,6 +17,11 @@ import { LoadingComponent }         from './components/loading/loading.component
 import { TasksComponent }           from './pages/tasks/tasks.component';
 import { RoomsListComponent } from './pages/rooms/rooms-list/rooms-list.component';
 import { RoomsFormComponent } from './pages/rooms/rooms-form/rooms-form.component';
+import { VotesCardsComponent } from './pages/votes/votes-cards/votes-cards.component';
+import { VotesAverageComponent } from './pages/votes/votes-average/votes-average.component';
+import { VotesControlsComponent } from './pages/votes/votes-controls/votes-controls.component';
+import { VotesDeckComponent } from './pages/votes/votes-deck/votes-deck.component';
+import { RiskMatrixComponent } from './pages/risk-matrix/risk-matrix.component';
 
 const config = {
   apiKey           : "AIzaSyDEMf3XzmfjVr8jt7XgUikz3w9Xwgt15XM",
@@ -40,7 +45,12 @@ const config = {
     LoadingComponent,
     TasksComponent,
     RoomsListComponent,
-    RoomsFormComponent
+    RoomsFormComponent,
+    VotesCardsComponent,
+    VotesAverageComponent,
+    VotesControlsComponent,
+    VotesDeckComponent,
+    RiskMatrixComponent
   ],
   imports: [
     BrowserModule,

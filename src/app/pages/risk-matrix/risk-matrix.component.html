@@ -1,0 +1,40 @@
+<div class="row">
+    <div class="col-6 d-flex justify-content-end">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="h3 mb-3 font-weight-normal">Impacto</h1>
+                <div class="container line" [ngClass]="{ 'not-selected-item': selectedImpact == 0 }">
+                    <div class="cell success" (click)="setImpactAndCalcRick(1)"
+                        [ngClass]="{ 'active': selectedImpact == 1 }">🤙</div>
+                    <div class="cell warning" (click)="setImpactAndCalcRick(2)"
+                        [ngClass]="{ 'active': selectedImpact == 2 }">🤞</div>
+                    <div class="cell danger" (click)="setImpactAndCalcRick(3)"
+                        [ngClass]="{ 'active': selectedImpact == 3 }">👎</div>
+                </div>
+                <h1 class="h3 mb-3 font-weight-normal">Probabilidade</h1>
+                <div class="container line" [ngClass]="{ 'not-selected-item': selectedProbability == 0 }">
+                    <div class="cell success" (click)="setProbabilityAndCalcRick(1)"
+                        [ngClass]="{ 'active': selectedProbability == 1 }">😎</div>
+                    <div class="cell warning" (click)="setProbabilityAndCalcRick(2)"
+                        [ngClass]="{ 'active': selectedProbability == 2 }">😅</div>
+                    <div class="cell danger" (click)="setProbabilityAndCalcRick(3)"
+                        [ngClass]="{ 'active': selectedProbability == 3 }">😲</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <h1 class="h3 mb-3 font-weight-normal">Matriz de Riscos</h1>
+        <div class="container" [ngClass]="{ 'not-selected-item': risk == 0 }">
+            <div class="cell success" [ngClass]="{ 'active': risk == 1 }">1</div>
+            <div class="cell success" [ngClass]="{ 'active': risk == 2 }">2</div>
+            <div class="cell warning" [ngClass]="{ 'active': risk == 3 }">3</div>
+            <div class="cell success" [ngClass]="{ 'active': risk == 4 }">2</div>
+            <div class="cell warning" [ngClass]="{ 'active': risk == 5 }">5</div>
+            <div class="cell danger" [ngClass]="{ 'active': risk == 6 }">8</div>
+            <div class="cell warning" [ngClass]="{ 'active': risk == 7 }">3</div>
+            <div class="cell danger" [ngClass]="{ 'active': risk == 8 }">8</div>
+            <div class="cell danger" [ngClass]="{ 'active': risk == 9 }">13</div>
+        </div>
+    </div>
+</div>
