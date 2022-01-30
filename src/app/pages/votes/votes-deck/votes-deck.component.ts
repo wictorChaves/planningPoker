@@ -18,7 +18,7 @@ export class VotesDeckComponent implements OnInit {
   private user  : User;
 
   constructor(
-    public  userService: UserService,
+    private userService: UserService,
     private roomService: RoomService
   ) { }
 

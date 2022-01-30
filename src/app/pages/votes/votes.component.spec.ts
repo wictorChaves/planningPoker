@@ -4,18 +4,24 @@ import { AngularFirestore }                                  from '@angular/fire
 import { ActivatedRoute }                                    from '@angular/router';
 import { RouterTestingModule }                               from '@angular/router/testing';
 import { of }                                                from 'rxjs';
+import { IRoomModel }                                        from 'src/app/interfaces/i-room.model';
+import { UserService }                                       from 'src/app/services/user.service';
 import { FibonacciDeckComponentSpec }                        from 'src/app/tests/mocks/fibonacci-deck.component.spec';
 import { VotesAverageComponentSpec }                         from 'src/app/tests/mocks/votes-average.component.spec';
 import { VotesCardsComponentSpec }                           from 'src/app/tests/mocks/votes-cards.component.spec';
 import { VotesControlsComponentSpec }                        from 'src/app/tests/mocks/votes-controls.component.spec';
+import { VotesDeckComponentSpec }                            from 'src/app/tests/mocks/votes-deck.component.spec';
 import { VotesComponent }                                    from './votes.component';
 
 class ActivatedRouteMock {
 
+  public value: string = '';
+
   snapshot = {
     paramMap: {
       get: (value: string) => {
-        return 1;
+        this.value = value;
+        return this.value;
       }
     }
   }
@@ -41,6 +47,16 @@ class AngularFireAuthMock {
   public user = of({});
 }
 
+class UserServiceMock {
+
+  public called = false;
+
+  getUserAndAddUserToRoomIfNotExist(room: IRoomModel) {
+    this.called = true;
+  }
+
+}
+
 describe('VotesComponent', () => {
   let component: VotesComponent;
   let fixture  : ComponentFixture<VotesComponent>;
@@ -48,10 +64,11 @@ describe('VotesComponent', () => {
   var activatedRouteMock   = new ActivatedRouteMock();
   var angularFirestoreMock = new AngularFirestoreMock();
   var angularFireAuthMock  = new AngularFireAuthMock();
+  var userServiceMock      = new UserServiceMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [VotesComponent, FibonacciDeckComponentSpec, VotesAverageComponentSpec, VotesControlsComponentSpec, VotesCardsComponentSpec],
+      declarations: [VotesComponent, FibonacciDeckComponentSpec, VotesAverageComponentSpec, VotesControlsComponentSpec, VotesCardsComponentSpec, VotesDeckComponentSpec],
       providers   : [
         {
           provide : ActivatedRoute,
@@ -64,6 +81,10 @@ describe('VotesComponent', () => {
         {
           provide : AngularFireAuth,
           useValue: angularFireAuthMock
+        },
+        {
+          provide : UserService,
+          useValue: userServiceMock
         }
       ],
       imports: [
@@ -93,52 +114,6 @@ describe('VotesComponent', () => {
 
   });
 
-  it('should load room', () => {
-
-    // Arrange
-    var includeUserRoom                            = spyOn(component, 'includeUserRoom');
-        angularFirestoreMock.docValueChangesResult = of({
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
-      participants: [],
-      votes       : [],
-      tasks       : []
-    });
-
-    // Act
-    component.loadRoom();
-
-    // Assert
-    expect(includeUserRoom).toHaveBeenCalled();
-
-  });
-
-  it('should load room without currency task', () => {
-
-    // Arrange
-    var includeUserRoom                            = spyOn(component, 'includeUserRoom');
-        angularFirestoreMock.docValueChangesResult = of({
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : undefined,
-      participants: [],
-      votes       : [],
-      tasks       : []
-    });
-
-    // Act
-    component.loadRoom();
-
-    // Assert
-    expect(includeUserRoom).toHaveBeenCalled();
-
-  });
-
   it('should wait and flip', fakeAsync(() => {
 
     // Arrange
@@ -153,5 +128,93 @@ describe('VotesComponent', () => {
     expect(component.isFlip).toBeTruthy();
 
   }));
+
+  it('should get room id', () => {
+
+    // Arrange
+
+    // Act
+    component.getRoomId();
+
+    // Assert
+    expect(activatedRouteMock.value).toEqual('id');
+
+  });
+
+  it('should load room', fakeAsync(() => {
+
+    // Arrange
+    var room = {
+      id          : '1',
+      name        : 'Name',
+      average     : 'Average',
+      isFlip      : true,
+      currentTask : 1,
+      participants: [],
+      votes       : [],
+      tasks       : []
+    };
+        angularFirestoreMock.docValueChangesResult = of(room);
+    var getUserAndAddUserToRoomIfNotExist          = spyOn(component, 'getUserAndAddUserToRoomIfNotExist');
+
+    // Act
+    component.loadRoom();
+    tick();
+
+    // Assert
+    expect(component.room).toEqual(room);
+    expect(getUserAndAddUserToRoomIfNotExist).toHaveBeenCalled();
+    expect(component.room.currentTask).toEqual(1);
+
+  }));
+
+  it('should load the room without the current room task', fakeAsync(() => {
+
+    // Arrange
+    var room = {
+      id          : '1',
+      name        : 'Name',
+      average     : 'Average',
+      isFlip      : true,
+      currentTask : undefined,
+      participants: [],
+      votes       : [],
+      tasks       : []
+    };
+        angularFirestoreMock.docValueChangesResult = of(room);
+    var getUserAndAddUserToRoomIfNotExist          = spyOn(component, 'getUserAndAddUserToRoomIfNotExist');
+
+    // Act
+    component.loadRoom();
+    tick();
+
+    // Assert
+    expect(component.room).toEqual(room);
+    expect(getUserAndAddUserToRoomIfNotExist).toHaveBeenCalled();
+    expect(component.room.currentTask).toEqual(0);
+
+  }));
+
+  it('should get user and add user to room if not exist', () => {
+
+    // Arrange
+    var room = {
+      id          : '1',
+      name        : 'Name',
+      average     : 'Average',
+      isFlip      : true,
+      currentTask : 1,
+      participants: [],
+      votes       : [],
+      tasks       : []
+    };
+
+    // Act
+    component.getUserAndAddUserToRoomIfNotExist(room);
+
+    // Assert
+    expect(userServiceMock.called).toBeTruthy();
+
+  });
 
 });

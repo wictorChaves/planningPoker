@@ -16,17 +16,25 @@ export class RiskMatrixComponent implements OnInit {
   ngOnInit() {
   }
 
-  setImpactAndCalcRick(value: number) {
+  setImpact(value: number) {
     this.selectedImpact = (this.selectedImpact == value) ? 0 : value;
-    this.calcRick();
   }
 
-  setProbabilityAndCalcRick(value: number) {
+  setProbability(value: number) {
     this.selectedProbability = (this.selectedProbability == value) ? 0 : value;
-    this.calcRick();
   }
 
-  calcRick() {
+  setImpactAndCalcRisk(value: number) {
+    this.setImpact(value);
+    this.calcRisk();
+  }
+
+  setProbabilityAndCalcRisk(value: number) {
+    this.setProbability(value);
+    this.calcRisk();
+  }
+
+  calcRisk() {
     this.risk = this.selectedImpact * this.selectedProbability;
   }
 

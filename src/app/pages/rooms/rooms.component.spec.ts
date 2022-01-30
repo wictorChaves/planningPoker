@@ -1,6 +1,5 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AngularFirestore }                                  from '@angular/fire/firestore';
-import { FormsModule, ReactiveFormsModule }                  from '@angular/forms';
 import { Router }                                            from '@angular/router';
 import { of }                                                from 'rxjs';
 import { IRoomModel }                                        from 'src/app/interfaces/i-room.model';
