@@ -138,4 +138,47 @@ describe('RoomsComponent', () => {
 
   });
 
+  [
+    [{ name: 'Arthur' }, { name: 'Bernado' }, { name: 'Carlos' }],
+    [{ name: 'Arthur' }, { name: 'Carlos' }, { name: 'Bernado' }],
+    [{ name: 'Bernado' }, { name: 'Arthur' }, { name: 'Carlos' }],
+    [{ name: 'Bernado' }, { name: 'Carlos' }, { name: 'Arthur' }],
+    [{ name: 'Carlos' }, { name: 'Arthur' }, { name: 'Bernado' }],
+    [{ name: 'Carlos' }, { name: 'Bernado' }, { name: 'Arthur' }]
+  ].forEach(items => {
+    it('should sort list', () => {
+
+      // Arrange
+
+      // Act
+      var list = items.sort(component.sort);
+
+      // Assert
+      expect(list[0].name).toEqual('Arthur');
+      expect(list[1].name).toEqual('Bernado');
+      expect(list[2].name).toEqual('Carlos');
+
+    });
+  });
+
+  [
+    [{ name: 'Arthur' }, { name: 'Bernado' }, { name: 'Arthur' }]
+  ].forEach(items => {
+    it('should sort list with repeated values', () => {
+
+      // Arrange
+
+      // Act
+      var list = items.sort(component.sort);
+
+      // Assert
+      expect(list[0].name).toEqual('Arthur');
+      expect(list[1].name).toEqual('Arthur');
+      expect(list[2].name).toEqual('Bernado');
+
+    });
+  });
+
+
+
 });

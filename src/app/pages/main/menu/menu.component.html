@@ -1,7 +1,10 @@
 <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
-  <h5 class="my-0 mr-md-auto font-weight-normal"><a routerLink="/" class="main-title">Planning Poker</a></h5>
-  <nav class="my-2 my-md-0 mr-md-3" *ngIf="angularFireAuth.user | async as user;">
-    {{ user.displayName }}
+  <h5 class="my-0 mr-md-auto font-weight-normal"><a routerLink="/" class="main-title"><span
+        class="icon"><span>♠</span><span class="red">♥</span><span>♣</span><span class="red">♦</span></span><span
+        class="text">Planning
+        Poker</span></a></h5>
+  <nav class="my-2 my-md-0 mr-md-3 user-name" *ngIf="angularFireAuth.user | async as user">
+    {{ user.displayName | lowercase }}
   </nav>
   <a class="btn btn-outline-primary" [routerLink]="" (click)="logout()">Sair</a>
 </div>

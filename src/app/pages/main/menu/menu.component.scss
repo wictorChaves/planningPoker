@@ -1,6 +1,35 @@
 .main-title {
   text-decoration: none;
-  color: black;
+  color: var(--dark);
+  .icon {
+    span {
+      display: inline-block;
+      border: 2px solid var(--dark);
+      border-radius: 4px;
+      width: 22px;
+      height: 28px;
+      line-height: 21px;
+      box-sizing: border-box;
+      padding: 0;
+      background-color: var(--white);
+      margin-right: -4px;
+      padding-left: 2px;
+      transition-duration: 0.3s;
+      transform: rotate(340deg) translate(0, 0px);
+      &.red {
+        color: var(--red);
+      }
+      &:hover {
+        transition-duration: 0.3s;
+        transform: rotate(340deg) translate(0, -5px);
+        top: -6px;
+      }
+    }
+  }
+  .text {
+    margin-left: 12px;
+    font-weight: bold;
+  }
 }
 
 .user-name {

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { map } from 'rxjs/operators';
-import { IRoomModel } from 'src/app/interfaces/i-room.model';
+import { AngularFirestore }  from '@angular/fire/firestore';
+import { map }               from 'rxjs/operators';
+import { IRoomModel }        from 'src/app/interfaces/i-room.model';
 
 @Component({
-  selector: 'app-rooms',
+  selector   : 'app-rooms',
   templateUrl: './rooms.component.html',
-  styleUrls: ['./rooms.component.scss']
+  styleUrls  : ['./rooms.component.scss']
 })
 export class RoomsComponent implements OnInit {
 
@@ -34,12 +34,16 @@ export class RoomsComponent implements OnInit {
 
   actionToRoomModel(action: any) {
     const data = action.payload.doc.data() as IRoomModel;
-    const id = action.payload.doc.id;
+    const id   = action.payload.doc.id;
     return { id, ...data };
   }
 
   setRooms(rooms: IRoomModel[]) {
-    this.rooms = rooms;
+    this.rooms = rooms.length <= 0 ? [] : rooms.sort(this.sort);
+  }
+
+  sort(a: IRoomModel, b: IRoomModel) {
+    return a.name.localeCompare(b.name);
   }
 
   //#endregion

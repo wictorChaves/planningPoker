@@ -19,8 +19,8 @@
         <button *ngIf="getCurrentTask(room?.currentTask)" type="button" class="btn btn-light float-left"
             (click)="resetVotesAndGoBack()">Voltar</button>
         <button type="button" class="btn btn-info" (click)="resetVotes()">Revotar</button>
-        <button *ngIf="!isFlip" type="button" class="btn btn-primary" (click)="flipCard()">Virar</button>
-        <button *ngIf="isFlip" type="button" class="btn btn-primary" (click)="resetVotesAndNext()">Seguir</button>
+        <button *ngIf="!isFlip" type="button" class="btn btn-success" (click)="flipCard()">Virar</button>
+        <button *ngIf="isFlip" type="button" class="btn btn-success" (click)="resetVotesAndNext()">Seguir</button>
         <button *ngIf="getCurrentTask(room?.currentTask)" [ngClass]="{ 'opacity-0': isFlip }" type="button"
             class="btn btn-light float-right" (click)="resetVotesAndNext()">Seguir</button>
     </div>
