@@ -5,5 +5,4 @@ export class VoteModel implements IVoteModel {
   uid        : string;
   displayName: string;
   value      : FibonacciModel;
-  isRedCard  : boolean;
 }
