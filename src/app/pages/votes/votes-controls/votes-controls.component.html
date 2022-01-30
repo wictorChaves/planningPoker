@@ -5,7 +5,7 @@
                 << </label>
                     <label class="btn btn-light" (click)="prevTask()">
                         < </label>
-                            <label class="btn btn-light" (click)="goTask()">
+                            <label [title]="getCurrentTask(room?.currentTask)" class="btn btn-light" (click)="goTask()">
                                 {{ getCurrentTask(room?.currentTask) }}
                             </label>
                             <label class="btn btn-light" (click)="nextTask()"> > </label>
@@ -18,9 +18,9 @@
     <div class="col-12 btn-command text-center" *ngIf="hasVotes()">
         <button *ngIf="getCurrentTask(room?.currentTask)" type="button" class="btn btn-light float-left"
             (click)="resetVotesAndGoBack()">Voltar</button>
-        <button type="button" class="btn btn-info" (click)="resetVotes()">Revotar</button>
-        <button *ngIf="!isFlip" type="button" class="btn btn-success" (click)="flipCard()">Virar</button>
-        <button *ngIf="isFlip" type="button" class="btn btn-success" (click)="resetVotesAndNext()">Seguir</button>
+        <button type="button" class="btn btn-secondary" (click)="resetVotes()">Revotar</button>
+        <button *ngIf="!isFlip" type="button" class="btn btn-primary" (click)="flipCard()">Virar</button>
+        <button *ngIf="isFlip" type="button" class="btn btn-primary" (click)="resetVotesAndNext()">Seguir</button>
         <button *ngIf="getCurrentTask(room?.currentTask)" [ngClass]="{ 'opacity-0': isFlip }" type="button"
             class="btn btn-light float-right" (click)="resetVotesAndNext()">Seguir</button>
     </div>

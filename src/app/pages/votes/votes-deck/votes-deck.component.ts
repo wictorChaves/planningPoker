@@ -46,7 +46,7 @@ export class VotesDeckComponent implements OnInit {
 
   addVote(fibonacciModel: FibonacciModel) {
     this.updatePartialRoom({
-      votes: firebase.firestore.FieldValue.arrayUnion({ uid: this.user.uid, displayName: this.user.displayName, value: fibonacciModel }) as unknown as IVoteModel[]
+      votes: firebase.firestore.FieldValue.arrayUnion({ uid: this.user.uid, displayName: this.user.displayName, value: fibonacciModel, isRedCard: this.getRandomBooleanValue() }) as unknown as IVoteModel[]
     });
   }
 
@@ -56,6 +56,10 @@ export class VotesDeckComponent implements OnInit {
 
   updatePartialRoom(partialRoom: any): void {
     this.roomService.updatePartialRoom(partialRoom, this.room.id.toString());
+  }
+
+  getRandomBooleanValue(): boolean {
+    return (Math.random()) < 0.5;
   }
 
 }

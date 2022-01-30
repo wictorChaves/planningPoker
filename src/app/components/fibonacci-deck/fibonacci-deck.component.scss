@@ -8,20 +8,48 @@
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid #d9dadb;
-}
 
-.deck-custom .card-deck-custom {
-  position: absolute;
-  margin-left: -55px;
-  width: 100%;
-  box-shadow: -2px 5px 7px #000000a8;
-  max-width: 125px;
-  cursor: pointer;
-  transition: margin 500ms;
-}
+  .card-deck-custom {
+    position: absolute;
+    margin-left: -55px;
+    width: 100%;
+    box-shadow: -2px 5px 7px #000000a8;
+    max-width: 216px;
+    cursor: pointer;
+    transition: margin 500ms;
+    height: 400px;
+    color: var(--red) !important;
+    background-color: #f8f9fa !important;
 
-.deck-custom .card-deck-custom.active {
-  margin-top: -20px;
+    .card-body {
+      h1.card-title {
+        user-select: none;
+      }
+    }
+
+    &.text-success,
+    &.text-secondary,
+    &.text-warning {
+      .card-body {
+        h1.card-title {
+          color: var(--dark);
+        }
+      }
+    }
+  }
+
+  .card-deck-custom.active {
+    margin-top: -20px;
+  }
+
+  .card-body {
+    padding: 16px 1.25rem 1.25rem 16px;
+    h1 {
+      width: fit-content;
+      text-align: center;
+      line-height: 38px;
+    }
+  }
 }
 
 .col-custom-13-full {
@@ -45,7 +73,7 @@
 
 @media only screen and (max-width: 579px) {
   .card-body {
-    padding: 1.25rem 1.25rem 1.25rem 6px;
+    padding-left: 6px;
   }
 }
 
@@ -69,7 +97,7 @@
 
 @media only screen and (max-width: 300px) {
   .card-body {
-    padding: 1.25rem 1.25rem 1.25rem 2px;
+    padding-left: 2px;
   }
 }
 
@@ -77,6 +105,7 @@
   .deck-custom {
     height: 168px;
   }
+
   .card-body h1 {
     font-size: 25px;
   }

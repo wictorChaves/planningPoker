@@ -4,4 +4,5 @@ export interface IVoteModel {
   uid        : string;
   displayName: string;
   value      : IFibonacciModel;
+  isRedCard  : boolean;
 }

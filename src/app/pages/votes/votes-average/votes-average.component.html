@@ -1,7 +1,13 @@
 <div class="card-deck mb-3 text-center" *ngIf="room">
     <div class="card mb-12 box-shadow">
         <div class="card-body">
-            <h1 class="card-title pricing-card-title">{{ room.average }}</h1>
+            <h1 [ngClass]="{ 'red': ['0','1','2','3','5','8'].includes(room.average) }"
+                class="card-title pricing-card-title">{{
+                room.average }}
+                <span *ngIf="['0','1','2','3'].includes(room.average)">♥</span>
+                <span *ngIf="['5','8'].includes(room.average)">♦</span>
+                <span *ngIf="['13','21','34','55','89'].includes(room.average)">♦</span>
+            </h1>
         </div>
     </div>
 </div>

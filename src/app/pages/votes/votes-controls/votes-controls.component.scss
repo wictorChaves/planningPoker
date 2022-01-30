@@ -27,6 +27,32 @@
     }
 }
 
+.btn-group-toggle {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.25rem;
+    label:nth-child(3) {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+    }
+}
+
 .opacity-0 {
     opacity: 0;
+}
+.btn-command {
+    .btn-light {
+        border: 1px solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+    }
+}
+
+@media only screen and (max-width: 360px) {
+    .btn-command {
+        button {
+            margin: 0;
+            width: 100%;
+        }
+    }
 }
