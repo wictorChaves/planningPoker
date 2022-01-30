@@ -19,7 +19,7 @@
     width: 150px;
     height: 150px;
     perspective: 1000px;
-    margin-bottom: 16px;
+    margin: 18px 4px;
 }
 
 .flip-card-inner {
@@ -51,6 +51,9 @@
     border: 2px solid var(--light);
     outline: 12px solid var(--light);
     box-shadow: 5px 5px 15px 5px #000000a6;
+    box-shadow: 0 0 0 2px var(--dark), 0 0 0 12px var(--light), 0 0 0 13px rgba(0, 0, 0, 0.125),
+        rgba(99, 99, 99, 0.2) 0px 2px 8px 14px;
+
     .card-body {
         padding: 0;
         margin: 0;
@@ -129,16 +132,14 @@
     background-color: var(--light) !important;
     padding: 31px 30px;
     background-origin: content-box;
-    border: 2px solid var(--dark);
-    outline: 12px solid var(--light);
-    box-shadow: 5px 5px 15px 5px #000000a6;
+    box-shadow: 0 0 0 2px var(--dark), 0 0 0 12px var(--light), 0 0 0 13px rgba(0, 0, 0, 0.125),
+        rgba(99, 99, 99, 0.2) 0px 2px 8px 14px;
+
     .card-body {
-        background: var(--light);
         height: 27px;
         padding: 0;
         margin: 0;
         display: block;
-        border: 0;
         flex: none;
         color: var(--dark);
         font-weight: bold;
@@ -148,6 +149,12 @@
         overflow: hidden !important;
         text-overflow: ellipsis;
         cursor: context-menu;
+
+        border-radius: 3px;
+        border: 2px solid var(--light);
+        background: var(--dark);
+        color: var(--light);
+        outline: 3px solid var(--dark);
     }
 
     &.red {
@@ -155,10 +162,10 @@
         background-color: var(--light) !important;
         border: 2px solid var(--red);
         outline: 12px solid var(--light);
-        box-shadow: 5px 5px 15px 5px #000000a6;
+        
         .card-body {
-            background: var(--light);
-            color: var(--red);
+            background: var(--red);
+            outline: 3px solid var(--red);
         }
     }
 }
