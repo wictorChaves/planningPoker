@@ -304,7 +304,8 @@ describe('VotesControlsComponent', () => {
           value      : 1,
           description: '1',
           class      : '1'
-        }
+        },
+        isRedCard:true
       },
       {
         uid        : '2',
@@ -313,7 +314,8 @@ describe('VotesControlsComponent', () => {
           value      : 2,
           description: '2',
           class      : '2'
-        }
+        },
+        isRedCard:false
       },
       {
         uid        : '3',
@@ -322,7 +324,8 @@ describe('VotesControlsComponent', () => {
           value      : 3,
           description: '3',
           class      : '3'
-        }
+        },
+        isRedCard:true
       }
     ];
 

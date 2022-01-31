@@ -142,7 +142,8 @@ describe('VotesDeckComponent', () => {
         value      : 1,
         description: '1',
         class      : '1'
-      }
+      },
+      isRedCard: true
     }];
 
 
@@ -192,7 +193,8 @@ describe('VotesDeckComponent', () => {
         value      : 1,
         description: '1',
         class      : '1'
-      }
+      },
+      isRedCard: false
     };
 
     // Act
