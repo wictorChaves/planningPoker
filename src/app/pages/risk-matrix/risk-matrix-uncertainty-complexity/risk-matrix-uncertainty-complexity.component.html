@@ -1,0 +1,23 @@
+<div class="row">
+    <div class="col-md-12 matrix">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="h3 mb-3 font-weight-normal text-center">Incerteza + Complexidade</h1>
+                <div class="container" [ngClass]="{ 'not-selected-item': risk == 0 }">
+                    <div class="cell success" [ngClass]="{ 'active': risk == 5 }">1<span>😎🤙</span></div>
+                    <div class="cell success" [ngClass]="{ 'active': risk == 10 }">2<span>😎🤞</span></div>
+                    <div class="cell warning" [ngClass]="{ 'active': risk == 15 }"><span>👎😎</span>5</div>
+
+                    <div class="cell success" [ngClass]="{ 'active': risk == 6 }">2<span>😅🤙</span></div>
+                    <div class="cell warning" [ngClass]="{ 'active': risk == 12 }">3/5<span>😅🤞</span></div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk == 18 }"><span>👎😅</span>8</div>
+
+                    <div class="cell warning" [ngClass]="{ 'active': risk == 7 }">5<span>😲🤙</span></div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk ==  14 }">8<span>😲🤞</span></div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk ==  21 }"><span>👎😲</span>13</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

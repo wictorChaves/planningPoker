@@ -7,35 +7,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RiskMatrixComponent implements OnInit {
 
-  public selectedImpact      = 0;
-  public selectedProbability = 0;
-  public risk                = 0;
+  public uncertainty = 0;
+  public complexity  = 0;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  setImpact(value: number) {
-    this.selectedImpact = (this.selectedImpact == value) ? 0 : value;
+  uncertaintyEvent(risk: number) {
+    if ([5].includes(risk))
+      this.uncertainty = 1;
+    if ([10, 15, 6, 7].includes(risk))
+      this.uncertainty = 2;
+    if ([12, 18, 14, 21].includes(risk))
+      this.uncertainty = 3;
+    if ([0].includes(risk))
+      this.uncertainty = 0;
   }
 
-  setProbability(value: number) {
-    this.selectedProbability = (this.selectedProbability == value) ? 0 : value;
-  }
-
-  setImpactAndCalcRisk(value: number) {
-    this.setImpact(value);
-    this.calcRisk();
-  }
-
-  setProbabilityAndCalcRisk(value: number) {
-    this.setProbability(value);
-    this.calcRisk();
-  }
-
-  calcRisk() {
-    this.risk = this.selectedImpact * this.selectedProbability;
+  complexityEvent(risk: number) {
+    if ([5].includes(risk))
+      this.complexity = 5;
+    if ([10, 15, 6, 7].includes(risk))
+      this.complexity = 6;
+    if ([12, 18, 14, 21].includes(risk))
+      this.complexity = 7;
+    if ([0].includes(risk))
+      this.complexity = 0;
   }
 
 }

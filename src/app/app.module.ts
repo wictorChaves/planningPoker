@@ -1,27 +1,29 @@
-import { BrowserModule }            from '@angular/platform-browser';
-import { NgModule }                 from '@angular/core';
-import { AppRoutingModule }         from './app-routing.module';
-import { AppComponent }             from './app.component';
-import { FibonacciDeckComponent }   from './components/fibonacci-deck/fibonacci-deck.component';
-import { LoginComponent }           from './pages/login/login.component';
-import { AngularFireModule }        from '@angular/fire';
-import { AngularFirestoreModule }   from '@angular/fire/firestore';
-import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule }    from '@angular/fire/auth';
-import { VotesComponent }           from './pages/votes/votes.component';
-import { MainComponent }            from './pages/main/main.component';
-import { MenuComponent }            from './pages/main/menu/menu.component';
-import { RoomsComponent }           from './pages/rooms/rooms.component';
-import { ReactiveFormsModule }      from '@angular/forms';
-import { LoadingComponent }         from './components/loading/loading.component';
-import { TasksComponent }           from './pages/tasks/tasks.component';
-import { RoomsListComponent } from './pages/rooms/rooms-list/rooms-list.component';
-import { RoomsFormComponent } from './pages/rooms/rooms-form/rooms-form.component';
-import { VotesCardsComponent } from './pages/votes/votes-cards/votes-cards.component';
-import { VotesAverageComponent } from './pages/votes/votes-average/votes-average.component';
-import { VotesControlsComponent } from './pages/votes/votes-controls/votes-controls.component';
-import { VotesDeckComponent } from './pages/votes/votes-deck/votes-deck.component';
-import { RiskMatrixComponent } from './pages/risk-matrix/risk-matrix.component';
+import { BrowserModule }                            from '@angular/platform-browser';
+import { NgModule }                                 from '@angular/core';
+import { AppRoutingModule }                         from './app-routing.module';
+import { AppComponent }                             from './app.component';
+import { FibonacciDeckComponent }                   from './components/fibonacci-deck/fibonacci-deck.component';
+import { LoginComponent }                           from './pages/login/login.component';
+import { AngularFireModule }                        from '@angular/fire';
+import { AngularFirestoreModule }                   from '@angular/fire/firestore';
+import { AngularFireStorageModule }                 from '@angular/fire/storage';
+import { AngularFireAuthModule }                    from '@angular/fire/auth';
+import { VotesComponent }                           from './pages/votes/votes.component';
+import { MainComponent }                            from './pages/main/main.component';
+import { MenuComponent }                            from './pages/main/menu/menu.component';
+import { RoomsComponent }                           from './pages/rooms/rooms.component';
+import { ReactiveFormsModule }                      from '@angular/forms';
+import { LoadingComponent }                         from './components/loading/loading.component';
+import { TasksComponent }                           from './pages/tasks/tasks.component';
+import { RoomsListComponent }                       from './pages/rooms/rooms-list/rooms-list.component';
+import { RoomsFormComponent }                       from './pages/rooms/rooms-form/rooms-form.component';
+import { VotesCardsComponent }                      from './pages/votes/votes-cards/votes-cards.component';
+import { VotesAverageComponent }                    from './pages/votes/votes-average/votes-average.component';
+import { VotesControlsComponent }                   from './pages/votes/votes-controls/votes-controls.component';
+import { VotesDeckComponent }                       from './pages/votes/votes-deck/votes-deck.component';
+import { RiskMatrixComponent }                      from './pages/risk-matrix/risk-matrix.component';
+import { RiskMatrixDevelopReproduceComponent }      from './pages/risk-matrix/risk-matrix-develop-reproduce/risk-matrix-develop-reproduce.component';
+import { RiskMatrixUncertaintyComplexityComponent } from './pages/risk-matrix/risk-matrix-uncertainty-complexity/risk-matrix-uncertainty-complexity.component';
 
 const config = {
   apiKey           : "AIzaSyDEMf3XzmfjVr8jt7XgUikz3w9Xwgt15XM",
@@ -50,7 +52,9 @@ const config = {
     VotesAverageComponent,
     VotesControlsComponent,
     VotesDeckComponent,
-    RiskMatrixComponent
+    RiskMatrixComponent,
+    RiskMatrixDevelopReproduceComponent,
+    RiskMatrixUncertaintyComplexityComponent
   ],
   imports: [
     BrowserModule,
