@@ -1,0 +1,44 @@
+.risk-content {
+    position: fixed;
+    top: 73px;
+    right: -100%;
+    bottom: 0;
+    background: white;
+    padding-top: 18px;
+    width: 100%;
+    transition: right 1s ease;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    overflow: hidden;
+    overflow-y: auto;
+
+    &.open {
+        right: 0;
+    }
+}
+.button-toggle-risk {
+    position: fixed;
+    right: 0px;
+    bottom: 0px;
+    cursor: pointer;
+    user-select: none;
+    width: 110px;
+    transition: all 1s ease;
+    &.open {
+        transform: rotate(-50deg) translate(-42px, 38px);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .risk-content {
+        top: 141px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .button-toggle-risk {
+        width: 50px;
+        &.open {
+            transform: rotate(-50deg) translate(-18px, 16px);
+        }
+    }
+}

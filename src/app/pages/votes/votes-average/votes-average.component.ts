@@ -15,4 +15,16 @@ export class VotesAverageComponent implements OnInit {
   ngOnInit() {
   }
 
+  isHeart(average: string) {
+    return Number(average) <= 3;
+  }
+
+  isDiamond(average: string) {
+    return Number(average) > 3 && Number(average) <= 10;
+  }
+
+  isSpade(average: string) {
+    return Number(average) > 10;
+  }
+
 }

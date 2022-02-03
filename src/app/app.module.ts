@@ -25,6 +25,7 @@ import { RiskMatrixComponent }                      from './pages/risk-matrix/ri
 import { RiskMatrixDevelopReproduceComponent }      from './pages/risk-matrix/risk-matrix-develop-reproduce/risk-matrix-develop-reproduce.component';
 import { RiskMatrixUncertaintyComplexityComponent } from './pages/risk-matrix/risk-matrix-uncertainty-complexity/risk-matrix-uncertainty-complexity.component';
 
+
 const config = {
   apiKey           : "AIzaSyDEMf3XzmfjVr8jt7XgUikz3w9Xwgt15XM",
   authDomain       : "planningpoker-ed055.firebaseapp.com",

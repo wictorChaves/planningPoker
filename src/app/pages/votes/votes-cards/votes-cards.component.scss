@@ -50,9 +50,7 @@
     background-origin: content-box;
     border: 2px solid var(--light);
     outline: 12px solid var(--light);
-    box-shadow: 5px 5px 15px 5px #000000a6;
-    box-shadow: 0 0 0 2px var(--dark), 0 0 0 12px var(--light), 0 0 0 13px rgba(0, 0, 0, 0.125),
-        rgba(99, 99, 99, 0.2) 0px 2px 8px 14px;
+    box-shadow: 0 0 0 12px var(--light), 0 0 0 13px rgba(0, 0, 0, 0.125), rgba(99, 99, 99, 0.2) 0px 2px 8px 14px;
 
     .card-body {
         padding: 0;
@@ -99,6 +97,12 @@
                         margin-right: 9px;
                         height: 100%;
                         line-height: 20px;
+                    }
+
+                    &.k {
+                        background: url("../../../../assets/k.png");
+                        background-repeat: no-repeat;
+                        background-position: center center;
                     }
                 }
                 &:last-child {
@@ -162,7 +166,7 @@
         background-color: var(--light) !important;
         border: 2px solid var(--red);
         outline: 12px solid var(--light);
-        
+
         .card-body {
             background: var(--red);
             outline: 3px solid var(--red);

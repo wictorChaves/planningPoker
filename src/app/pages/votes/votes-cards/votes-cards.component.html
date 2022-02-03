@@ -2,15 +2,15 @@
     <div class="col-sm-3 text-center flip-card" *ngFor="let vote of room.votes;">
         <div class="flip-card-inner">
             <div class="card text-white bg-{{ vote.value.class }} mb-3 flip-card-front">
-                <div class="card-body" [ngClass]="{ 'red': ['0','1','2','3','5','8'].includes(vote.value.description) }"
+                <div class="card-body" [ngClass]="{ 'red': ['0','A','2','3','5','8'].includes(vote.value.description) }"
                     [title]="vote.displayName">
                     <ul *ngIf="room.isFlip">
                         <li class="value">
-                            <span *ngIf="['0','1','2','3'].includes(vote.value.description)">{{ vote.value.description
+                            <span *ngIf="['0','A','2','3'].includes(vote.value.description)">{{ vote.value.description
                                 }}<br />♥</span>
                             <span *ngIf="['5','8'].includes(vote.value.description)">{{ vote.value.description
                                 }}<br />♦</span>
-                            <span *ngIf="['13','21','34','55','89'].includes(vote.value.description)">{{
+                            <span *ngIf="['K','21','34','55','89'].includes(vote.value.description)">{{
                                 vote.value.description
                                 }}<br />♠</span>
                             <span *ngIf="['?'].includes(vote.value.description)">{{ vote.value.description
@@ -20,8 +20,8 @@
                                 }} ♣</span>
                         </li>
                         <li>
-                            <div class="square">
-                                <span *ngIf="['0','1','2','3'].includes(vote.value.description)">♥</span>
+                            <div class="square" [ngClass]="{ 'k': ['K'].includes(vote.value.description) }">
+                                <span *ngIf="['0','A','2','3'].includes(vote.value.description)">♥</span>
                                 <span *ngIf="['5','8'].includes(vote.value.description)">♦</span>
                                 <span *ngIf="['13','21','34','55','89'].includes(vote.value.description)">♠</span>
                                 <span *ngIf="['?','Pass'].includes(vote.value.description)">♣</span>

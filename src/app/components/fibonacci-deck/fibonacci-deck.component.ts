@@ -12,7 +12,7 @@ export class FibonacciDeckComponent implements OnInit {
 
   @Input() activeCard: FibonacciModel = {
     value      : 1,
-    description: '1',
+    description: 'A',
     class      : 'primary'
   };
 
@@ -24,7 +24,7 @@ export class FibonacciDeckComponent implements OnInit {
     },
     {
       value      : 1,
-      description: '1',
+      description: 'A',
       class      : 'primary'
     },
     {
@@ -49,7 +49,7 @@ export class FibonacciDeckComponent implements OnInit {
     },
     {
       value      : 13,
-      description: '13',
+      description: 'K',
       class      : 'success'
     },
     {

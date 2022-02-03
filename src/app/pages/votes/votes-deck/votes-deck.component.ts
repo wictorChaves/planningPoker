@@ -1,11 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import * as firebase                from 'firebase/app';
-import { User }                     from 'firebase/app';
 import { FibonacciModel }           from 'src/app/classes/fibonacci.model';
 import { IRoomModel }               from 'src/app/interfaces/i-room.model';
-import { IVoteModel }               from 'src/app/interfaces/i-vote.model';
-import { RoomService }              from 'src/app/services/room.service';
-import { UserService }              from 'src/app/services/user.service';
+import { VoteService }              from 'src/app/services/vote.service';
 
 @Component({
   selector   : 'app-votes-deck',
@@ -14,52 +10,20 @@ import { UserService }              from 'src/app/services/user.service';
 })
 export class VotesDeckComponent implements OnInit {
 
-  @Input () room: IRoomModel;
-  private user  : User;
+  @Input() room: IRoomModel;
+  public isOpenRisk = false;
 
-  constructor(
-    private userService: UserService,
-    private roomService: RoomService
-  ) { }
+  constructor(private userService: VoteService) { }
 
   ngOnInit() {
-    this.loadUser();
-  }
-
-  loadUser() {
-    this.userService.getUser().subscribe(user => { this.user = user; })
   }
 
   activeCardEvent(fibonacciModel: FibonacciModel) {
-    var vote = this.getUserVote();
-    if (this.hasVote(vote)) this.removeVote(vote);
-    this.addVote(fibonacciModel);
+    this.userService.activeCardEvent(this.room, fibonacciModel);
   }
 
-  getUserVote() {
-    return this.room.votes.find(p => p.uid == this.user.uid);
-  }
-
-  removeVote(vote: IVoteModel) {
-    this.updatePartialRoom({ votes: firebase.firestore.FieldValue.arrayRemove(vote) as unknown as IVoteModel[] });
-  }
-
-  addVote(fibonacciModel: FibonacciModel) {
-    this.updatePartialRoom({
-      votes: firebase.firestore.FieldValue.arrayUnion({ uid: this.user.uid, displayName: this.user.displayName, value: fibonacciModel, isRedCard: this.getRandomBooleanValue() }) as unknown as IVoteModel[]
-    });
-  }
-
-  hasVote(vote: IVoteModel) {
-    return vote != undefined || vote != null;
-  }
-
-  updatePartialRoom(partialRoom: any): void {
-    this.roomService.updatePartialRoom(partialRoom, this.room.id.toString());
-  }
-
-  getRandomBooleanValue(): boolean {
-    return (Math.random()) < 0.5;
+  toggleOpenRisk() {
+    this.isOpenRisk = !this.isOpenRisk;
   }
 
 }

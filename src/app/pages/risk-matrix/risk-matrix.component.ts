@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IRoomModel } from 'src/app/interfaces/i-room.model';
 
 @Component({
   selector   : 'app-risk-matrix',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RiskMatrixComponent implements OnInit {
 
+  @Input() room: IRoomModel;
   public uncertainty = 0;
   public complexity  = 0;
 

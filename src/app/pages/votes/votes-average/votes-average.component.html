@@ -4,9 +4,9 @@
             <h1 [ngClass]="{ 'red': ['0','1','2','3','5','8'].includes(room.average) }"
                 class="card-title pricing-card-title">{{
                 room.average }}
-                <span *ngIf="['0','1','2','3'].includes(room.average)">♥</span>
-                <span *ngIf="['5','8'].includes(room.average)">♦</span>
-                <span *ngIf="['13','21','34','55','89'].includes(room.average)">♦</span>
+                <span *ngIf="isHeart(room.average)">♥</span>
+                <span *ngIf="isDiamond(room.average)">♦</span>
+                <span *ngIf="isSpade(room.average)">♠</span>
             </h1>
         </div>
     </div>
