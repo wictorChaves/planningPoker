@@ -33,13 +33,26 @@ $square-size: 174px;
         }
         &.active {
             opacity: 1;
-            line-height: calc(174px - 10px);
-            font-size: 100px;
-            span {
-                width: auto;
-                height: auto;
-                display: inline-block;
-                opacity: 1;
+            font-size: 70px;
+            .cell-content {
+                width: 100%;
+                margin: 0;
+                position: absolute;
+                top: 50%;
+                -ms-transform: translateY(-50%);
+                transform: translateY(-50%);
+                p {
+                    padding: 0;
+                    margin: 0;
+                    line-height: 48px;
+                    font-size: 82px;
+                }
+                span {
+                    width: auto;
+                    height: auto;
+                    display: inline-block;
+                    opacity: 1;
+                }
             }
         }
         &.warning {
@@ -93,7 +106,6 @@ $square-size: 174px;
             width: $grid-size;
             height: $grid-size;
             position: absolute;
-            line-height: $grid-size;
             z-index: 1;
         }
     }
@@ -129,11 +141,10 @@ $square-size: 174px;
         width: $grid-size;
         height: $grid-size;
         .cell {
-            font-size: 48px;
+            font-size: 40px;
             line-height: $square-size;
             &.active {
-                line-height: calc(104px - 10px);
-                font-size: 52px;
+                font-size: 40px;
             }
         }
 
@@ -151,7 +162,6 @@ $square-size: 174px;
             .active {
                 width: $grid-size;
                 height: $grid-size;
-                line-height: $grid-size;
             }
         }
     }

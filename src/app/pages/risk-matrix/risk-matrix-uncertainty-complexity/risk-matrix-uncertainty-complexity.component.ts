@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FibonacciModel }           from 'src/app/classes/fibonacci.model';
+import { FibonacciSequenci }        from 'src/app/components/fibonacci-deck/constants/fibonacci.model.const';
 import { IRoomModel }               from 'src/app/interfaces/i-room.model';
 import { VoteService }              from 'src/app/services/vote.service';
+import { RickModel }                from '../model/risk.model';
 
 @Component({
   selector   : 'app-risk-matrix-uncertainty-complexity',
@@ -10,104 +12,76 @@ import { VoteService }              from 'src/app/services/vote.service';
 })
 export class RiskMatrixUncertaintyComplexityComponent implements OnInit {
 
+  @Input() set setUncertaintyAndCalcRisk(value: RickModel) {
+    this.setUncertainty(value);
+    this.calcRisk();
+  }
+
+  @Input() set setComplexityAndCalcRisk(value: RickModel) {
+    this.setComplexity(value);
+    this.calcRisk();
+  }
+
   @Input() room             : IRoomModel;
-  public selectedUncertainty: number;
-  public selectedComplexity : number;
-  public risk               : number = 0;
-  public fibonacciSequenci  : FibonacciModel[] = [
-    {
-      value      : 0,
-      description: '0',
-      class      : 'primary'
-    },
-    {
-      value      : 1,
-      description: 'A',
-      class      : 'primary'
-    },
-    {
-      value      : 2,
-      description: '2',
-      class      : 'primary'
-    },
-    {
-      value      : 3,
-      description: '3',
-      class      : 'primary'
-    },
-    {
-      value      : 5,
-      description: '5',
-      class      : 'primary'
-    },
-    {
-      value      : 8,
-      description: '8',
-      class      : 'primary'
-    },
-    {
-      value      : 13,
-      description: 'K',
-      class      : 'success'
-    }
-  ];
+  public selectedUncertainty: RickModel = { value: 0, emojis: [] };
+  public selectedComplexity : RickModel = { value: 0, emojis: [] };
+  public risk               : RickModel = { value: 0, emojis: [] };
 
   constructor(private userService: VoteService) { }
 
   ngOnInit() {
   }
 
-  setUncertainty(value: number) {
-    this.selectedUncertainty = (this.selectedUncertainty == value) ? 0 : value;
+  getEmojis(selectedUncertainty: RickModel, selectedComplexity: RickModel) {
+    return [...selectedUncertainty.emojis, ...selectedComplexity.emojis].join('');
   }
 
-  setComplexity(value: number) {
-    this.selectedComplexity = (this.selectedComplexity == value) ? 0 : value;
+  setUncertainty(risk: RickModel) {
+    this.selectedUncertainty = risk;
   }
 
-  @Input() set setUncertaintyAndCalcRisk(value: number) {
-    this.setUncertainty(value);
-    this.calcRisk();
+  setComplexity(risk: RickModel) {
+    this.selectedComplexity = risk;
   }
 
-  @Input() set setComplexityAndCalcRisk(value: number) {
-    this.setComplexity(value);
-    this.calcRisk();
+  buildRisk() {
+    var rickModel        = new RickModel();
+        rickModel.value  = this.selectedUncertainty.value * this.selectedComplexity.value;
+        rickModel.emojis = [...this.selectedUncertainty.emojis, ... this.selectedComplexity.emojis];
+    return rickModel;
   }
 
   calcRisk() {
-    if (!this.isValidSelectedValues()) return;
-    this.risk = this.selectedUncertainty * this.selectedComplexity;
-    this.getRickAndSelectCard(this.risk);
+        this.risk = this.buildRisk();
+    var risk      = this.getMatrixRick(this.risk.value);
+    this.getFibonacciSequenciAndSelectCard(risk);
   }
 
-  isValidSelectedValues() {
-    return this.selectedUncertainty && this.selectedComplexity;
-  }
-
-  getRickAndSelectCard(risk: number) {
+  getMatrixRick(risk: number): number {
     if ([5].includes(risk))
-      this.getFibonacciSequenciAndSelectCard(1);
+      return 1;
     if ([10, 6].includes(risk))
-      this.getFibonacciSequenciAndSelectCard(2);
+      return 2;
     if ([15, 12, 7].includes(risk))
-      this.getFibonacciSequenciAndSelectCard(5);
+      return 5;
     if ([18, 14].includes(risk))
-      this.getFibonacciSequenciAndSelectCard(8);
+      return 8;
     if ([21].includes(risk))
-      this.getFibonacciSequenciAndSelectCard(13);
+      return 13;
     if ([0].includes(risk))
-      this.getFibonacciSequenciAndSelectCard(0);
+      return 0;
   }
 
   getFibonacciSequenciAndSelectCard(risk: number) {
-    var fibonacciSequenci = this.fibonacciSequenci.find(x => x.value == risk);
+    var fibonacciSequenci        = FibonacciSequenci.find(x => x.value == risk);
+        fibonacciSequenci.emojis = [...this.selectedUncertainty.emojis, ...this.selectedComplexity.emojis];
     if (fibonacciSequenci)
       this.selectCard(fibonacciSequenci);
   }
 
   selectCard(fibonacciModel: FibonacciModel) {
-    this.userService.activeCardEvent(this.room, fibonacciModel);
+    if (this.room)
+      this.userService.activeCardEvent(this.room, fibonacciModel);
   }
 
 }

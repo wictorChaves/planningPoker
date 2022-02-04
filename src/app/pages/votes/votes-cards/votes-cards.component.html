@@ -6,7 +6,8 @@
                     [title]="vote.displayName">
                     <ul *ngIf="room.isFlip">
                         <li class="value">
-                            <span *ngIf="['0','A','2','3'].includes(vote.value.description)">{{ vote.value.description
+                            <span *ngIf="['0','A','2','3'].includes(vote.value.description)">{{
+                                vote.value.description
                                 }}<br />♥</span>
                             <span *ngIf="['5','8'].includes(vote.value.description)">{{ vote.value.description
                                 }}<br />♦</span>
@@ -18,6 +19,10 @@
                             <span class="pass" *ngIf="['Pass'].includes(vote.value.description)">{{
                                 vote.value.description
                                 }} ♣</span>
+                            <p class="emojis">
+                                <b *ngFor="let emoji of vote.value.emojis; let i = index" [title]="emojiTitle[i]">{{
+                                    emoji }}</b>
+                            </p>
                         </li>
                         <li>
                             <div class="square" [ngClass]="{ 'k': ['K'].includes(vote.value.description) }">

@@ -19,7 +19,7 @@
     width: 150px;
     height: 150px;
     perspective: 1000px;
-    margin: 18px 4px;
+    margin: 18px 0px;
 }
 
 .flip-card-inner {
@@ -82,6 +82,14 @@
                             line-height: 0;
                             margin-left: -2px;
                             text-align: left;
+                        }
+                    }
+                    p.emojis {
+                        margin-top: -5px;
+                        position: absolute;
+                        right: 0;
+                        b {
+                            cursor: default;
                         }
                     }
                 }

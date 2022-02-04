@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IRoomModel } from 'src/app/interfaces/i-room.model';
+import { IRoomModel }               from 'src/app/interfaces/i-room.model';
+import { RickModel }                from './model/risk.model';
 
 @Component({
   selector   : 'app-risk-matrix',
@@ -8,35 +9,49 @@ import { IRoomModel } from 'src/app/interfaces/i-room.model';
 })
 export class RiskMatrixComponent implements OnInit {
 
-  @Input() room: IRoomModel;
-  public uncertainty = 0;
-  public complexity  = 0;
+  @Input() room     : IRoomModel;
+  public uncertainty: RickModel = { value: 0, emojis: [] };
+  public complexity : RickModel = { value: 0, emojis: [] };
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  uncertaintyEvent(risk: number) {
-    if ([5].includes(risk))
-      this.uncertainty = 1;
-    if ([10, 15, 6, 7].includes(risk))
-      this.uncertainty = 2;
-    if ([12, 18, 14, 21].includes(risk))
-      this.uncertainty = 3;
-    if ([0].includes(risk))
-      this.uncertainty = 0;
+  listenerUncertaintyRisk(risk: RickModel) {
+    var riskModel        = new RickModel();
+        riskModel.value  = this.getUncertaintyRiskNumber(risk.value);
+        riskModel.emojis = risk.emojis;
+        this.uncertainty = riskModel;
   }
 
-  complexityEvent(risk: number) {
+  listenerComplexityRisk(risk: RickModel) {
+    var riskModel        = new RickModel();
+        riskModel.value  = this.getComplexityRiskNumber(risk.value);
+        riskModel.emojis = risk.emojis;
+        this.complexity  = riskModel;
+  }
+
+  getUncertaintyRiskNumber(risk: number): number {
     if ([5].includes(risk))
-      this.complexity = 5;
+      return 1;
     if ([10, 15, 6, 7].includes(risk))
-      this.complexity = 6;
+      return 2;
     if ([12, 18, 14, 21].includes(risk))
-      this.complexity = 7;
+      return 3;
     if ([0].includes(risk))
-      this.complexity = 0;
+      return 0;
+  }
+
+  getComplexityRiskNumber(risk: number): number {
+    if ([5].includes(risk))
+      return 5;
+    if ([10, 15, 6, 7].includes(risk))
+      return 6;
+    if ([12, 18, 14, 21].includes(risk))
+      return 7;
+    if ([0].includes(risk))
+      return 0;
   }
 
 }

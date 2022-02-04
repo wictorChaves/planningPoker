@@ -10,6 +10,12 @@ export class VotesCardsComponent implements OnInit {
 
   @Input() isFlip: boolean = false;
   @Input() room  : IRoomModel;
+  public emojiTitle = [
+    'O que fazer',
+    'Como fazer',
+    'Desenvolver',
+    'Reproduzir'
+  ]
 
   constructor() { }
 

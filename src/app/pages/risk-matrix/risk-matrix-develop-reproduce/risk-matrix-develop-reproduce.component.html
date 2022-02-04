@@ -4,21 +4,21 @@
             <div class="col-12">
                 <h1 class="h3 mb-3 font-weight-normal">{{ developmentLabel }}</h1>
                 <div class="container line" [ngClass]="{ 'not-selected-item': selectedDevelopment == 0 }">
-                    <div class="cell success" (click)="setImpactAndCalcRisk(1)"
-                        [ngClass]="{ 'active': selectedDevelopment == 1 }">🤙</div>
-                    <div class="cell warning" (click)="setImpactAndCalcRisk(2)"
-                        [ngClass]="{ 'active': selectedDevelopment == 2 }">🤞</div>
-                    <div class="cell danger" (click)="setImpactAndCalcRisk(3)"
-                        [ngClass]="{ 'active': selectedDevelopment == 3 }">👎</div>
+                    <div class="cell success" title="Muito" (click)="setImpactAndCalcRisk(1)"
+                        [ngClass]="{ 'active': selectedDevelopment == 1 }">{{ firstsIcons[0] }}</div>
+                    <div class="cell warning" title="Medio" (click)="setImpactAndCalcRisk(2)"
+                        [ngClass]="{ 'active': selectedDevelopment == 2 }">{{ firstsIcons[1] }}</div>
+                    <div class="cell danger" title="Pouco" (click)="setImpactAndCalcRisk(3)"
+                        [ngClass]="{ 'active': selectedDevelopment == 3 }">{{ firstsIcons[2] }}</div>
                 </div>
                 <h1 class="h3 mb-3 font-weight-normal">{{ toProduceLabel }}</h1>
                 <div class="container line" [ngClass]="{ 'not-selected-item': selectedToProduce == 0 }">
-                    <div class="cell success" (click)="setProbabilityAndCalcRisk(5)"
-                        [ngClass]="{ 'active': selectedToProduce == 5 }">😎</div>
-                    <div class="cell warning" (click)="setProbabilityAndCalcRisk(6)"
-                        [ngClass]="{ 'active': selectedToProduce == 6 }">😅</div>
-                    <div class="cell danger" (click)="setProbabilityAndCalcRisk(7)"
-                        [ngClass]="{ 'active': selectedToProduce == 7 }">😲</div>
+                    <div class="cell success" title="Muito" (click)="setProbabilityAndCalcRisk(5)"
+                        [ngClass]="{ 'active': selectedToProduce == 5 }">{{ secondsIcons[0] }}</div>
+                    <div class="cell warning" title="Medio" (click)="setProbabilityAndCalcRisk(6)"
+                        [ngClass]="{ 'active': selectedToProduce == 6 }">{{ secondsIcons[1] }}</div>
+                    <div class="cell danger" title="Pouco" (click)="setProbabilityAndCalcRisk(7)"
+                        [ngClass]="{ 'active': selectedToProduce == 7 }">{{ secondsIcons[2] }}</div>
                 </div>
             </div>
         </div>
@@ -27,18 +27,27 @@
         <div class="row">
             <div class="col-12">
                 <h1 class="h3 mb-3 font-weight-normal text-center">{{ matrixLabel }}</h1>
-                <div class="container" [ngClass]="{ 'not-selected-item': risk == 0 }">
-                    <div class="cell success" [ngClass]="{ 'active': risk == 5 }">P<span>😎🤙</span></div>
-                    <div class="cell warning" [ngClass]="{ 'active': risk == 10 }">M<span>😎🤞</span></div>
-                    <div class="cell warning" [ngClass]="{ 'active': risk == 15 }"><span>👎😎</span>M</div>
+                <div class="container" [ngClass]="{ 'not-selected-item': risk.value == 0 }">
+                    <div class="cell success" [ngClass]="{ 'active': risk.value == 5 }">P<span>{{ firstsIcons[0] }}{{
+                            secondsIcons[0] }}</span></div>
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 10 }">M<span>{{ firstsIcons[1] }}{{
+                            secondsIcons[0] }}</span></div>
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 15 }"><span>{{ firstsIcons[2] }}{{
+                            secondsIcons[0] }}</span>M</div>
 
-                    <div class="cell warning" [ngClass]="{ 'active': risk == 6 }">M<span>😅🤙</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk == 12 }">G<span>😅🤞</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk == 18 }"><span>👎😅</span>G</div>
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 6 }">M<span>{{ firstsIcons[0] }}{{
+                            secondsIcons[1] }}</span></div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk.value == 12 }">G<span>{{ firstsIcons[1] }}{{
+                            secondsIcons[1] }}</span></div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk.value == 18 }"><span>{{ firstsIcons[2] }}{{
+                            secondsIcons[1] }}</span>G</div>
 
-                    <div class="cell warning" [ngClass]="{ 'active': risk == 7 }">M<span>😲🤙</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk ==  14 }">G<span>😲🤞</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk ==  21 }"><span>👎😲</span>G</div>
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 7 }">M<span>{{ firstsIcons[0] }}{{
+                            secondsIcons[2] }}</span></div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk.value ==  14 }">G<span>{{ firstsIcons[1] }}{{
+                            secondsIcons[2] }}</span></div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk.value ==  21 }"><span>{{ firstsIcons[2] }}{{
+                            secondsIcons[2] }}</span>G</div>
                 </div>
             </div>
         </div>
