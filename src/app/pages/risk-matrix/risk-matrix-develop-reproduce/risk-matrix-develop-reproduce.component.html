@@ -4,20 +4,20 @@
             <div class="col-12">
                 <h1 class="h3 mb-3 font-weight-normal">{{ developmentLabel }}</h1>
                 <div class="container line" [ngClass]="{ 'not-selected-item': selectedDevelopment == 0 }">
-                    <div class="cell success" title="Muito" (click)="setImpactAndCalcRisk(1)"
+                    <div class="cell success" title="Pouco" (click)="setImpactAndCalcRisk(1)"
                         [ngClass]="{ 'active': selectedDevelopment == 1 }">{{ firstsIcons[0] }}</div>
                     <div class="cell warning" title="Medio" (click)="setImpactAndCalcRisk(2)"
                         [ngClass]="{ 'active': selectedDevelopment == 2 }">{{ firstsIcons[1] }}</div>
-                    <div class="cell danger" title="Pouco" (click)="setImpactAndCalcRisk(3)"
+                    <div class="cell danger" title="Muito" (click)="setImpactAndCalcRisk(3)"
                         [ngClass]="{ 'active': selectedDevelopment == 3 }">{{ firstsIcons[2] }}</div>
                 </div>
                 <h1 class="h3 mb-3 font-weight-normal">{{ toProduceLabel }}</h1>
                 <div class="container line" [ngClass]="{ 'not-selected-item': selectedToProduce == 0 }">
-                    <div class="cell success" title="Muito" (click)="setProbabilityAndCalcRisk(5)"
+                    <div class="cell success" title="Pouco" (click)="setProbabilityAndCalcRisk(5)"
                         [ngClass]="{ 'active': selectedToProduce == 5 }">{{ secondsIcons[0] }}</div>
                     <div class="cell warning" title="Medio" (click)="setProbabilityAndCalcRisk(6)"
                         [ngClass]="{ 'active': selectedToProduce == 6 }">{{ secondsIcons[1] }}</div>
-                    <div class="cell danger" title="Pouco" (click)="setProbabilityAndCalcRisk(7)"
+                    <div class="cell danger" title="Muito" (click)="setProbabilityAndCalcRisk(7)"
                         [ngClass]="{ 'active': selectedToProduce == 7 }">{{ secondsIcons[2] }}</div>
                 </div>
             </div>
