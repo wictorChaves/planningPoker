@@ -80,7 +80,7 @@ export class RiskMatrixUncertaintyComplexityComponent implements OnInit {
   }
 
   selectCard(fibonacciModel: FibonacciModel) {
-    if (this.room)
+    if (this.room && fibonacciModel.value != 0)
       this.userService.activeCardEvent(this.room, fibonacciModel);
   }
 

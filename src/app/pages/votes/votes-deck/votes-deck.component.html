@@ -1,4 +1,4 @@
-<app-fibonacci-deck *ngIf="!room.isFlip" (activeCardEvent)="activeCardEvent($event)"></app-fibonacci-deck>
+<app-fibonacci-deck *ngIf="!room.isFlip" [activeCard]="activeCard" (activeCardEvent)="activeCardEvent($event)"></app-fibonacci-deck>
 <div *ngIf="!room.isFlip" class="risk-content" [ngClass]="{ 'open': isOpenRisk }">
     <app-risk-matrix [room]="room"></app-risk-matrix>
 </div>

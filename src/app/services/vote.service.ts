@@ -1,6 +1,7 @@
 import { Injectable }     from '@angular/core';
 import * as firebase      from 'firebase/app';
 import { User }           from 'firebase/app';
+import { map }            from 'rxjs/operators';
 import { FibonacciModel } from '../classes/fibonacci.model';
 import { IRoomModel }     from '../interfaces/i-room.model';
 import { IVoteModel }     from '../interfaces/i-vote.model';
@@ -55,6 +56,12 @@ export class VoteService {
 
   getRandomBooleanValue(): boolean {
     return (Math.random()) < 0.5;
+  }
+
+  listenerActiveVote(roomId: string) {
+    return this.roomService.listenerRoom(roomId).pipe(map(room => {
+      return room.votes.find(x => x.uid == this.user.uid);
+    }))
   }
 
 }
