@@ -20,7 +20,7 @@
                                 vote.value.description
                                 }} ♣</span>
                             <p class="emojis">
-                                <b *ngFor="let emoji of vote.value.emojis; let i = index" [title]="emojiTitle[i]">{{
+                                <b *ngFor="let emoji of vote.value.emojis; let i = index" [title]="getTitle(emoji)">{{
                                     emoji }}</b>
                             </p>
                         </li>

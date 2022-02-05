@@ -1,0 +1,15 @@
+.list-group {
+    .list-group-item {
+        .badge {
+            cursor: pointer;
+        }
+        span {
+            background-color: var(--dark);
+        }
+    }
+    .list-group-item:nth-child(odd) {
+        span {
+            background-color: var(--red);
+        }
+    }
+}

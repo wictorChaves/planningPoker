@@ -1,0 +1,64 @@
+<section *ngIf="showReport">
+    <br />
+    <section *ngIf="categoryReport">
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="h3 mb-3 font-weight-normal">O que fazer</h1>
+                <ul class="list-group" *ngIf="categoryReport.whatToDo">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let item of categoryReport.whatToDo;">
+                        {{ item.emoji }} {{ item.description }}
+                        <span class="badge badge-primary badge-pill">{{
+                            item.percent }}%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h1 class="h3 mb-3 font-weight-normal">Como fazer</h1>
+                <ul class="list-group" *ngIf="categoryReport.hotToMake">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let item of categoryReport.hotToMake;">
+                        {{ item.emoji }} {{ item.description }}
+                        <span class="badge badge-primary badge-pill">{{
+                            item.percent }}%</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <h1 class="h3 mb-3 font-weight-normal">Desenvolver</h1>
+                <ul class="list-group" *ngIf="categoryReport.toDevelop">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let item of categoryReport.toDevelop;">
+                        {{ item.emoji }} {{ item.description }}
+                        <span class="badge badge-primary badge-pill">{{
+                            item.percent }}%</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h1 class="h3 mb-3 font-weight-normal">Reproduzir</h1>
+                <ul class="list-group" *ngIf="categoryReport.reproduce">
+                    <li class="list-group-item d-flex justify-content-between align-items-center"
+                        *ngFor="let item of categoryReport.reproduce;">
+                        {{ item.emoji }} {{ item.description }}
+                        <span class="badge badge-primary badge-pill">{{
+                            item.percent }}%</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <br />
+    <h1 class="h3 mb-3 font-weight-normal">Geral</h1>
+    <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let item of generalReport;">
+            {{ item.emoji }} {{ item.description }}
+            <span class="badge badge-primary badge-pill">{{
+                item.percent
+                }}%</span>
+        </li>
+    </ul>
+</section>
