@@ -15,21 +15,21 @@ export class VotesDeckComponent implements OnInit {
   public isOpenRisk                 = false;
   public activeCard: FibonacciModel = FibonacciSequenci.find(x => x.value == 1);
 
-  constructor(
-    private userService: VoteService,
-    private voteService: VoteService
-  ) { }
+  constructor(private voteService: VoteService) { }
 
   ngOnInit() {
+    this.loadActiveCard();
+  }
+
+  loadActiveCard() {
     this.voteService.listenerActiveVote(this.room.id).subscribe(vote => {
-      if (vote)
-        this.activeCard = vote.value;
+      if (vote) this.activeCard = vote.value;
     });
   }
 
   activeCardEvent(fibonacciModel: FibonacciModel) {
     fibonacciModel.emojis = [];
-    this.userService.activeCardEvent(this.room, fibonacciModel);
+    this.voteService.activeCardEvent(this.room, fibonacciModel);
   }
 
   toggleOpenRisk() {

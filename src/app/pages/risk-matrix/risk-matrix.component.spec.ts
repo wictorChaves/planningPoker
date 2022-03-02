@@ -25,56 +25,56 @@ describe('RiskMatrixComponent', () => {
 
   [
     {
-      risk       : 5,
-      uncertainty: 1
+      risk       : { value: 5, emojis: [] },
+      uncertainty: { value: 1, emojis: [] }
     },
     {
-      risk       : 10,
-      uncertainty: 2
+      risk       : { value: 10, emojis: [] },
+      uncertainty: { value: 2, emojis: [] }
     },
     {
-      risk       : 15,
-      uncertainty: 2
+      risk       : { value: 15, emojis: [] },
+      uncertainty: { value: 2, emojis: [] }
     },
     {
-      risk       : 6,
-      uncertainty: 2
+      risk       : { value: 6, emojis: [] },
+      uncertainty: { value: 2, emojis: [] }
     },
     {
-      risk       : 7,
-      uncertainty: 2
+      risk       : { value: 7, emojis: [] },
+      uncertainty: { value: 2, emojis: [] }
     },
     {
-      risk       : 12,
-      uncertainty: 3
+      risk       : { value: 12, emojis: [] },
+      uncertainty: { value: 3, emojis: [] }
     },
     {
-      risk       : 18,
-      uncertainty: 3
+      risk       : { value: 18, emojis: [] },
+      uncertainty: { value: 3, emojis: [] }
     },
     {
-      risk       : 14,
-      uncertainty: 3
+      risk       : { value: 14, emojis: [] },
+      uncertainty: { value: 3, emojis: [] }
     },
     {
-      risk       : 21,
-      uncertainty: 3
+      risk       : { value: 21, emojis: [] },
+      uncertainty: { value: 3, emojis: [] }
     },
     {
-      risk       : 0,
-      uncertainty: 0
+      risk       : { value: 0, emojis: [] },
+      uncertainty: { value: 0, emojis: [] }
     }
   ].forEach(item => {
 
-    it('should create', () => {
+    it('should listener uncertainty risk', () => {
 
       // Arrange
 
       // Act
-      component.uncertaintyEvent(item.risk)
+      component.listenerUncertaintyRisk(item.risk)
 
       // Assert
-      expect(item.uncertainty).toEqual(component.uncertainty);
+      expect(item.uncertainty.value).toEqual(component.uncertainty.value);
 
     });
 
@@ -82,56 +82,56 @@ describe('RiskMatrixComponent', () => {
 
   [
     {
-      risk      : 5,
-      complexity: 5
+      risk      : { value: 5, emojis: [] },
+      complexity: { value: 5, emojis: [] }
     },
     {
-      risk      : 10,
-      complexity: 6
+      risk      : { value: 10, emojis: [] },
+      complexity: { value: 6, emojis: [] }
     },
     {
-      risk      : 15,
-      complexity: 6
+      risk      : { value: 15, emojis: [] },
+      complexity: { value: 6, emojis: [] }
     },
     {
-      risk      : 6,
-      complexity: 6
+      risk      : { value: 6, emojis: [] },
+      complexity: { value: 6, emojis: [] }
     },
     {
-      risk      : 7,
-      complexity: 6
+      risk      : { value: 7, emojis: [] },
+      complexity: { value: 6, emojis: [] }
     },
     {
-      risk      : 12,
-      complexity: 7
+      risk      : { value: 12, emojis: [] },
+      complexity: { value: 7, emojis: [] }
     },
     {
-      risk      : 18,
-      complexity: 7
+      risk      : { value: 18, emojis: [] },
+      complexity: { value: 7, emojis: [] }
     },
     {
-      risk      : 14,
-      complexity: 7
+      risk      : { value: 14, emojis: [] },
+      complexity: { value: 7, emojis: [] }
     },
     {
-      risk      : 21,
-      complexity: 7
+      risk      : { value: 21, emojis: [] },
+      complexity: { value: 7, emojis: [] }
     },
     {
-      risk      : 0,
-      complexity: 0
+      risk      : { value: 0, emojis: [] },
+      complexity: { value: 0, emojis: [] }
     }
   ].forEach(item => {
 
-    it('should create', () => {
+    it('should listener complexity risk', () => {
 
       // Arrange
 
       // Act
-      component.complexityEvent(item.risk)
+      component.listenerComplexityRisk(item.risk)
 
       // Assert
-      expect(item.complexity).toEqual(component.complexity);
+      expect(item.complexity.value).toEqual(component.complexity.value);
 
     });
 

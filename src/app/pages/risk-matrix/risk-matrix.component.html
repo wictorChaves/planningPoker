@@ -1,14 +1,11 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="left-content">
-            <app-risk-matrix-develop-reproduce [firstsIcons]="['🛴','🚲','🚗']" [secondsIcons]="['✨','🦺','🧨']"
-                developmentLabel="O que fazer" toProduceLabel="Como fazer" matrixLabel="Incerteza"
+            <app-risk-matrix-develop-reproduce [info]="uncertaintyInfo"
                 (listenerRisk)="listenerUncertaintyRisk($event)">
             </app-risk-matrix-develop-reproduce>
             <hr />
-            <app-risk-matrix-develop-reproduce [firstsIcons]="['🐱‍💻','👩‍💻','🔨']" [secondsIcons]="['😄','🤔','🤡']"
-                developmentLabel="Desenvolver" toProduceLabel="Reproduzir" matrixLabel="Complexidade"
-                (listenerRisk)="listenerComplexityRisk($event)">
+            <app-risk-matrix-develop-reproduce [info]="reproduceInfo" (listenerRisk)="listenerComplexityRisk($event)">
             </app-risk-matrix-develop-reproduce>
         </div>
     </div>

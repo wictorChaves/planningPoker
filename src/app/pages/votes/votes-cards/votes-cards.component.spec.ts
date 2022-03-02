@@ -9,8 +9,7 @@ describe('VotesCardsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [VotesCardsComponent]
-    })
-      .compileComponents();
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -32,4 +31,31 @@ describe('VotesCardsComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should not get title', () => {
+
+    // Arrange
+    var emoji: string;
+
+    // Act
+    var result = component.getTitle(emoji);
+
+    // Assert
+    expect(result).toEqual('');
+
+  });
+
+  it('should get title', () => {
+
+    // Arrange
+    var emoji: string = '🛴';
+
+    // Act
+    var result = component.getTitle(emoji);
+
+    // Assert
+    expect(result).toEqual('Claro o que tem que fazer');
+
+  });
+
 });

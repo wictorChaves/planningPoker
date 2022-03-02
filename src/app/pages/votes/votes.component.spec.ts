@@ -11,6 +11,7 @@ import { VotesAverageComponentSpec }                         from 'src/app/tests
 import { VotesCardsComponentSpec }                           from 'src/app/tests/mocks/votes-cards.component.spec';
 import { VotesControlsComponentSpec }                        from 'src/app/tests/mocks/votes-controls.component.spec';
 import { VotesDeckComponentSpec }                            from 'src/app/tests/mocks/votes-deck.component.spec';
+import { VotosRiskReportComponentSpec }                      from 'src/app/tests/mocks/votos-risk-report.component.spec';
 import { VotesComponent }                                    from './votes.component';
 
 class ActivatedRouteMock {
@@ -68,8 +69,9 @@ describe('VotesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [VotesComponent, FibonacciDeckComponentSpec, VotesAverageComponentSpec, VotesControlsComponentSpec, VotesCardsComponentSpec, VotesDeckComponentSpec],
-      providers   : [
+      declarations: [VotesComponent, FibonacciDeckComponentSpec, VotesAverageComponentSpec, VotesControlsComponentSpec,
+        VotesCardsComponentSpec, VotesDeckComponentSpec, VotosRiskReportComponentSpec],
+      providers: [
         {
           provide : ActivatedRoute,
           useValue: activatedRouteMock

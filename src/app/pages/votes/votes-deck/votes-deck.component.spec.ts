@@ -1,36 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { AngularFireAuth }                  from '@angular/fire/auth';
-import { of }                               from 'rxjs';
-import { FibonacciModel }                   from 'src/app/classes/fibonacci.model';
-import { IVoteModel }                       from 'src/app/interfaces/i-vote.model';
-import { RoomService }                      from 'src/app/services/room.service';
-import { UserService }                      from 'src/app/services/user.service';
-import { FibonacciDeckComponentSpec }       from 'src/app/tests/mocks/fibonacci-deck.component.spec';
-import { RiskMatrixComponentSpec }          from 'src/app/tests/mocks/risk-matrix.component.spec';
-import { VotesDeckComponent }               from './votes-deck.component';
+import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { Subject }                                           from 'rxjs';
+import { FibonacciModel }                                    from 'src/app/classes/fibonacci.model';
+import { VoteService }                                       from 'src/app/services/vote.service';
+import { FibonacciDeckComponentSpec }                        from 'src/app/tests/mocks/fibonacci-deck.component.spec';
+import { RiskMatrixComponentSpec }                           from 'src/app/tests/mocks/risk-matrix.component.spec';
+import { VotesDeckComponent }                                from './votes-deck.component';
 
-class AngularFireAuthMock {
-  user = of([{
+class VoteServiceMock {
 
-  }]);
-}
+  public listenerActiveVoteResult: any  = new Subject<any>();
+  public activeCardEventCalled: boolean = false;
 
-class RoomServiceMock {
-
-  public updatePartialCalled = false;
-
-  updatePartialRoom() {
-    this.updatePartialCalled = true;
+  listenerActiveVote() {
+    return this.listenerActiveVoteResult;
   }
 
-}
-
-class UserServiceMock {
-
-  getUser() {
-    return of({
-      uid: '123'
-    })
+  activeCardEvent() {
+    this.activeCardEventCalled = true;
   }
 
 }
@@ -39,25 +25,15 @@ describe('VotesDeckComponent', () => {
   let component: VotesDeckComponent;
   let fixture  : ComponentFixture<VotesDeckComponent>;
 
-  var angularFireAuthMock = new AngularFireAuthMock();
-  var userServiceMock     = new UserServiceMock();
-  var roomServiceMock     = new RoomServiceMock();
+  var voteServiceMock = new VoteServiceMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [VotesDeckComponent, FibonacciDeckComponentSpec, RiskMatrixComponentSpec],
       providers   : [
         {
-          provide : AngularFireAuth,
-          useValue: angularFireAuthMock
-        },
-        {
-          provide : RoomService,
-          useValue: roomServiceMock
-        },
-        {
-          provide : UserService,
-          useValue: userServiceMock
+          provide : VoteService,
+          useValue: voteServiceMock
         }
       ]
     }).compileComponents();
@@ -84,5 +60,70 @@ describe('VotesDeckComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  [
+    {
+      result: null,
+      expect: {
+        value      : 1,
+        description: 'A',
+        class      : 'primary'
+      }
+    },
+    {
+      result: {
+        value: {
+          value      : 2,
+          description: 'description',
+          class      : 'class',
+          emojis     : []
+        }
+      },
+      expect: {
+        value      : 2,
+        description: 'description',
+        class      : 'class',
+        emojis     : []
+      }
+    }
+  ].forEach(item => {
+
+    it('should load active card', fakeAsync(() => {
+
+      // Arrange
+      voteServiceMock.listenerActiveVoteResult.next(item.result);
+      tick();
+
+      // Act
+      component.loadActiveCard();
+      tick();
+
+      // Assert
+      expect(item.expect.value).toEqual(component.activeCard.value);
+      expect(item.expect.description).toEqual(component.activeCard.description);
+
+    }));
+
+  });
+
+  it('should load active card', fakeAsync(() => {
+
+    // Arrange
+    var fibonacciModel: FibonacciModel = {
+      value      : 1,
+      description: 'description',
+      class      : 'class',
+      emojis     : ['1', '2', '3']
+    };
+
+    // Act
+    component.activeCardEvent(fibonacciModel);
+    tick();
+
+    // Assert
+    expect(voteServiceMock.activeCardEventCalled).toBeTruthy();
+    expect(fibonacciModel.emojis.length).toEqual(0);
+
+  }));
 
 });

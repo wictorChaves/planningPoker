@@ -9,14 +9,12 @@ import { FibonacciSequenci }                              from './constants/fibo
 })
 export class FibonacciDeckComponent implements OnInit {
 
-  @Output() activeCardEvent            = new EventEmitter<FibonacciModel>();
   @Input () activeCard: FibonacciModel = FibonacciSequenci.find(x => x.value == 1);
+  @Output() activeCardEvent            = new EventEmitter<FibonacciModel>();
 
   constructor() { }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() { }
 
   setActive(fibonacci: FibonacciModel) {
     this.activeCard = fibonacci;

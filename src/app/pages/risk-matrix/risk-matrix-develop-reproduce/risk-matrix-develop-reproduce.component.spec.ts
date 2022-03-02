@@ -121,8 +121,63 @@ describe('RiskMatrixDevelopReproduceComponent', () => {
     component.calcRisk();
 
     // Assert
-    expect(component.risk).toEqual(9);
+    expect(component.risk.value).toEqual(9);
 
   });
+
+  [
+    {
+      risk  : 5,
+      emojis: ['🤙', '😎']
+    },
+    {
+      risk  : 10,
+      emojis: ['🤞', '😎']
+    },
+    {
+      risk  : 15,
+      emojis: ['👎', '😎']
+    },
+    {
+      risk  : 6,
+      emojis: ['🤙', '😅']
+    },
+    {
+      risk  : 12,
+      emojis: ['🤞', '😅']
+    },
+    {
+      risk  : 18,
+      emojis: ['👎', '😅']
+    },
+    {
+      risk  : 7,
+      emojis: ['🤙', '😲']
+    },
+    {
+      risk  : 14,
+      emojis: ['🤞', '😲']
+    },
+    {
+      risk  : 21,
+      emojis: ['👎', '😲']
+    }
+  ].forEach(item => {
+
+
+    it('should calc risk', () => {
+
+      // Arrange
+
+      // Act
+      var emojis = component.getEmojis(item.risk);
+
+      // Assert
+      expect(emojis).toEqual(item.emojis);
+
+    });
+
+  });
+
 
 });

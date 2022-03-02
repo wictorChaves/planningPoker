@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IRoomModel }               from 'src/app/interfaces/i-room.model';
-import { RickModel }                from './model/risk.model';
+import { RiskModel }                from './model/risk.model';
 
 @Component({
   selector   : 'app-risk-matrix',
@@ -10,23 +10,51 @@ import { RickModel }                from './model/risk.model';
 export class RiskMatrixComponent implements OnInit {
 
   @Input() room     : IRoomModel;
-  public uncertainty: RickModel = { value: 0, emojis: [] };
-  public complexity : RickModel = { value: 0, emojis: [] };
+  public uncertainty: RiskModel = { value: 0, emojis: [] };
+  public complexity : RiskModel = { value: 0, emojis: [] };
+
+  public uncertaintyInfo = {
+    label: 'Incerteza',
+    first: {
+      icons      : ['🛴', '🚲', '🚗'],
+      label      : 'O que fazer',
+      description: 'Estória tá clara?'
+    },
+    second: {
+      icons      : ['✨', '🦺', '🧨'],
+      label      : 'Como fazer',
+      description: 'Como seria se o projeto não fosse legado?'
+    }
+  };
+
+  public reproduceInfo = {
+    label: 'Complexidade',
+    first: {
+      icons      : ['🐱‍💻','👩‍💻','🔨'],
+      label      : 'Desenvolver',
+      description: 'E agora com o projeto que temos, como vai ser?'
+    },
+    second: {
+      icons      : ['😄','🤔','🤡'],
+      label      : 'Reproduzir',
+      description: 'E para testar, tá legal?'
+    }
+  };
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  listenerUncertaintyRisk(risk: RickModel) {
-    var riskModel        = new RickModel();
+  listenerUncertaintyRisk(risk: RiskModel) {
+    var riskModel        = new RiskModel();
         riskModel.value  = this.getUncertaintyRiskNumber(risk.value);
         riskModel.emojis = risk.emojis;
         this.uncertainty = riskModel;
   }
 
-  listenerComplexityRisk(risk: RickModel) {
-    var riskModel        = new RickModel();
+  listenerComplexityRisk(risk: RiskModel) {
+    var riskModel        = new RiskModel();
         riskModel.value  = this.getComplexityRiskNumber(risk.value);
         riskModel.emojis = risk.emojis;
         this.complexity  = riskModel;

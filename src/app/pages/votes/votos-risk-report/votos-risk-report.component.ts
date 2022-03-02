@@ -30,7 +30,7 @@ export class VotosRiskReportComponent implements OnInit {
   }
 
   getEmojisRoom() {
-    return this.room.votes.map(x => x.value.emojis).reduce((previousValue, currentValue) => [...previousValue, ...currentValue]);
+    return this.room.votes.map(x => x.value.emojis).reduce((previousValue, currentValue) => [...previousValue, ...currentValue], []);
   }
 
 }

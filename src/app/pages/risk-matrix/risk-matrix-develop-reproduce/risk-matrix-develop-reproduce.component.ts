@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { RickModel }                                      from '../model/risk.model';
+import { RiskModel }                                      from '../model/risk.model';
 
 @Component({
   selector   : 'app-risk-matrix-develop-reproduce',
@@ -8,15 +8,24 @@ import { RickModel }                                      from '../model/risk.mo
 })
 export class RiskMatrixDevelopReproduceComponent implements OnInit {
 
-  @Input () firstsIcons: string[]                 = ['🤙', '🤞', '👎'];
-  @Input () secondsIcons: string[]                = ['😎', '😅', '😲'];
-  @Input () developmentLabel: string              = '';
-  @Input () toProduceLabel: string                = '';
-  @Input () matrixLabel: string                   = '';
-  @Output() listenerRisk: EventEmitter<RickModel> = new EventEmitter<RickModel>();
+  @Input() info = {
+    label: '',
+    first: {
+      icons      : ['🤙', '🤞', '👎'],
+      label      : '',
+      description: ''
+    },
+    second: {
+      icons      : ['😎', '😅', '😲'],
+      label      : '',
+      description: ''
+    }
+  };
+
+  @Output() listenerRisk: EventEmitter<RiskModel> = new EventEmitter<RiskModel>();
   public  selectedDevelopment                     = 0;
   public  selectedToProduce                       = 0;
-  public  risk: RickModel                         = { value: 0, emojis: [] };
+  public  risk: RiskModel                         = { value: 0, emojis: [] };
 
   constructor() { }
 
@@ -52,17 +61,17 @@ export class RiskMatrixDevelopReproduceComponent implements OnInit {
   }
 
   buildRiskModel(risk: number) {
-    var riskModel        = new RickModel();
+    var riskModel        = new RiskModel();
         riskModel.value  = risk;
         riskModel.emojis = this.getEmojis(risk);
     return riskModel;
   }
 
-  sendRisk(risk: RickModel) {
+  sendRisk(risk: RiskModel) {
     this.listenerRisk.emit(risk);
   }
 
-  setRisk(risk: RickModel) {
+  setRisk(risk: RiskModel) {
     this.risk = risk;
   }
 
@@ -92,7 +101,7 @@ export class RiskMatrixDevelopReproduceComponent implements OnInit {
   }
 
   getEmojisByIndex(firstIndex: number, secondIndex: number): string[] {
-    return [this.firstsIcons[firstIndex], this.secondsIcons[secondIndex]];
+    return [this.info.first.icons[firstIndex], this.info.second.icons[secondIndex]];
   }
 
 }
