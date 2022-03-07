@@ -25,6 +25,7 @@ import { RiskMatrixComponent }                      from './pages/risk-matrix/ri
 import { RiskMatrixDevelopReproduceComponent }      from './pages/risk-matrix/risk-matrix-develop-reproduce/risk-matrix-develop-reproduce.component';
 import { RiskMatrixUncertaintyComplexityComponent } from './pages/risk-matrix/risk-matrix-uncertainty-complexity/risk-matrix-uncertainty-complexity.component';
 import { VotosRiskReportComponent } from './pages/votes/votos-risk-report/votos-risk-report.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 
 
 const config = {
@@ -57,7 +58,8 @@ const config = {
     RiskMatrixComponent,
     RiskMatrixDevelopReproduceComponent,
     RiskMatrixUncertaintyComplexityComponent,
-    VotosRiskReportComponent
+    VotosRiskReportComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,

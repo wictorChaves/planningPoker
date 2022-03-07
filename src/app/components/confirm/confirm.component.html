@@ -1,0 +1,14 @@
+<div class="confirm-content" *ngIf="isOpen">
+    <div class="background"></div>
+    <div class="confirm-popup">
+        <div class="message">
+            Qual a pontuação você acha mais adequado?
+        </div>
+        <div class="buttons">
+            <div class="buttons-content">
+                <button type="button" (click)="setValue(3)">3</button>
+                <button type="button" (click)="setValue(5)">5</button>
+            </div>
+        </div>
+    </div>
+</div>

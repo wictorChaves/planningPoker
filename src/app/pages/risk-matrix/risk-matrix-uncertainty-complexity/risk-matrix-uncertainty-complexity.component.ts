@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { FibonacciModel }           from 'src/app/classes/fibonacci.model';
-import { FibonacciSequenci }        from 'src/app/components/fibonacci-deck/constants/fibonacci.model.const';
-import { IRoomModel }               from 'src/app/interfaces/i-room.model';
-import { VoteService }              from 'src/app/services/vote.service';
-import { RiskModel }                from '../model/risk.model';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { FibonacciModel }                      from 'src/app/classes/fibonacci.model';
+import { ConfirmComponent }                    from 'src/app/components/confirm/confirm.component';
+import { FibonacciSequenci }                   from 'src/app/components/fibonacci-deck/constants/fibonacci.model.const';
+import { IRoomModel }                          from 'src/app/interfaces/i-room.model';
+import { VoteService }                         from 'src/app/services/vote.service';
+import { RiskModel }                           from '../model/risk.model';
 
 @Component({
   selector   : 'app-risk-matrix-uncertainty-complexity',
@@ -22,10 +23,11 @@ export class RiskMatrixUncertaintyComplexityComponent implements OnInit {
     this.calcRisk();
   }
 
-  @Input() room             : IRoomModel;
-  public selectedUncertainty: RiskModel = { value: 0, emojis: [] };
-  public selectedComplexity : RiskModel = { value: 0, emojis: [] };
-  public risk               : RiskModel = { value: 0, emojis: [] };
+  @Input    () room                               : IRoomModel;
+  @ViewChild('confirm', { static: false }) confirm: ConfirmComponent;
+  public     selectedUncertainty                  : RiskModel = { value: 0, emojis: [] };
+  public     selectedComplexity                   : RiskModel = { value: 0, emojis: [] };
+  public     risk                                 : RiskModel = { value: 0, emojis: [] };
 
   constructor(private userService: VoteService) { }
 
@@ -72,17 +74,38 @@ export class RiskMatrixUncertaintyComplexityComponent implements OnInit {
       return 0;
   }
 
+  getFibonacciSequenci(risk: number) {
+    return FibonacciSequenci.find(x => x.value == risk);
+  }
+
   getFibonacciSequenciAndSelectCard(risk: number) {
-    var fibonacciSequenci = FibonacciSequenci.find(x => x.value == risk);
-    if (fibonacciSequenci) {
-      fibonacciSequenci.emojis = [...this.selectedUncertainty.emojis, ...this.selectedComplexity.emojis];
-      this.selectCard(fibonacciSequenci);
+    if (this.risk.value != 12) {
+      this.selectCardAndAddEmojis(risk);
+    } else {
+      this.chosenRisk();
     }
   }
 
-  selectCard(fibonacciModel: FibonacciModel) {
-    if (this.room && fibonacciModel.value != 0)
+  chosenRisk() {
+    this.confirm.open();
+    var subscription = this.confirm.getAnswer().subscribe(value => {
+      this.selectCardAndAddEmojis(value);
+      this.confirm.close();
+      subscription.unsubscribe();
+    });
+  }
+
+  selectCardAndAddEmojis(risk: number) {
+    var fibonacciModel = this.getFibonacciSequenci(risk);
+    if (this.room && fibonacciModel.value != 0) {
+      this.addEmojis(fibonacciModel);
       this.userService.activeCardEvent(this.room, fibonacciModel);
+    }
+  }
+
+  addEmojis(fibonacciModel: FibonacciModel) {
+    fibonacciModel.emojis = [...this.selectedUncertainty.emojis, ...this.selectedComplexity.emojis];
+    return fibonacciModel;
   }
 
 }

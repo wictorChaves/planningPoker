@@ -1,0 +1,51 @@
+.confirm-content {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    position: fixed;
+    z-index: 1;
+    .background {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        position: fixed;
+        opacity: 0.5;
+        background-color: black;
+    }
+    .confirm-popup {
+        position: fixed;
+        width: 300px;
+        background-color: white;
+        box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%);
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        border-radius: 6px;
+        .message {
+            text-align: center;
+            padding-bottom: 12px;
+        }
+        .buttons {
+            width: 100%;
+            .buttons-content {
+                margin: 0 auto;
+                width: fit-content;
+                button {
+                    background-color: var(--warning);
+                    border: 0;
+                    color: white;
+                    font-weight: bold;
+                    width: 38px;
+                    height: 38px;
+                    margin-left: 2px;
+                    margin-right: 2px;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
