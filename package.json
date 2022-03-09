@@ -6,6 +6,7 @@
     "start"            : "ng serve",
     "build"            : "ng build",
     "build-prod"       : "ng build --configuration=production --base-href=\"\"",
+    "build-prod-carol" : "ng build --configuration=production --base-href=\"\"  --output-path=\"dist\\planningPoker\\carol\"",
     "test"             : "ng test",
     "test-clear-screen": "ng test --watch --code-coverage --reporters clear-screen,dots",
     "tcs"              : "ng test --watch --code-coverage --reporters clear-screen,dots",
