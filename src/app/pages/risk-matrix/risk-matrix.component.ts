@@ -1,5 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IRoomModel }               from 'src/app/interfaces/i-room.model';
+import { Measures }                 from './measures';
+import { InfoItemModel }            from './model/info.model';
+import { RiskInfosModel }           from './model/rick-infos.model';
 import { RiskModel }                from './model/risk.model';
 
 @Component({
@@ -9,37 +12,12 @@ import { RiskModel }                from './model/risk.model';
 })
 export class RiskMatrixComponent implements OnInit {
 
-  @Input() room     : IRoomModel;
-  public uncertainty: RiskModel = { value: 0, emojis: [] };
-  public complexity : RiskModel = { value: 0, emojis: [] };
-
-  public uncertaintyInfo = {
-    label: 'Incerteza',
-    first: {
-      icons      : ['🛴', '🚲', '🚗'],
-      label      : 'O que fazer',
-      description: 'Estória tá clara?'
-    },
-    second: {
-      icons      : ['✨', '🦺', '🧨'],
-      label      : 'Como fazer',
-      description: 'Como seria se o projeto não fosse legado?'
-    }
-  };
-
-  public reproduceInfo = {
-    label: 'Complexidade',
-    first: {
-      icons      : ['🐱‍💻','👩‍💻','🔨'],
-      label      : 'Desenvolver',
-      description: 'E agora com o projeto que temos, como vai ser?'
-    },
-    second: {
-      icons      : ['😄','🤔','🤡'],
-      label      : 'Reproduzir',
-      description: 'E para testar, tá legal?'
-    }
-  };
+  @Input() room       : IRoomModel;
+  public uncertainty  : RiskModel = { value: 0, emojis: [] };
+  public complexity   : RiskModel = { value: 0, emojis: [] };
+  public infoItemModel: InfoItemModel;
+  public currentSm    : string = 'carol';
+  public info         : RiskInfosModel = RiskInfosModel.createRiskInfosModelDefault();
 
   constructor() { }
 
@@ -48,38 +26,33 @@ export class RiskMatrixComponent implements OnInit {
 
   listenerUncertaintyRisk(risk: RiskModel) {
     var riskModel        = new RiskModel();
-        riskModel.value  = this.getUncertaintyRiskNumber(risk.value);
+        riskModel.value  = Measures.getUncertaintyRiskNumber(risk.value);
         riskModel.emojis = risk.emojis;
         this.uncertainty = riskModel;
   }
 
   listenerComplexityRisk(risk: RiskModel) {
     var riskModel        = new RiskModel();
-        riskModel.value  = this.getComplexityRiskNumber(risk.value);
+        riskModel.value  = Measures.getComplexityRiskNumber(risk.value);
         riskModel.emojis = risk.emojis;
         this.complexity  = riskModel;
   }
 
-  getUncertaintyRiskNumber(risk: number): number {
-    if ([5].includes(risk))
-      return 1;
-    if ([10, 15, 6, 7].includes(risk))
-      return 2;
-    if ([12, 18, 14, 21].includes(risk))
-      return 3;
-    if ([0].includes(risk))
-      return 0;
+  openDescription(infoItemModel: InfoItemModel) {
+    this.infoItemModel = infoItemModel;
   }
 
-  getComplexityRiskNumber(risk: number): number {
-    if ([5].includes(risk))
-      return 5;
-    if ([10, 15, 6, 7].includes(risk))
-      return 6;
-    if ([12, 18, 14, 21].includes(risk))
-      return 7;
-    if ([0].includes(risk))
-      return 0;
+  closeDescription() {
+    this.infoItemModel = undefined;
+  }
+
+  changeSM() {
+    if (Measures.sm == 'carol') {
+      Measures.sm = 'bruno';
+    } else {
+      Measures.sm = 'carol';
+    }
+    this.currentSm = Measures.sm;
   }
 
 }

@@ -6,6 +6,10 @@ $square-size: 73px;
     cursor: default;
 }
 
+.info-description {
+    cursor: pointer;
+}
+
 .container {
     display: flex;
     flex-wrap: wrap;

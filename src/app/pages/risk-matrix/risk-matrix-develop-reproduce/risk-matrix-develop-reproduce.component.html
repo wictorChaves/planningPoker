@@ -2,8 +2,9 @@
     <div class="col-md-6 lines d-flex justify-content-end">
         <div class="row">
             <div class="col-12">
-                <h1 class="h3 mb-3 font-weight-normal" [title]="info.first.description">
-                    {{ info.first.label }}
+                <h1 class="h3 mb-3 font-weight-normal">
+                    {{ info.first.label }} <span class="info-description"
+                        (click)="description.emit(info.first)">👨‍🎓</span>
                 </h1>
                 <div class="container line" [ngClass]="{ 'not-selected-item': selectedDevelopment == 0 }">
                     <div class="cell success" title="Pouco" (click)="setImpactAndCalcRisk(1)"
@@ -13,7 +14,10 @@
                     <div class="cell danger" title="Muito" (click)="setImpactAndCalcRisk(3)"
                         [ngClass]="{ 'active': selectedDevelopment == 3 }">{{ info.first.icons[2] }}</div>
                 </div>
-                <h1 class="h3 mb-3 font-weight-normal" [title]="info.second.description">{{ info.second.label }}</h1>
+                <h1 class="h3 mb-3 font-weight-normal">
+                    {{ info.second.label }} <span class="info-description"
+                        (click)="description.emit(info.second)">👨‍🎓</span>
+                </h1>
                 <div class="container line" [ngClass]="{ 'not-selected-item': selectedToProduce == 0 }">
                     <div class="cell success" title="Pouco" (click)="setProbabilityAndCalcRisk(5)"
                         [ngClass]="{ 'active': selectedToProduce == 5 }">{{ info.second.icons[0] }}</div>
@@ -30,25 +34,39 @@
             <div class="col-12">
                 <h1 class="h3 mb-3 font-weight-normal text-center">{{ info.label }}</h1>
                 <div class="container" [ngClass]="{ 'not-selected-item': risk.value == 0 }">
-                    <div class="cell success" [ngClass]="{ 'active': risk.value == 5 }">P<span>{{ info.first.icons[0] }}{{
+                    <div class="cell success" [ngClass]="{ 'active': risk.value == 5 }">P<span>{{ info.first.icons[0]
+                            }}{{
                             info.second.icons[0] }}</span></div>
-                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 10 }">M<span>{{ info.first.icons[1] }}{{
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 10 }">M<span>{{ info.first.icons[1]
+                            }}{{
                             info.second.icons[0] }}</span></div>
-                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 15 }"><span>{{ info.first.icons[2] }}{{
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 15 }"><span>{{ info.first.icons[2]
+                            }}{{
                             info.second.icons[0] }}</span>M</div>
 
-                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 6 }">M<span>{{ info.first.icons[0] }}{{
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 6 }">M<span>{{ info.first.icons[0]
+                            }}{{
                             info.second.icons[1] }}</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk.value == 12 }">G<span>{{ info.first.icons[1] }}{{
-                            info.second.icons[1] }}</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk.value == 18 }"><span>{{ info.first.icons[2] }}{{
+                    <div class="cell"
+                        [ngClass]="{ 'active': risk.value == 12,'warning': sm == 'carol','danger': sm == 'bruno' }">
+                        {{ sm == 'carol' ? 'M' : 'G' }}
+                        <span>{{
+                            info.first.icons[1]
+                            }}{{
+                            info.second.icons[1] }}</span>
+                    </div>
+                    <div class="cell danger" [ngClass]="{ 'active': risk.value == 18 }"><span>{{ info.first.icons[2]
+                            }}{{
                             info.second.icons[1] }}</span>G</div>
 
-                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 7 }">M<span>{{ info.first.icons[0] }}{{
+                    <div class="cell warning" [ngClass]="{ 'active': risk.value == 7 }">M<span>{{ info.first.icons[0]
+                            }}{{
                             info.second.icons[2] }}</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk.value ==  14 }">G<span>{{ info.first.icons[1] }}{{
+                    <div class="cell danger" [ngClass]="{ 'active': risk.value ==  14 }">G<span>{{ info.first.icons[1]
+                            }}{{
                             info.second.icons[2] }}</span></div>
-                    <div class="cell danger" [ngClass]="{ 'active': risk.value ==  21 }"><span>{{ info.first.icons[2] }}{{
+                    <div class="cell danger" [ngClass]="{ 'active': risk.value ==  21 }"><span>{{ info.first.icons[2]
+                            }}{{
                             info.second.icons[2] }}</span>G</div>
                 </div>
             </div>

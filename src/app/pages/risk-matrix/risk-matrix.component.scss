@@ -1,3 +1,49 @@
+.button-sm {
+    text-transform: capitalize;
+}
+.info-modal {
+    .background {
+        animation: fadein 0.3s;
+        opacity: 0.4;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        position: fixed;
+        backdrop-filter: sepia(100%) blur(6px);
+    }
+    .content {
+        animation: fadein 0.8s;
+        padding: 18px;
+        position: fixed;
+        width: 280px;
+        height: auto;
+        background-color: white;
+        top: 10%;
+        left: calc(50% - 140px);
+        box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px,
+            rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+        border-radius: 6px;
+        .button-close {
+            position: absolute;
+            right: 10px;
+            top: 1px;
+            font-weight: bold;
+            cursor: pointer;
+            text-shadow: rgb(255 255 255 / 50%) 0px 3px 3px;
+            background-color: #565656;
+            color: transparent;
+            text-shadow: 2px 2px 3px rgb(255 255 255 / 50%);
+            -webkit-background-clip: text;
+        }
+        .title {
+            font-weight: bold;
+            font-size: 18px;
+            padding-bottom: 16px;
+        }
+    }
+}
+
 .left-content {
     width: fit-content;
     margin: auto;
@@ -10,5 +56,14 @@
     }
     .col-lg-6:last-child {
         justify-content: center !important;
+    }
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }

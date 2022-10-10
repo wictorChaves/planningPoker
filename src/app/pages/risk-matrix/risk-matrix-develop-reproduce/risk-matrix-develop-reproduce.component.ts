@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { InfoItemModel, InfoModel }                       from '../model/info.model';
 import { RiskModel }                                      from '../model/risk.model';
 
 @Component({
@@ -8,24 +9,13 @@ import { RiskModel }                                      from '../model/risk.mo
 })
 export class RiskMatrixDevelopReproduceComponent implements OnInit {
 
-  @Input() info = {
-    label: '',
-    first: {
-      icons      : ['🤙', '🤞', '👎'],
-      label      : '',
-      description: ''
-    },
-    second: {
-      icons      : ['😎', '😅', '😲'],
-      label      : '',
-      description: ''
-    }
-  };
-
-  @Output() listenerRisk: EventEmitter<RiskModel> = new EventEmitter<RiskModel>();
-  public  selectedDevelopment                     = 0;
-  public  selectedToProduce                       = 0;
-  public  risk: RiskModel                         = { value: 0, emojis: [] };
+  @Input () info: InfoModel                          = new InfoModel();
+  @Input () sm: string                               = 'carol';
+  @Output() listenerRisk: EventEmitter<RiskModel>    = new EventEmitter<RiskModel>();
+  @Output() description: EventEmitter<InfoItemModel> = new EventEmitter<InfoItemModel>();
+  public  selectedDevelopment                        = 0;
+  public  selectedToProduce                          = 0;
+  public  risk: RiskModel                            = { value: 0, emojis: [] };
 
   constructor() { }
 
