@@ -15,6 +15,9 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.angularFireAuth.user.subscribe((user: any) => {
+      console.log(user.photoURL)
+    })
   }
 
   logout() {

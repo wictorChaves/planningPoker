@@ -1,8 +1,8 @@
-<div class="loading-content" [ngClass]="{ 'hidden': !loading }">
+<div class="loading-content" [ngClass]="{ 'hidden': !(loading > 0) }">
   <app-loading></app-loading>
 </div>
-<app-rooms-form [ngClass]="{ 'hidden': loading }" [rooms]="rooms"></app-rooms-form>
-<div class="list-room text-center" [ngClass]="{ 'hidden': loading }">
+<app-rooms-form [ngClass]="{ 'hidden': (loading > 0) }" [rooms]="rooms"></app-rooms-form>
+<div class="list-room text-center" [ngClass]="{ 'hidden': (loading > 0) }">
   <h1 class="h3 mb-3 font-weight-normal">Ou entre em uma sala já existente</h1>
   <app-rooms-list [rooms]="rooms"></app-rooms-list>
 </div>

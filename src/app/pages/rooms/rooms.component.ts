@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import firebase from 'firebase/compat/app';
-import { Observable, forkJoin } from 'rxjs';
-import { first, map } from 'rxjs/operators';
+import { first, map, tap } from 'rxjs/operators';
 import { IRoomModel } from 'src/app/interfaces/i-room.model';
 import { UserService } from 'src/app/services/user.service';
+import firebase from 'firebase/compat/app';
 
 @Component({
   selector: 'app-rooms',
@@ -13,31 +12,49 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class RoomsComponent implements OnInit {
 
-  public loading = false;
+  public loading = 0;
   public rooms?: IRoomModel[];
 
   constructor(
     private firestore: AngularFirestore,
     private userService: UserService,
   ) {
-    this.loadRooms();
+    this.loadUser();
   }
 
   ngOnInit() {
   }
 
-  //#region  loadRooms
+  loadUser() {
+    this.getUser()
+      .pipe(tap(() => { this.startLoading(); }))
+      .subscribe(this.loadRooms.bind(this));
+  }
 
-  loadRooms() {
-    this.setLoading(true);
-    var itemsCollection = this.firestore.collection<IRoomModel>('rooms');
-    itemsCollection.snapshotChanges()
-      .pipe(map(actions => actions.map(this.actionToRoomModel)))
-      .subscribe(items => {
-        this.setRooms(items);
-        this.setLoading(false);
+  loadRooms(user: firebase.User | null) {
+    this.getRooms()
+      .subscribe((values: ({ id: any; } & IRoomModel)[]) => {
+        var roomsByEmail = this.getRoomsByEmail(values, user?.email ?? '');
+        this.setRooms(roomsByEmail);
+        this.stopLoading();
       });
   }
+
+  getRoomsByEmail(values: ({ id: any; } & IRoomModel)[], email: string) {
+    return values.filter(v => v.participants?.map(p => p.email).includes(email));
+  }
+
+  getUser() {
+    return this.userService.getUser().pipe(first());
+  }
+
+  getRooms() {
+    var itemsCollection = this.firestore.collection<IRoomModel[]>('rooms');
+    return itemsCollection.snapshotChanges()
+      .pipe(map(actions => actions.map(this.actionToRoomModel)));
+  }
+
+  //#region  loadRooms
 
   actionToRoomModel(action: any) {
     const data = action.payload.doc.data() as IRoomModel;
@@ -55,8 +72,12 @@ export class RoomsComponent implements OnInit {
 
   //#endregion
 
-  setLoading(loading: boolean) {
-    this.loading = loading;
+  startLoading() {
+    this.loading++;
+  }
+
+  stopLoading() {
+    this.loading--;
   }
 
 }

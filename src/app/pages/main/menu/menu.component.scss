@@ -32,6 +32,13 @@
   }
 }
 
-.user-name {
+.user {
   text-transform: capitalize;
+  img {
+    border-radius: 50%;
+    width: 40px;
+    position: absolute;
+    margin-left: -50px;
+    margin-top: -8px;
+  }
 }
