@@ -1,11 +1,12 @@
-import { async, ComponentFixture, TestBed }                         from '@angular/core/testing';
-import { AngularFireAuth }                                          from '@angular/fire/auth';
-import { AngularFirestore }                                         from '@angular/fire/firestore';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router }                                   from '@angular/router';
-import { of }                                                       from 'rxjs';
-import { IRoomModel }                                               from 'src/app/interfaces/i-room.model';
-import { TasksComponent }                                           from './tasks.component';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { IRoomModel } from 'src/app/interfaces/i-room.model';
+import { TasksComponent } from './tasks.component';
+import { RoomModel } from 'src/app/classes/room.model';
 
 class ActivatedRouteMock {
 
@@ -52,26 +53,26 @@ class RouterMock {
 
 describe('TasksComponent', () => {
   let component: TasksComponent;
-  let fixture  : ComponentFixture<TasksComponent>;
+  let fixture: ComponentFixture<TasksComponent>;
 
-  var activatedRouteMock   = new ActivatedRouteMock();
+  var activatedRouteMock = new ActivatedRouteMock();
   var angularFirestoreMock = new AngularFirestoreMock();
-  var routerMock           = new RouterMock();
+  var routerMock = new RouterMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [TasksComponent],
-      providers   : [
+      providers: [
         {
-          provide : ActivatedRoute,
+          provide: ActivatedRoute,
           useValue: activatedRouteMock
         },
         {
-          provide : AngularFirestore,
+          provide: AngularFirestore,
           useValue: angularFirestoreMock
         },
         {
-          provide : Router,
+          provide: Router,
           useValue: routerMock
         }
       ],
@@ -83,7 +84,7 @@ describe('TasksComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture   = TestBed.createComponent(TasksComponent);
+    fixture = TestBed.createComponent(TasksComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -95,8 +96,8 @@ describe('TasksComponent', () => {
   it('should load task and set room', () => {
 
     // Arrange
-    var room: IRoomModel;
-    var setRoom   = spyOn(component, 'setRoom');
+    var room: IRoomModel = new RoomModel();
+    var setRoom = spyOn(component, 'setRoom');
     var loadTasks = spyOn(component, 'loadTasks');
 
     // Act
@@ -110,12 +111,12 @@ describe('TasksComponent', () => {
 
   [
     {
-      it    : 'should not load task',
-      tasks : undefined,
+      it: 'should not load task',
+      tasks: undefined,
       expect: 0
     },
     {
-      it   : 'should load task',
+      it: 'should load task',
       tasks: [
         'Tarefa 1',
         'Tarefa 2'
@@ -128,14 +129,14 @@ describe('TasksComponent', () => {
 
       // Arrange
       var room: IRoomModel = {
-        id          : '1',
-        name        : 'Name',
-        average     : 'Average',
-        isFlip      : true,
-        currentTask : 1,
+        id: '1',
+        name: 'Name',
+        average: 'Average',
+        isFlip: true,
+        currentTask: 1,
         participants: [],
-        votes       : [],
-        tasks       : item.tasks
+        votes: [],
+        tasks: item.tasks
       };
 
       // Act
@@ -153,14 +154,14 @@ describe('TasksComponent', () => {
 
     // Arrange
     var room: IRoomModel = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [],
-      votes       : [],
-      tasks       : []
+      votes: [],
+      tasks: []
     };
 
     // Act
@@ -172,18 +173,18 @@ describe('TasksComponent', () => {
     expect(component.room.average).toEqual(room.average);
     expect(component.room.isFlip).toEqual(room.isFlip);
     expect(component.room.currentTask).toEqual(room.currentTask);
-    expect(component.room.participants.length).toEqual(0);
-    expect(component.room.votes.length).toEqual(0);
-    expect(component.room.tasks.length).toEqual(0);
+    expect(component?.room?.participants?.length).toEqual(0);
+    expect(component?.room?.votes?.length).toEqual(0);
+    expect(component?.room?.tasks?.length).toEqual(0);
 
   });
 
   it('should save and go vote', () => {
 
     // Arrange
-    var getList  = spyOn(component, 'getList');
+    var getList = spyOn(component, 'getList');
     var addTasks = spyOn(component, 'addTasks');
-    var goVote   = spyOn(component, 'goVote');
+    var goVote = spyOn(component, 'goVote');
 
     // Act
     component.saveAndGoVote();
@@ -205,7 +206,7 @@ describe('TasksComponent', () => {
 
     // Assert
     expect(component.room.currentTask).toEqual(0);
-    expect(component.room.tasks.length).toEqual(0);
+    expect(component?.room?.tasks?.length).toEqual(0);
 
   });
 

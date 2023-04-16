@@ -1,6 +1,6 @@
-import { Injectable }       from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { IRoomModel }       from '../interfaces/i-room.model';
+import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { IRoomModel } from '../interfaces/i-room.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,11 @@
-import { TestBed }         from '@angular/core/testing';
-import { AngularFireAuth } from '@angular/fire/auth';
-import { User }            from 'firebase';
-import { of }              from 'rxjs';
-import { IRoomModel }      from '../interfaces/i-room.model';
-import { RoomService }     from './room.service';
-import { UserService }     from './user.service';
+import { TestBed } from '@angular/core/testing';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import firebase from 'firebase/compat/app';
+import { of } from 'rxjs';
+import { IRoomModel } from '../interfaces/i-room.model';
+import { RoomService } from './room.service';
+import { UserService } from './user.service';
+import { RoomModel } from '../classes/room.model';
 
 class AngularFireAuthMock {
   public user = {};
@@ -24,16 +25,16 @@ describe('UserService', () => {
   var service: UserService;
 
   var angularFireAuthMock = new AngularFireAuthMock();
-  var roomServiceMock     = new RoomServiceMock();
+  var roomServiceMock = new RoomServiceMock();
 
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       {
-        provide : AngularFireAuth,
+        provide: AngularFireAuth,
         useValue: angularFireAuthMock
       },
       {
-        provide : RoomService,
+        provide: RoomService,
         useValue: roomServiceMock
       }
     ]
@@ -62,7 +63,7 @@ describe('UserService', () => {
   it('should get user and add user to room if not exist', () => {
 
     // Arrange
-    var room: IRoomModel;
+    var room: IRoomModel = new RoomModel();
     var user = of([{}]);
     spyOn(service, 'getUser').and.returnValue(user as any);
     var addUserToRoomIfNotExist = spyOn(service, 'addUserToRoomIfNotExist');
@@ -79,22 +80,22 @@ describe('UserService', () => {
 
     // Arrange
     var room: IRoomModel = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [
         {
-          uid        : '1',
+          uid: '1',
           displayName: 'Participante',
-          email      : 'participante@email.com'
+          email: 'participante@email.com'
         }
       ],
       votes: [],
       tasks: []
     };
-    var user: User = Object.assign({ uid: '1' });
+    var user: firebase.User = Object.assign({ uid: '1' });
 
     // Act
     var participantExist = service.userAlreadyExistInRoom(room, user);
@@ -108,22 +109,22 @@ describe('UserService', () => {
 
     // Arrange
     var room: IRoomModel = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [
         {
-          uid        : '1',
+          uid: '1',
           displayName: 'Participante',
-          email      : 'participante@email.com'
+          email: 'participante@email.com'
         }
       ],
       votes: [],
       tasks: []
     };
-    var user: User = Object.assign({ uid: '1' });
+    var user: firebase.User = Object.assign({ uid: '1' });
     spyOn(service, 'userAlreadyExistInRoom').and.returnValue(false);
     var addParticipant = spyOn(service, 'addParticipant');
 
@@ -139,22 +140,22 @@ describe('UserService', () => {
 
     // Arrange
     var room: IRoomModel = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [
         {
-          uid        : '1',
+          uid: '1',
           displayName: 'Participante',
-          email      : 'participante@email.com'
+          email: 'participante@email.com'
         }
       ],
       votes: [],
       tasks: []
     };
-    var user: User = Object.assign({ uid: '1' });
+    var user: firebase.User = Object.assign({ uid: '1' });
     spyOn(service, 'userAlreadyExistInRoom').and.returnValue(true);
     var addParticipant = spyOn(service, 'addParticipant');
 
@@ -170,25 +171,25 @@ describe('UserService', () => {
 
     // Arrange
     var room: IRoomModel = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [
         {
-          uid        : '1',
+          uid: '1',
           displayName: 'Participante',
-          email      : 'participante@email.com'
+          email: 'participante@email.com'
         }
       ],
       votes: [],
       tasks: []
     };
-    var user: User = Object.assign({ uid: '1' });
+    var user: firebase.User = Object.assign({ uid: '1' });
 
     var addUserToRoom = spyOn(service, 'addUserToRoom');
-    var updateRoom    = spyOn(service, 'updateRoom');
+    var updateRoom = spyOn(service, 'updateRoom');
 
     // Act
     service.addParticipant(room, user);
@@ -203,32 +204,32 @@ describe('UserService', () => {
 
     // Arrange
     var room: IRoomModel = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [
         {
-          uid        : '1',
+          uid: '1',
           displayName: 'Participante',
-          email      : 'participante@email.com'
+          email: 'participante@email.com'
         }
       ],
       votes: [],
       tasks: []
     };
-    var user: User = Object.assign({
-      uid        : '1',
+    var user: firebase.User = Object.assign({
+      uid: '1',
       displayName: 'Nome',
-      email      : 'nome@email.com'
+      email: 'nome@email.com'
     });
 
     // Act
     service.addUserToRoom(room, user);
 
     // Assert
-    expect(room.participants.find(x => x.uid == '1')).not.toBeUndefined();
+    expect(room?.participants?.find(x => x.uid == '1')).not.toBeUndefined();
 
   });
 
@@ -236,16 +237,16 @@ describe('UserService', () => {
 
     // Arrange
     var room: IRoomModel = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [
         {
-          uid        : '1',
+          uid: '1',
           displayName: 'Participante',
-          email      : 'participante@email.com'
+          email: 'participante@email.com'
         }
       ],
       votes: [],

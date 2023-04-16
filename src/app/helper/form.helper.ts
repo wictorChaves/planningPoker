@@ -7,7 +7,7 @@ export class FormHelper {
   }
 
   public static MarkFormGroupTouched(formGroup: FormGroup) {
-    (<any>Object).values(formGroup.controls).forEach(control => {
+    (<any>Object).values(formGroup.controls).forEach((control: any) => {
       control.markAsTouched();
       if (control.controls) FormHelper.MarkFormGroupTouched(control);
     });

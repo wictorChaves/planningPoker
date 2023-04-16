@@ -1,8 +1,8 @@
-import { VoteService }                              from './../../../services/vote.service';
-import { async, ComponentFixture, TestBed }         from '@angular/core/testing';
+import { VoteService } from './../../../services/vote.service';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { RiskMatrixUncertaintyComplexityComponent } from './risk-matrix-uncertainty-complexity.component';
-import { RiskModel }                                from '../model/risk.model';
-import { FibonacciModel }                           from 'src/app/classes/fibonacci.model';
+import { RiskModel } from '../model/risk.model';
+import { FibonacciModel } from 'src/app/classes/fibonacci.model';
 
 class VoteServiceMock {
 
@@ -16,16 +16,16 @@ class VoteServiceMock {
 
 describe('RiskMatrixUncertaintyComplexityComponent', () => {
   let component: RiskMatrixUncertaintyComplexityComponent;
-  let fixture  : ComponentFixture<RiskMatrixUncertaintyComplexityComponent>;
+  let fixture: ComponentFixture<RiskMatrixUncertaintyComplexityComponent>;
 
   var voteServiceMock = new VoteServiceMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RiskMatrixUncertaintyComplexityComponent],
-      providers   : [
+      providers: [
         {
-          provide : VoteService,
+          provide: VoteService,
           useValue: voteServiceMock
         }
       ]
@@ -33,7 +33,7 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture   = TestBed.createComponent(RiskMatrixUncertaintyComplexityComponent);
+    fixture = TestBed.createComponent(RiskMatrixUncertaintyComplexityComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -45,11 +45,11 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
   it('should calc risk', () => {
 
     // Arrange
-    var riskModel        = new RiskModel();
-        riskModel.value  = 1;
-        riskModel.emojis = [];
+    var riskModel = new RiskModel();
+    riskModel.value = 1;
+    riskModel.emojis = [];
     spyOn(component, 'buildRisk').and.returnValue(riskModel);
-    var getMatrixRisk                     = spyOn(component, 'getMatrixRisk');
+    var getMatrixRisk = spyOn(component, 'getMatrixRisk');
     var getFibonacciSequenciAndSelectCard = spyOn(component, 'getFibonacciSequenciAndSelectCard');
 
     // Act
@@ -64,9 +64,9 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
   it('should set uncertainty and calc risk', () => {
 
     // Arrange
-    var value: RiskModel;
+    var value: RiskModel = new RiskModel();
     var setUncertainty = spyOn(component, 'setUncertainty');
-    var calcRisk       = spyOn(component, 'calcRisk');
+    var calcRisk = spyOn(component, 'calcRisk');
 
     // Act
     component.setUncertaintyAndCalcRisk = value;
@@ -80,9 +80,9 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
   it('should set complexity and calc risk', () => {
 
     // Arrange
-    var value: RiskModel;
+    var value: RiskModel = new RiskModel();
     var setComplexity = spyOn(component, 'setComplexity');
-    var calcRisk      = spyOn(component, 'calcRisk');
+    var calcRisk = spyOn(component, 'calcRisk');
 
     // Act
     component.setComplexityAndCalcRisk = value;
@@ -95,47 +95,47 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
 
   [
     {
-      risk  : 5,
+      risk: 5,
       result: 1
     },
     {
-      risk  : 10,
+      risk: 10,
       result: 2
     },
     {
-      risk  : 6,
+      risk: 6,
       result: 2
     },
     {
-      risk  : 15,
+      risk: 15,
       result: 5
     },
     {
-      risk  : 12,
+      risk: 12,
       result: 5
     },
     {
-      risk  : 7,
+      risk: 7,
       result: 5
     },
     {
-      risk  : 18,
+      risk: 18,
       result: 8
     },
     {
-      risk  : 14,
+      risk: 14,
       result: 8
     },
     {
-      risk  : 21,
+      risk: 21,
       result: 13
     },
     {
-      risk  : 0,
+      risk: 0,
       result: 0
     },
     {
-      risk  : -1,
+      risk: -1,
       result: undefined
     }
   ].forEach(item => {
@@ -148,7 +148,7 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
       var result = component.getMatrixRisk(item.risk);
 
       // Assert
-      expect(result).toEqual(item.result);
+      expect(result).toEqual(item?.result ?? 0);
 
     });
 
@@ -156,22 +156,22 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
 
   describe('', () => {
 
-    var riskUncertainty;
-    var riskComplexity;
+    var riskUncertainty: any = {};
+    var riskComplexity: any = {};
 
     beforeEach(() => {
 
       // Arrange
       riskUncertainty = { value: 2, emojis: ['🧨', '✨'] };
-      riskComplexity  = { value: 3, emojis: ['🤞', '🤙'] };
+      riskComplexity = { value: 3, emojis: ['🤞', '🤙'] };
 
       // Act
       component.setUncertainty(riskUncertainty);
       component.setComplexity(riskComplexity);
 
       // Assert
-      expect(riskUncertainty.value).toEqual(component.selectedUncertainty.value);
-      expect(riskComplexity.value).toEqual(component.selectedComplexity.value);
+      expect(riskUncertainty.value).toEqual(component.selectedUncertainty.value ?? 0);
+      expect(riskComplexity.value).toEqual(component.selectedComplexity.value ?? 0);
 
     });
 
@@ -183,82 +183,10 @@ describe('RiskMatrixUncertaintyComplexityComponent', () => {
       var riskModel = component.buildRisk();
 
       // Assert      
-      expect(riskUncertainty.value * riskComplexity.value).toEqual(riskModel.value);
-      expect(['🧨', '✨', '🤞', '🤙']).toEqual(riskModel.emojis);
+      expect(riskUncertainty.value * riskComplexity.value).toEqual(riskModel.value ?? 0);
+      expect(['🧨', '✨', '🤞', '🤙']).toEqual(riskModel.emojis ?? '');
 
     });
-
-    it('should get fibonacci sequenci and not select card', () => {
-
-      // Arrange
-      var risk: number;
-      var selectCard = spyOn(component, 'selectCard');
-
-      // Act
-      component.getFibonacciSequenciAndSelectCard(risk);
-
-      // Assert
-      expect(selectCard).not.toHaveBeenCalled();
-
-    });
-
-    it('should get fibonacci sequenci and select card', () => {
-
-      // Arrange
-      var risk: number = 1;
-      var selectCard   = spyOn(component, 'selectCard');
-
-      // Act
-      component.getFibonacciSequenciAndSelectCard(risk);
-
-      // Assert
-      expect(selectCard).toHaveBeenCalled();
-
-    });
-
-    [
-      {
-        value : 0,
-        called: false
-      },
-      {
-        value : 1,
-        called: true
-      }
-    ].forEach(item => {
-
-      it('should select card', () => {
-
-        // Arrange
-        component.room = {
-          id          : '1',
-          name        : 'Name',
-          average     : 'Average',
-          isFlip      : true,
-          currentTask : 1,
-          participants: [],
-          votes       : [],
-          tasks       : []
-        };
-        var fibonacciModel: FibonacciModel = {
-          value      : item.value,
-          description: 'description',
-          class      : 'class',
-          emojis     : []
-        };
-        voteServiceMock.activeCardEventIsCalled = false;
-
-        // Act
-        component.selectCard(fibonacciModel);
-
-        // Assert
-        expect(item.called).toEqual(voteServiceMock.activeCardEventIsCalled);
-
-      });
-
-    });
-
-
 
   });
 

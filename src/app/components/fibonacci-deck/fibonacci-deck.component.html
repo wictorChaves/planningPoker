@@ -1,15 +1,15 @@
 <div class="deck-content">
   <div class="row deck-custom">
     <div class="col-custom-13-full" *ngFor="let fibonacci of getFibonacciSequenci();">
-      <div [ngClass]="{ 'active': activeCard.value == fibonacci.value }"
+      <div [ngClass]="{ 'active': activeCard?.value == fibonacci.value }"
         class="card card-deck-custom text-white bg-{{ fibonacci.class }} text-{{ fibonacci.class }} mb-3"
         (click)="setActive(fibonacci)">
         <div class="card-body">
           <h1 class="card-title">{{ fibonacci.description }}<br />
-            <span *ngIf="fibonacci.value <= 3 && fibonacci.value != -1">♥</span>
-            <span *ngIf="fibonacci.value > 3 && fibonacci.value <= 8">♦</span>
-            <span *ngIf="fibonacci.value > 8 && fibonacci.value <= 89">♠</span>
-            <span *ngIf="fibonacci.value > 89 || fibonacci.value == -1">♣</span>
+            <span *ngIf="(fibonacci.value ?? 0) <= 3 && fibonacci.value != -1">♥</span>
+            <span *ngIf="(fibonacci.value ?? 0) > 3 && (fibonacci.value ?? 0) <= 8">♦</span>
+            <span *ngIf="(fibonacci.value ?? 0) > 8 && (fibonacci.value ?? 0) <= 89">♠</span>
+            <span *ngIf="(fibonacci.value ?? 0) > 89 || fibonacci.value == -1">♣</span>
           </h1>
         </div>
       </div>

@@ -1,21 +1,21 @@
-import { Component, Input, OnInit }           from '@angular/core';
-import { AngularFirestore }                   from '@angular/fire/firestore';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router }                             from '@angular/router';
-import { FormHelper }                         from 'src/app/helper/form.helper';
-import { IRoomModel }                         from 'src/app/interfaces/i-room.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { FormHelper } from 'src/app/helper/form.helper';
+import { IRoomModel } from 'src/app/interfaces/i-room.model';
 
 @Component({
-  selector   : 'app-rooms-form',
+  selector: 'app-rooms-form',
   templateUrl: './rooms-form.component.html',
-  styleUrls  : ['./rooms-form.component.scss']
+  styleUrls: ['./rooms-form.component.scss']
 })
 export class RoomsFormComponent implements OnInit {
 
-  @Input() rooms: IRoomModel[];
-  public loading      = false;
+  @Input() rooms?: IRoomModel[];
+  public loading = false;
   public messageError = '';
-  public form         = new FormGroup({ roomName: new FormControl('', Validators.required) });
+  public form = new FormGroup({ roomName: new FormControl('', Validators.required) });
 
   constructor(private firestore: AngularFirestore, private router: Router) {
   }
@@ -28,13 +28,13 @@ export class RoomsFormComponent implements OnInit {
     if (this.validateForm()) {
       this.loading = true;
       this.firestore.collection<IRoomModel>('rooms').add(Object.assign({
-        name        : this.form.get('roomName').value,
-        average     : '-',
-        isFlip      : false,
-        currentTask : 0,
-        tasks       : [],
+        name: this.form.get('roomName')?.value,
+        average: '-',
+        isFlip: false,
+        currentTask: 0,
+        tasks: [],
         participants: [],
-        votes       : []
+        votes: []
       })).then(result => {
         this.loading = false;
         this.goToTaskPage(result);
@@ -61,11 +61,13 @@ export class RoomsFormComponent implements OnInit {
   }
 
   roomAlreadyExist(): boolean {
-    return this.rooms.find(r => r.name.toLowerCase().trim() == this.form.get('roomName').value.toLowerCase().trim()) !== undefined;
+    return this.rooms?.find(r => r?.name?.toLowerCase().trim() == this.form.get('roomName')?.value?.toLowerCase().trim()) !== undefined;
   }
 
   FieldInvalid(formControlName: string) {
-    return FormHelper.FieldInvalid(this.form.get(formControlName));
+    var field: AbstractControl | null = this.form.get(formControlName);
+    if (field) return FormHelper.FieldInvalid(field);
+    return true;
   }
 
   //#endregion

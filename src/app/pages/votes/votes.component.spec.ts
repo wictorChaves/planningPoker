@@ -1,18 +1,18 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { AngularFireAuth }                                   from '@angular/fire/auth';
-import { AngularFirestore }                                  from '@angular/fire/firestore';
-import { ActivatedRoute }                                    from '@angular/router';
-import { RouterTestingModule }                               from '@angular/router/testing';
-import { of }                                                from 'rxjs';
-import { IRoomModel }                                        from 'src/app/interfaces/i-room.model';
-import { UserService }                                       from 'src/app/services/user.service';
-import { FibonacciDeckComponentSpec }                        from 'src/app/tests/mocks/fibonacci-deck.component.spec';
-import { VotesAverageComponentSpec }                         from 'src/app/tests/mocks/votes-average.component.spec';
-import { VotesCardsComponentSpec }                           from 'src/app/tests/mocks/votes-cards.component.spec';
-import { VotesControlsComponentSpec }                        from 'src/app/tests/mocks/votes-controls.component.spec';
-import { VotesDeckComponentSpec }                            from 'src/app/tests/mocks/votes-deck.component.spec';
-import { VotosRiskReportComponentSpec }                      from 'src/app/tests/mocks/votos-risk-report.component.spec';
-import { VotesComponent }                                    from './votes.component';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
+import { IRoomModel } from 'src/app/interfaces/i-room.model';
+import { UserService } from 'src/app/services/user.service';
+import { FibonacciDeckComponentSpec } from 'src/app/tests/mocks/fibonacci-deck.component.spec';
+import { VotesAverageComponentSpec } from 'src/app/tests/mocks/votes-average.component.spec';
+import { VotesCardsComponentSpec } from 'src/app/tests/mocks/votes-cards.component.spec';
+import { VotesControlsComponentSpec } from 'src/app/tests/mocks/votes-controls.component.spec';
+import { VotesDeckComponentSpec } from 'src/app/tests/mocks/votes-deck.component.spec';
+import { VotosRiskReportComponentSpec } from 'src/app/tests/mocks/votos-risk-report.component.spec';
+import { VotesComponent } from './votes.component';
 
 class ActivatedRouteMock {
 
@@ -60,12 +60,12 @@ class UserServiceMock {
 
 describe('VotesComponent', () => {
   let component: VotesComponent;
-  let fixture  : ComponentFixture<VotesComponent>;
+  let fixture: ComponentFixture<VotesComponent>;
 
-  var activatedRouteMock   = new ActivatedRouteMock();
+  var activatedRouteMock = new ActivatedRouteMock();
   var angularFirestoreMock = new AngularFirestoreMock();
-  var angularFireAuthMock  = new AngularFireAuthMock();
-  var userServiceMock      = new UserServiceMock();
+  var angularFireAuthMock = new AngularFireAuthMock();
+  var userServiceMock = new UserServiceMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -73,19 +73,19 @@ describe('VotesComponent', () => {
         VotesCardsComponentSpec, VotesDeckComponentSpec, VotosRiskReportComponentSpec],
       providers: [
         {
-          provide : ActivatedRoute,
+          provide: ActivatedRoute,
           useValue: activatedRouteMock
         },
         {
-          provide : AngularFirestore,
+          provide: AngularFirestore,
           useValue: angularFirestoreMock
         },
         {
-          provide : AngularFireAuth,
+          provide: AngularFireAuth,
           useValue: angularFireAuthMock
         },
         {
-          provide : UserService,
+          provide: UserService,
           useValue: userServiceMock
         }
       ],
@@ -96,14 +96,14 @@ describe('VotesComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture   = TestBed.createComponent(VotesComponent);
+    fixture = TestBed.createComponent(VotesComponent);
     component = fixture.componentInstance;
   });
 
   it('should create', () => {
 
     // Arrange
-    var loadRoom    = spyOn(component, 'loadRoom');
+    var loadRoom = spyOn(component, 'loadRoom');
     var waitAndFlip = spyOn(component, 'waitAndFlip');
 
     // Act
@@ -147,17 +147,17 @@ describe('VotesComponent', () => {
 
     // Arrange
     var room = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [],
-      votes       : [],
-      tasks       : []
+      votes: [],
+      tasks: []
     };
-        angularFirestoreMock.docValueChangesResult = of(room);
-    var getUserAndAddUserToRoomIfNotExist          = spyOn(component, 'getUserAndAddUserToRoomIfNotExist');
+    angularFirestoreMock.docValueChangesResult = of(room);
+    var getUserAndAddUserToRoomIfNotExist = spyOn(component, 'getUserAndAddUserToRoomIfNotExist');
 
     // Act
     component.loadRoom();
@@ -166,7 +166,7 @@ describe('VotesComponent', () => {
     // Assert
     expect(component.room).toEqual(room);
     expect(getUserAndAddUserToRoomIfNotExist).toHaveBeenCalled();
-    expect(component.room.currentTask).toEqual(1);
+    expect(component?.room?.currentTask).toEqual(1);
 
   }));
 
@@ -174,17 +174,17 @@ describe('VotesComponent', () => {
 
     // Arrange
     var room = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : undefined,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: undefined,
       participants: [],
-      votes       : [],
-      tasks       : []
+      votes: [],
+      tasks: []
     };
-        angularFirestoreMock.docValueChangesResult = of(room);
-    var getUserAndAddUserToRoomIfNotExist          = spyOn(component, 'getUserAndAddUserToRoomIfNotExist');
+    angularFirestoreMock.docValueChangesResult = of(room);
+    var getUserAndAddUserToRoomIfNotExist = spyOn(component, 'getUserAndAddUserToRoomIfNotExist');
 
     // Act
     component.loadRoom();
@@ -193,7 +193,7 @@ describe('VotesComponent', () => {
     // Assert
     expect(component.room).toEqual(room);
     expect(getUserAndAddUserToRoomIfNotExist).toHaveBeenCalled();
-    expect(component.room.currentTask).toEqual(0);
+    expect(component?.room?.currentTask).toEqual(0);
 
   }));
 
@@ -201,14 +201,14 @@ describe('VotesComponent', () => {
 
     // Arrange
     var room = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [],
-      votes       : [],
-      tasks       : []
+      votes: [],
+      tasks: []
     };
 
     // Act

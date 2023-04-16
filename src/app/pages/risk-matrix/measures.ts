@@ -1,7 +1,7 @@
 export class Measures {
 
-    public  static sm: string = 'carol';
-    private static _measures  = {
+    public static sm: string = 'carol';
+    private static _measures = {
         carol: {
             1: [5],
             2: [10, 12, 15, 6, 7],
@@ -17,7 +17,7 @@ export class Measures {
     }
 
     static getMeasureBySM(sm: string) {
-        return Measures._measures[sm];
+        return (Measures._measures as any)[sm];
     }
 
     static getUncertaintyRiskNumber(risk: number): number {
@@ -29,6 +29,7 @@ export class Measures {
             return 3;
         if (Measures.getMeasureBySM(this.sm)[0].includes(risk))
             return 0;
+        return 0;
     }
 
     static getComplexityRiskNumber(risk: number): number {
@@ -40,6 +41,7 @@ export class Measures {
             return 7;
         if (Measures.getMeasureBySM(this.sm)[0].includes(risk))
             return 0;
+        return 0;
     }
 
 }

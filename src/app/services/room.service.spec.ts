@@ -1,5 +1,5 @@
 import { TestBed }          from '@angular/core/testing';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { IRoomModel }       from '../interfaces/i-room.model';
 import { RoomService }      from './room.service';
 

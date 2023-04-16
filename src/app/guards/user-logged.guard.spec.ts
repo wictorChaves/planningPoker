@@ -1,8 +1,8 @@
-import { TestBed, inject, fakeAsync, tick }                    from '@angular/core/testing';
-import { AngularFireAuth }                                     from '@angular/fire/auth';
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable, of }                                      from 'rxjs';
-import { UserLoggedGuard }                                     from './user-logged.guard';
+import { Observable, of } from 'rxjs';
+import { UserLoggedGuard } from './user-logged.guard';
 
 class AngularFireAuthMock {
   user = of([{}]);
@@ -15,18 +15,18 @@ class RouterMock {
 describe('UserLoggedGuard', () => {
 
   var angularFireAuthMock = new AngularFireAuthMock();
-  var routerMock          = new RouterMock();
+  var routerMock = new RouterMock();
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         UserLoggedGuard,
         {
-          provide : AngularFireAuth,
+          provide: AngularFireAuth,
           useValue: angularFireAuthMock
         },
         {
-          provide : Router,
+          provide: Router,
           useValue: routerMock
         }
       ]
@@ -39,13 +39,13 @@ describe('UserLoggedGuard', () => {
 
   [
     {
-      it          : 'should can activate',
-      userResult  : of([{}]),
+      it: 'should can activate',
+      userResult: of([{}]),
       assertResult: true
     },
     {
-      it          : 'should not can activate',
-      userResult  : of(null),
+      it: 'should not can activate',
+      userResult: of(null),
       assertResult: false
     }
   ].forEach(item => {
@@ -53,15 +53,15 @@ describe('UserLoggedGuard', () => {
     it(item.it, inject([UserLoggedGuard], fakeAsync(async (guard: UserLoggedGuard) => {
 
       // Arrange    
-      var route: ActivatedRouteSnapshot;
-      var state: RouterStateSnapshot;
-      angularFireAuthMock.user = item.userResult;
+      var route: ActivatedRouteSnapshot = new ActivatedRouteSnapshot();
+      var state: RouterStateSnapshot = {} as any;
+      angularFireAuthMock.user = item.userResult as any;
 
       // Act
       var result = await (guard.canActivate(route, state) as Observable<boolean>).toPromise();
 
       // Assert
-      expect(item.assertResult).toEqual(result);
+      expect(item.assertResult).toEqual(result ?? false);
 
     })));
 

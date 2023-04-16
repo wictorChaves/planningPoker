@@ -1,12 +1,12 @@
 import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { AngularFirestore }                                  from '@angular/fire/firestore';
-import { Router }                                            from '@angular/router';
-import { of }                                                from 'rxjs';
-import { IRoomModel }                                        from 'src/app/interfaces/i-room.model';
-import { LoadingComponentSpec }                              from 'src/app/tests/mocks/loading.component.spec';
-import { RoomsFormComponentSpec }                            from 'src/app/tests/mocks/rooms-form.component.spec';
-import { RoomsListComponentSpec }                            from 'src/app/tests/mocks/rooms-list.component.spec';
-import { RoomsComponent }                                    from './rooms.component';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
+import { of } from 'rxjs';
+import { IRoomModel } from 'src/app/interfaces/i-room.model';
+import { LoadingComponentSpec } from 'src/app/tests/mocks/loading.component.spec';
+import { RoomsFormComponentSpec } from 'src/app/tests/mocks/rooms-form.component.spec';
+import { RoomsListComponentSpec } from 'src/app/tests/mocks/rooms-list.component.spec';
+import { RoomsComponent } from './rooms.component';
 
 //#region Mocks
 
@@ -40,21 +40,21 @@ class RouterMock {
 
 describe('RoomsComponent', () => {
   let component: RoomsComponent;
-  let fixture  : ComponentFixture<RoomsComponent>;
+  let fixture: ComponentFixture<RoomsComponent>;
 
   var angularFirestoreMock = new AngularFirestoreMock();
-  var routerMock           = new RouterMock();
+  var routerMock = new RouterMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [RoomsComponent, LoadingComponentSpec, RoomsFormComponentSpec, RoomsListComponentSpec],
-      providers   : [
+      providers: [
         {
-          provide : AngularFirestore,
+          provide: AngularFirestore,
           useValue: angularFirestoreMock
         },
         {
-          provide : Router,
+          provide: Router,
           useValue: routerMock
         }
       ]
@@ -62,7 +62,7 @@ describe('RoomsComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture   = TestBed.createComponent(RoomsComponent);
+    fixture = TestBed.createComponent(RoomsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -74,8 +74,8 @@ describe('RoomsComponent', () => {
   it('should load rooms', fakeAsync(() => {
 
     // Arrange
-        angularFirestoreMock.result = of([]);
-    var setRooms                    = spyOn(component, 'setRooms');
+    angularFirestoreMock.result = of([]) as any;
+    var setRooms = spyOn(component, 'setRooms');
 
     // Act
     component.loadRooms();
@@ -92,7 +92,7 @@ describe('RoomsComponent', () => {
     var action: any = {
       payload: {
         doc: {
-          id  : 1,
+          id: 1,
           data: () => ({ name: 'Meu nome' })
         }
       }
@@ -103,7 +103,7 @@ describe('RoomsComponent', () => {
 
     // Assert
     expect('1').toEqual(result.id.toString());
-    expect('Meu nome').toEqual(result.name);
+    expect('Meu nome').toEqual(result?.name ?? '');
 
   });
 
@@ -112,14 +112,14 @@ describe('RoomsComponent', () => {
     // Arrange
     var rooms: IRoomModel[] = [
       {
-        id          : '1',
-        name        : 'Name',
-        average     : 'Average',
-        isFlip      : true,
-        currentTask : 1,
+        id: '1',
+        name: 'Name',
+        average: 'Average',
+        isFlip: true,
+        currentTask: 1,
         participants: [],
-        votes       : [],
-        tasks       : []
+        votes: [],
+        tasks: []
       }
     ];
 
@@ -127,14 +127,14 @@ describe('RoomsComponent', () => {
     component.setRooms(rooms);
 
     // Assert
-    expect(rooms[0].id).toEqual(component.rooms[0].id);
-    expect(rooms[0].name).toEqual(component.rooms[0].name);
-    expect(rooms[0].average).toEqual(component.rooms[0].average);
-    expect(rooms[0].isFlip).toEqual(component.rooms[0].isFlip);
-    expect(rooms[0].currentTask).toEqual(component.rooms[0].currentTask);
-    expect(rooms[0].participants).toEqual(component.rooms[0].participants);
-    expect(rooms[0].votes).toEqual(component.rooms[0].votes);
-    expect(rooms[0].tasks).toEqual(component.rooms[0].tasks);
+    expect(rooms[0].id).toEqual((component?.rooms ?? [])[0]?.id ?? '');
+    expect(rooms[0].name).toEqual((component?.rooms ?? [])[0]?.name);
+    expect(rooms[0].average).toEqual((component?.rooms ?? [])[0]?.average);
+    expect(rooms[0].isFlip).toEqual((component?.rooms ?? [])[0]?.isFlip);
+    expect(rooms[0].currentTask).toEqual((component?.rooms ?? [])[0]?.currentTask);
+    expect(rooms[0].participants).toEqual((component?.rooms ?? [])[0]?.participants);
+    expect(rooms[0].votes).toEqual((component?.rooms ?? [])[0]?.votes);
+    expect(rooms[0].tasks).toEqual((component?.rooms ?? [])[0]?.tasks);
 
   });
 

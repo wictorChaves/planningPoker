@@ -1,11 +1,11 @@
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { AngularFireAuth }                                   from '@angular/fire/auth';
-import { Router }                                            from '@angular/router';
-import { LoginComponent }                                    from './login.component';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
+import { LoginComponent } from './login.component';
 
 class AngularFireAuthMock {
 
-  public result;
+  public result: Promise<string> | null = null;
 
   auth = { signInWithPopup: () => this.result };
 
@@ -23,29 +23,29 @@ class RouterMock {
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
-  let fixture  : ComponentFixture<LoginComponent>;
+  let fixture: ComponentFixture<LoginComponent>;
 
   var angularFireAuthMock = new AngularFireAuthMock();
-  var routerMock          = new RouterMock();
+  var routerMock = new RouterMock();
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       declarations: [LoginComponent],
-      providers   : [
+      providers: [
         {
-          provide : AngularFireAuth,
+          provide: AngularFireAuth,
           useValue: angularFireAuthMock
         },
         {
-          provide : Router,
+          provide: Router,
           useValue: routerMock
         }
       ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
-    fixture   = TestBed.createComponent(LoginComponent);
+    fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

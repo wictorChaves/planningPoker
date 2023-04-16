@@ -66,8 +66,8 @@ describe('FormHelper', () => {
     FormHelper.MarkFormGroupTouched(formGroup);
 
     // Assert
-    expect(formGroup.get('teste').touched).toBeTruthy();
-    expect(formGroup.get('testes').get('teste').touched).toBeTruthy();
+    expect(formGroup.get('teste')?.touched).toBeTruthy();
+    expect(formGroup.get('testes')?.get('teste')?.touched).toBeTruthy();
 
   });
 

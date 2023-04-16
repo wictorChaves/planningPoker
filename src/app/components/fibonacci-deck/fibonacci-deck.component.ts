@@ -9,7 +9,7 @@ import { FibonacciSequenci }                              from './constants/fibo
 })
 export class FibonacciDeckComponent implements OnInit {
 
-  @Input () activeCard: FibonacciModel = FibonacciSequenci.find(x => x.value == 1);
+  @Input () activeCard?: FibonacciModel = FibonacciSequenci.find(x => x.value == 1);
   @Output() activeCardEvent            = new EventEmitter<FibonacciModel>();
 
   constructor() { }

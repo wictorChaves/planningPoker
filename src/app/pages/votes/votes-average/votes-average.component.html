@@ -1,12 +1,12 @@
 <div class="card-deck mb-3 text-center" *ngIf="room">
     <div class="card mb-12 box-shadow">
         <div class="card-body">
-            <h1 [ngClass]="{ 'red': ['0','1','2','3','5','8'].includes(room.average) }"
+            <h1 [ngClass]="{ 'red': ['0','1','2','3','5','8'].includes(room.average??'0') }"
                 class="card-title pricing-card-title">{{
                 room.average }}
-                <span *ngIf="isHeart(room.average)">♥</span>
-                <span *ngIf="isDiamond(room.average)">♦</span>
-                <span *ngIf="isSpade(room.average)">♠</span>
+                <span *ngIf="isHeart(room.average??'0')">♥</span>
+                <span *ngIf="isDiamond(room.average??'0')">♦</span>
+                <span *ngIf="isSpade(room.average??'0')">♠</span>
             </h1>
         </div>
     </div>

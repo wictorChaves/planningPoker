@@ -1,4 +1,4 @@
 export class RiskModel {
-    value : number;
-    emojis: string[];
+    value?: number;
+    emojis?: string[];
 }

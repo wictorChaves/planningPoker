@@ -1,8 +1,8 @@
-import { TestBed }          from '@angular/core/testing';
-import { AngularFireAuth }  from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
-import { of }               from 'rxjs';
-import { VoteService }      from './vote.service';
+import { TestBed } from '@angular/core/testing';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { of } from 'rxjs';
+import { VoteService } from './vote.service';
 
 class AngularFireAuthMock {
   user = of([{}]);
@@ -20,17 +20,17 @@ class AngularFirestoreMock {
 
 describe('VoteService', () => {
 
-  var angularFireAuthMock  = new AngularFireAuthMock();
+  var angularFireAuthMock = new AngularFireAuthMock();
   var angularFirestoreMock = new AngularFirestoreMock();
 
   beforeEach(() => TestBed.configureTestingModule({
     providers: [
       {
-        provide : AngularFireAuth,
+        provide: AngularFireAuth,
         useValue: angularFireAuthMock
       },
       {
-        provide : AngularFirestore,
+        provide: AngularFirestore,
         useValue: angularFirestoreMock
       }
     ]

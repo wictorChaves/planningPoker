@@ -31,13 +31,15 @@ speed-measure-plugin.json
 !.vscode/extensions.json
 .history/*
 
-# misc
+# Miscellaneous
 /.sass-cache
+npm-debug.log
+yarn-error.log
+/.angular/cache
+.sass-cache/
 /connect.lock
 /coverage
 /libpeerconnection.log
-npm-debug.log
-yarn-error.log
 testem.log
 /typings
 

@@ -1,14 +1,14 @@
 import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { Subject }                                           from 'rxjs';
-import { FibonacciModel }                                    from 'src/app/classes/fibonacci.model';
-import { VoteService }                                       from 'src/app/services/vote.service';
-import { FibonacciDeckComponentSpec }                        from 'src/app/tests/mocks/fibonacci-deck.component.spec';
-import { RiskMatrixComponentSpec }                           from 'src/app/tests/mocks/risk-matrix.component.spec';
-import { VotesDeckComponent }                                from './votes-deck.component';
+import { Subject } from 'rxjs';
+import { FibonacciModel } from 'src/app/classes/fibonacci.model';
+import { VoteService } from 'src/app/services/vote.service';
+import { FibonacciDeckComponentSpec } from 'src/app/tests/mocks/fibonacci-deck.component.spec';
+import { RiskMatrixComponentSpec } from 'src/app/tests/mocks/risk-matrix.component.spec';
+import { VotesDeckComponent } from './votes-deck.component';
 
 class VoteServiceMock {
 
-  public listenerActiveVoteResult: any  = new Subject<any>();
+  public listenerActiveVoteResult: any = new Subject<any>();
   public activeCardEventCalled: boolean = false;
 
   listenerActiveVote() {
@@ -23,16 +23,16 @@ class VoteServiceMock {
 
 describe('VotesDeckComponent', () => {
   let component: VotesDeckComponent;
-  let fixture  : ComponentFixture<VotesDeckComponent>;
+  let fixture: ComponentFixture<VotesDeckComponent>;
 
   var voteServiceMock = new VoteServiceMock();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [VotesDeckComponent, FibonacciDeckComponentSpec, RiskMatrixComponentSpec],
-      providers   : [
+      providers: [
         {
-          provide : VoteService,
+          provide: VoteService,
           useValue: voteServiceMock
         }
       ]
@@ -40,18 +40,18 @@ describe('VotesDeckComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture   = TestBed.createComponent(VotesDeckComponent);
+    fixture = TestBed.createComponent(VotesDeckComponent);
     component = fixture.componentInstance;
 
     component.room = {
-      id          : '1',
-      name        : 'Name',
-      average     : 'Average',
-      isFlip      : true,
-      currentTask : 1,
+      id: '1',
+      name: 'Name',
+      average: 'Average',
+      isFlip: true,
+      currentTask: 1,
       participants: [],
-      votes       : [],
-      tasks       : []
+      votes: [],
+      tasks: []
     };
 
     fixture.detectChanges();
@@ -65,25 +65,25 @@ describe('VotesDeckComponent', () => {
     {
       result: null,
       expect: {
-        value      : 1,
+        value: 1,
         description: 'A',
-        class      : 'primary'
+        class: 'primary'
       }
     },
     {
       result: {
         value: {
-          value      : 2,
+          value: 2,
           description: 'description',
-          class      : 'class',
-          emojis     : []
+          class: 'class',
+          emojis: []
         }
       },
       expect: {
-        value      : 2,
+        value: 2,
         description: 'description',
-        class      : 'class',
-        emojis     : []
+        class: 'class',
+        emojis: []
       }
     }
   ].forEach(item => {
@@ -99,8 +99,8 @@ describe('VotesDeckComponent', () => {
       tick();
 
       // Assert
-      expect(item.expect.value).toEqual(component.activeCard.value);
-      expect(item.expect.description).toEqual(component.activeCard.description);
+      expect(item.expect.value).toEqual(component?.activeCard?.value ?? 0);
+      expect(item.expect.description).toEqual(component?.activeCard?.description ?? '');
 
     }));
 
@@ -110,10 +110,10 @@ describe('VotesDeckComponent', () => {
 
     // Arrange
     var fibonacciModel: FibonacciModel = {
-      value      : 1,
+      value: 1,
       description: 'description',
-      class      : 'class',
-      emojis     : ['1', '2', '3']
+      class: 'class',
+      emojis: ['1', '2', '3']
     };
 
     // Act
@@ -122,7 +122,7 @@ describe('VotesDeckComponent', () => {
 
     // Assert
     expect(voteServiceMock.activeCardEventCalled).toBeTruthy();
-    expect(fibonacciModel.emojis.length).toEqual(0);
+    expect(fibonacciModel?.emojis?.length).toEqual(0);
 
   }));
 

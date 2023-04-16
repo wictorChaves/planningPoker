@@ -1,30 +1,30 @@
-import { Component, Input, OnInit }                   from '@angular/core';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
-import { Router }                                     from '@angular/router';
-import { IRoomModel }                                 from 'src/app/interfaces/i-room.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import { Router } from '@angular/router';
+import { IRoomModel } from 'src/app/interfaces/i-room.model';
 
 @Component({
-  selector   : 'app-votes-controls',
+  selector: 'app-votes-controls',
   templateUrl: './votes-controls.component.html',
-  styleUrls  : ['./votes-controls.component.scss']
+  styleUrls: ['./votes-controls.component.scss']
 })
 export class VotesControlsComponent implements OnInit {
 
-  @Input () room  : IRoomModel;
-  @Input () isFlip: boolean = false;
-  private roomDoc : AngularFirestoreDocument<IRoomModel>;
+  @Input() room?: IRoomModel;
+  @Input() isFlip: boolean = false;
+  private roomDoc?: AngularFirestoreDocument<IRoomModel>;
 
   constructor(
     private firestore: AngularFirestore,
-    private router   : Router
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.roomDoc = this.firestore.doc<IRoomModel>('rooms/' + this.room.id);
+    this.roomDoc = this.firestore.doc<IRoomModel>('rooms/' + this.room?.id);
   }
 
   hasVotes() {
-    return (this.room && this.room.votes) ? (this.room.votes.length > 0): false;
+    return (this.room && this.room.votes) ? (this.room.votes.length > 0) : false;
   }
 
   getCurrentTask(currentTask: any) {
@@ -33,6 +33,7 @@ export class VotesControlsComponent implements OnInit {
       if (this.room.tasks)
         if (this.room.tasks.length > 0)
           return this.room.tasks[currentTask];
+    return "";
   }
 
   resetVotesAndGoBack() {
@@ -41,14 +42,19 @@ export class VotesControlsComponent implements OnInit {
   }
 
   resetVotes() {
-    this.room.average = '-';
-    this.room.isFlip  = false;
-    this.room.votes   = [];
-    this.roomDoc.update(this.room);
+    if (this.room) {
+      this.room.average = '-';
+      this.room.isFlip = false;
+      this.room.votes = [];
+      if (this.roomDoc) {
+        this.roomDoc.update(this.room);
+      }
+    }
   }
 
   flipCard() {
-    this.room.isFlip = true;
+    if (this.room)
+      this.room.isFlip = true;
     this.averageCalc();
   }
 
@@ -58,26 +64,34 @@ export class VotesControlsComponent implements OnInit {
   }
 
   prevTask() {
-    var currentTask = this.room.currentTask - 1;
-    if (currentTask <= -1) this.setCurrentTask(this.room.tasks.length - 1);
-    else this.setCurrentTask(currentTask);
+    if (this.room) {
+      var currentTask = (this.room.currentTask ?? 0) - 1;
+      if (currentTask <= -1) this.setCurrentTask((this.room?.tasks?.length ?? 0) - 1);
+      else this.setCurrentTask(currentTask);
+    }
   }
 
   averageCalc() {
-    var values            = this.room.votes.filter(v => v.value.value != -1 && v.value.value != 99).map(v => v.value.value);
-        this.room.average = (Math.ceil(values.length == 0 ? 0 : values.reduce((a, b) => a + b) / values.length)).toString()
-    this.roomDoc.update(this.room);
+    if (this.room) {
+      var values = this.room?.votes?.filter(v => v?.value?.value != -1 && v?.value?.value != 99).map(v => v?.value?.value);
+      this.room.average = (Math.ceil((values?.length) == 0 ? 0 : values?.reduce((a?: number, b?: number) => (a ?? 0) + (b ?? 0)) ?? 0 / (values?.length ?? 0))).toString()
+      this.roomDocUpdate(this.room);
+    }
+  }
+
+  roomDocUpdate(room?: IRoomModel) {
+    if (this.roomDoc && room) this.roomDoc.update(room);
   }
 
   nextTask() {
-    var currentTask = this.room.currentTask + 1;
-    if (currentTask > this.room.tasks.length - 1) this.setCurrentTask(0);
+    var currentTask = (this.room?.currentTask ?? 0) + 1;
+    if (currentTask > (this.room?.tasks?.length ?? 0) - 1) this.setCurrentTask(0);
     else this.setCurrentTask(currentTask);
   }
 
   setCurrentTask(currentTask: number) {
-    this.room.currentTask = currentTask;
-    this.roomDoc.update(this.room);
+    if (this.room) this.room.currentTask = currentTask;
+    this.roomDocUpdate(this.room);
   }
 
   firstTask() {
@@ -85,11 +99,11 @@ export class VotesControlsComponent implements OnInit {
   }
 
   goTask() {
-    this.router.navigateByUrl(`/tasks/${this.room.id}`);
+    this.router.navigateByUrl(`/tasks/${this.room?.id}`);
   }
 
   lastTask() {
-    this.setCurrentTask(this.room.tasks.length - 1);
+    this.setCurrentTask((this.room?.tasks?.length ?? 0) - 1);
   }
 
 }
