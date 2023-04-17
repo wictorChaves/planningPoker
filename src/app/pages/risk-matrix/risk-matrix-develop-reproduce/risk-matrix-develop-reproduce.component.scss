@@ -70,6 +70,7 @@ $square-size: 73px;
     &.line {
         height: $square-size;
         .cell {
+            font-family: "Segoe UI Windows 10";
             cursor: pointer;
             transition: font-size 0.5s;
             &:hover {

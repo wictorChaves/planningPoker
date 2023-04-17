@@ -74,7 +74,10 @@ export class VotesControlsComponent implements OnInit {
   averageCalc() {
     if (this.room) {
       var values = this.room?.votes?.filter(v => v?.value?.value != -1 && v?.value?.value != 99).map(v => v?.value?.value);
-      this.room.average = (Math.ceil((values?.length) == 0 ? 0 : values?.reduce((a?: number, b?: number) => (a ?? 0) + (b ?? 0)) ?? 0 / (values?.length ?? 0))).toString()
+      var sum = (values ?? []).reduce((a?: number, b?: number) => (a ?? 0) + (b ?? 0)) ?? 0;
+      var average = values?.length ? sum / values?.length : 0;
+      var ceilAverage = Math.ceil(average);
+      this.room.average = ceilAverage.toString();
       this.roomDocUpdate(this.room);
     }
   }

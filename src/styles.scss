@@ -1,3 +1,21 @@
+@font-face {
+  font-family: "Segoe UI Windows 10";
+  src: url("assets/fonts/windows10/SegoeUI.woff2") format("woff2"),
+    url("assets/fonts/windows10/SegoeUI.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Segoe Fluent Icons Windows 11";
+  src: url("assets/fonts/windows11/SegoeFluentIcons.woff2") format("woff2"),
+    url("assets/fonts/windows11/SegoeFluentIcons.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 .deck-custom {
   height: 122px;
   padding: 20px 0px 0px 79px;
