@@ -6,7 +6,7 @@ export class CategoryReport {
     public emojis: any[] = [];
     public whatToDo = ['🛴', '🚲', '🚗'];
     public hotToMake = ['✨', '🦺', '🧨'];
-    public toDevelop = ['🐱‍💻', '👩‍💻', '🔨'];
+    public toDevelop = ['✍', '👩‍💻', '🔨'];
     public reproduce = ['😄', '🤔', '🤡'];
 
     constructor(private room?: IRoomModel) {

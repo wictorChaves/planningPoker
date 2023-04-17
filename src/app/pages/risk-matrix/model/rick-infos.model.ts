@@ -32,7 +32,7 @@ export class RiskInfosModel {
             reproduce: {
                 label: 'Complexidade',
                 first: {
-                    icons       : ['🐱‍💻', '👩‍💻', '🔨'],
+                    icons       : ['✍', '👩‍💻', '🔨'],
                     label       : 'Desenvolver',
                     descriptions: [
                         'Estamos trabalhando no legado?',

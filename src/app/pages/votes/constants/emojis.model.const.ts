@@ -25,7 +25,7 @@ export const EmojisModel: any[] = [
         description: 'É complicado como fazer'
     },
     {
-        emoji      : '🐱‍💻',
+        emoji      : '✍',
         description: 'Desenvolver é fácil'
     },
     {
